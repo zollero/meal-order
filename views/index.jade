@@ -1,0 +1,11 @@
+
+doctype html
+html(ng-app='mealOrder')
+    head
+        title= '快餐预定系统'
+        link(rel='stylesheet', href='/stylesheets/style.css')
+    body
+        p(ng-repeat='menu in menus' ng-bind='menu.name + ":" + menu.price + "元"')
+
+        script(type='text/javascript' src='/angular.js')
+        script(type='text/javascript' src='/javascripts/index.js')
