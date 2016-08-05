@@ -1,0 +1,11 @@
+{
+  "name": "meal-order",
+  "version": "1.0.0",
+  "description": "A online system to order meal.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "henry",
+  "license": "ISC"
+}
