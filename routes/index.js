@@ -1,10 +1,10 @@
 
-let express = require('express');
-let router = express.Router();
+var express = require('express');
+var router = express.Router();
 
 // let http = require('http');
-let fs = require('fs');
-let path = require('path');
+var fs = require('fs');
+var path = require('path');
 
 router.get('/', function (req, res, next) {
     var mealMenu = JSON.parse(fs.readFileSync(path.join(__dirname, '../menu/meal.json'), 'utf-8'));
