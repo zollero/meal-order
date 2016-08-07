@@ -9,5 +9,21 @@ angular.module('mealOrder', [])
     }, {
         name: '土豆烧鸡',
         price: 20
-    }]
+    }];
+
+    $scope.selectedMeals = [];
+
+    $scope.addMeal = function (meal) {
+        var index = $scope.selectedMeals.indexOf(meal);
+        if (index === -1) {
+            $scope.selectedMeals.push(meal);
+        }
+    };
+
+    $scope.deleteMeal = function (meal) {
+        var index = $scope.selectedMeals.indexOf(meal);
+        if (index !== -1) {
+            $scope.selectedMeals.splice(index, 1);
+        }
+    };
 });

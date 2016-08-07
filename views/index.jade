@@ -5,7 +5,14 @@ html(ng-app='mealOrder')
         title= '快餐预定系统'
         link(rel='stylesheet', href='/stylesheets/style.css')
     body(ng-controller='MenuController')
-        p(ng-repeat='menu in menus' ng-bind='menu.name + ":" + menu.price + "元"')
+        p(class='page-title')='内部订餐系统'
+        div(class='menu-list unselected')
+            p(class='menu-title')='待选列表（点击添加到已选列表）'
+            button(ng-repeat='menu in menus' ng-click='addMeal(menu)' ng-bind='menu.name + ":" + menu.price + "元"')
+
+        div(class='menu-list selected')
+            p(class='menu-title')='已选列表（点击删除已选）'
+            button(ng-repeat='menu in selectedMeals' ng-click='deleteMeal(menu)' ng-bind='menu.name + ":" + menu.price + "元"')
 
         script(type='text/javascript' src='/angular.js')
         script(type='text/javascript' src='/javascripts/index.js')

@@ -1,0 +1,40 @@
+
+body {
+    margin: 10px 20px;
+}
+
+.menu-list button {
+    padding: .5em 1em;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 5px 15px;
+    cursor: pointer;
+}
+.menu-list button:active {
+    opacity: .5;
+    color: lightgray;
+}
+.menu-list button:hover {
+    /*opacity: .7;*/
+}
+.menu-list.selected button {
+    background: #E24425;
+}
+.menu-list.unselected button {
+    background: #5BBD50;
+}
+
+.page-title {
+    font-size: 30px;
+    color: darkblue;
+}
+
+.menu-title {
+    font-size: 20px;
+    color: mediumslateblue;
+}
