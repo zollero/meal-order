@@ -15,4 +15,5 @@ html(ng-app='mealOrder')
             button(ng-repeat='menu in selectedMeals' ng-click='deleteMeal(menu)' ng-bind='menu.name + ": " + menu.price + "元"')
 
         script(type='text/javascript' src='/angular.js')
+        script(type='text/javascript' src='/socket.io.js')
         script(type='text/javascript' src='/javascripts/index.js')
