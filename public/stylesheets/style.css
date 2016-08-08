@@ -27,6 +27,7 @@ body {
 }
 .menu-list button[disabled=disabled] {
     background-color: darkgray;
+    cursor: default;
 }
 
 .page-title {
