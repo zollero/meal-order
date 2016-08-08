@@ -14,6 +14,9 @@ html(ng-app='mealOrder')
             p(class='menu-title')='已选列表（点击删除已选）'
             button(ng-repeat='menu in selectedMeals' ng-click='deleteMeal(menu)' ng-bind='menu.name + ": " + menu.price + "元"')
 
+        div(class='button-area')
+            button(type='button' ng-click='createSelectedList()' ng-disabled='selectedMeals.length===0')='提交'
+
         script(type='text/javascript' src='/angular.js')
         script(type='text/javascript' src='/socket.io.js')
         script(type='text/javascript' src='/javascripts/index.js')

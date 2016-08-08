@@ -3,7 +3,7 @@ body {
     margin: 10px 20px;
 }
 
-.menu-list button {
+button {
     padding: .5em 1em;
     border: none;
     outline: none;
@@ -15,7 +15,7 @@ body {
     margin: 5px 15px;
     cursor: pointer;
 }
-.menu-list button:active {
+button:active {
     opacity: .5;
     color: lightgray;
 }
@@ -38,4 +38,17 @@ body {
 .menu-title {
     font-size: 20px;
     color: mediumslateblue;
+}
+
+.button-area {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.button-area button {
+    background-color: #ffc520;
+}
+.button-area button[disabled=disabled] {
+    background-color: darkgray;
+    cursor: default;
 }

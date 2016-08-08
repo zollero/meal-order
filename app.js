@@ -12,10 +12,12 @@ io.on('connection', function (socket) {
     //监听添加选菜事件
     socket.on('addMeal', function (data) {
         console.log(data);
+        socket.emit('someOneAddMeal', data);
     });
 
     socket.on('deleteMeal', function (data) {
-       console.log(data);
+        console.log(data);
+        socket.emit('someOneDeleteMeal', data);
     });
 });
 
