@@ -19,14 +19,14 @@ body {
     opacity: .5;
     color: lightgray;
 }
-.menu-list button:hover {
-    /*opacity: .7;*/
-}
 .menu-list.selected button {
     background: #E24425;
 }
 .menu-list.unselected button {
     background: #5BBD50;
+}
+.menu-list button[disabled=disabled] {
+    background-color: darkgray;
 }
 
 .page-title {
