@@ -2,10 +2,12 @@
 
 angular.module('mealOrder', [])
 .controller('MenuController', function ($scope, $http) {
+    var serverHost = 'http://192.168.0.102:3000/',
+        socketHost = 'ws://192.168.0.102:3000/';
 
     $http({
         method: 'get',
-        url: 'http://10.224.195.144:3000/menu/all'
+        url: serverHost + 'menu/all'
     }).success(function (data, status) {
         console.log(data);
         $scope.menus = data.menus;
@@ -16,7 +18,7 @@ angular.module('mealOrder', [])
     $scope.selectedMeals = [];
 
     //创建一个socket连接
-    var socket = io('ws://10.224.195.144:3000/');
+    var socket = io(socketHost);
 
     socket.on('news', function (data) {
         console.log(data);
