@@ -3,6 +3,10 @@ doctype html
 html(ng-app='mealOrder')
     head
         title= '快餐预定系统'
+        meta(name='viewport', content='width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no')
+        link(rel='icon', type='image/ico', href='favicon.ico')
+        link(rel='shortcut icon', type='image/ico', href='favicon.ico')
+        link(rel='bookmark', type='image/ico', href='/favicon.ico')
         link(rel='stylesheet', href='/stylesheets/style.css')
     body(ng-controller='MenuController')
         p(class='page-title')='内部订餐系统'

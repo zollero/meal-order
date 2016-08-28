@@ -7,17 +7,17 @@ var io = require('socket.io')(server);
 var router = require('./routes/index');
 
 //监听socket连接
-io.on('connection', function (socket) {
+var ioSocket = io.on('connection', function (socket) {
     socket.emit('news', { hello: 'world' });
     //监听添加选菜事件
     socket.on('addMeal', function (data) {
         console.log(data);
-        socket.emit('someOneAddMeal', data);
+        ioSocket.emit('someOneAddMeal', data);
     });
 
     socket.on('deleteMeal', function (data) {
         console.log(data);
-        socket.emit('someOneDeleteMeal', data);
+        ioSocket.emit('someOneDeleteMeal', data);
     });
 });
 
