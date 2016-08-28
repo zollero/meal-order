@@ -6,7 +6,7 @@ var path = require('path');
 
 router.get('/', function (req, res) {
     // res.render('index');
-    res.redirect('/home');
+    res.redirect('/login');
 });
 
 router.get('/menu/all', function (req, res, next) {
