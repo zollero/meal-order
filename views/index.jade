@@ -2,7 +2,7 @@
 doctype html
 html(ng-app='mealOrder')
     head
-        title= '快餐预定系统'
+        title= '食'
         meta(name='viewport', content='width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no')
         link(rel='icon', type='image/ico', href='favicon.ico')
         link(rel='shortcut icon', type='image/ico', href='favicon.ico')
@@ -21,6 +21,6 @@ html(ng-app='mealOrder')
         div(class='button-area')
             button(type='button' ng-click='createSelectedList()' ng-disabled='selectedMeals.length===0')='提交'
 
-        script(type='text/javascript' src='/angular.js')
-        script(type='text/javascript' src='/socket.io.js')
-        script(type='text/javascript' src='/javascripts/index.js')
+        script(type='text/javascript' src='./lib/angular.js')
+        script(type='text/javascript' src='./lib/socket.io.js')
+        script(type='text/javascript' src='./javascripts/index.js')

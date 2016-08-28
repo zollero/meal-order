@@ -10,8 +10,18 @@
   "license": "ISC",
   "dependencies": {
     "angular": "^1.5.8",
+    "body-parser": "^1.15.2",
+    "connect-mongodb": "^1.1.5",
+    "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
+    "express-session": "^1.14.1",
     "jade": "^1.11.0",
-    "socket.io": "^1.4.8"
+    "mongodb": "^2.2.8",
+    "morgan": "^1.7.0",
+    "socket.io": "^1.4.8",
+    "static-favicon": "^2.0.0-alpha"
+  },
+  "devDependencies": {
+    "bower": "^1.7.9"
   }
 }

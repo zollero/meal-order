@@ -1,0 +1,21 @@
+{
+  "name": "meal-order",
+  "description": "A online system to order meal.",
+  "main": "app.js",
+  "authors": [
+    "henry"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/cor7ona/meal-order",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "./public/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}
