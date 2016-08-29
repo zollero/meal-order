@@ -2,12 +2,13 @@
 
 angular.module('mealOrder', [])
 .controller('MenuController', function ($scope, $http) {
-    var serverHost = 'http://192.168.0.102:3000/',
-        socketHost = 'ws://192.168.0.102:3000/';
+    var host = document.location.host;
+    var serverHost = 'http://' + host,
+        socketHost = 'ws://' + host;
 
     $http({
         method: 'get',
-        url: serverHost + 'menu/all'
+        url: serverHost + '/menu/all'
     }).success(function (data, status) {
         console.log(data);
         $scope.menus = data.menus;

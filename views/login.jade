@@ -1,35 +1,36 @@
 doctype html
 html(ng-app='FoodLogin')
-    head
-        title=title
-        meta(name='viewport', content='width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no')
-        link(rel='icon', type='image/ico', href='favicon.ico')
-        link(rel='shortcut icon', type='image/ico', href='favicon.ico')
-        link(rel='bookmark', type='image/ico', href='/favicon.ico')
-        link(rel='stylesheet', href='./lib/bootstrap/dist/css/bootstrap.css')
-        link(rel='stylesheet', href='/stylesheets/style.css')
-    body(ng-controller='LoginController')
-        div(class='top-banner')
-            div(class='pos-wrap')
-                h1='食'
+head
+    title=title
+    meta(name='viewport', content='width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no')
+    link(rel='icon', type='image/ico', href='favicon.ico')
+    link(rel='shortcut icon', type='image/ico', href='favicon.ico')
+    link(rel='bookmark', type='image/ico', href='/favicon.ico')
+    link(rel='stylesheet', href='./lib/bootstrap/dist/css/bootstrap.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+body(ng-controller='LoginController')
+    div(class='top-banner')
+        div(class='pos-wrap')
+            h1='食'
 
-        div(class='container form-unit')
-            form(class='col-sm-offset-4 col-sm-4 form-horizontal', role='form', method='post', action='/login')
-                fieldset
-                    legend='用户登录'
-                    div(class='form-group')
-                        label(class='col-sm-3 control-label', for='name')='用户名'
-                        div(class='col-sm-9')
-                            input(type='text', name='name', class='form-control', id='name', placeholder='用户名', required)
-                    div(class='form-group')
-                        label(class='col-sm-3 control-label', for='password')='密码'
-                        div(class='col-sm-9')
-                            input(type='text', name='password', class='form-control', id='password', placeholder='密码', required)
+    div(class='container form-unit')
+        form(class='col-sm-offset-4 col-sm-4 form-horizontal', role='form', method='post', action='/login')
+            fieldset
+                legend='登录'
+                div(class='form-group')
+                    div(class='col-sm-12')
+                        input(type='text', name='name', class='form-control', placeholder='用户名', required)
+                div(class='form-group')
+                    div(class='col-sm-12')
+                        input(type='password', name='password', class='form-control', placeholder='密码', required)
 
-                    div(class='form-group')
-                        div(class='col-sm-offset-3 col-sm-9')
-                            button(type='submit', class='btn btn-primary')='登录'
+                div(class='form-group')
+                    div(class='col-sm-12 col-xs-12 text-center')
+                        div(class='col-sm-6 col-xs-6')
+                            button(type='submit', class='btn modal-title col-sm-12 col-xs-12 btn-danger')='登录'
+                        div(class='col-sm-6 col-xs-6')
+                            button(type='button', class='btn modal-title col-sm-12 col-xs-12 btn-success')='注册'
 
-        script(type='text/javascript' src='./lib/angular.js')
-        script(type='text/javascript' src='./lib/socket.io.js')
-        script(type='text/javascript' src='./javascripts/login.js')
+    script(type='text/javascript' src='./lib/angular.js')
+    script(type='text/javascript' src='./lib/socket.io.js')
+    script(type='text/javascript' src='./javascripts/login.js')
