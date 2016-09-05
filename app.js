@@ -50,10 +50,13 @@ app.use(function (req, res, next) {
     delete req.session.error;
     res.locals.message = '';
     if (err) {
-        res.locals.message = '<div class="alert alert-warning">' + err + '</div>';
+        res.locals.message = err;
     }
     next();
 });
+
+
+
 
 //监听socket连接
 // var ioSocket = io.on('connection', function (socket) {
