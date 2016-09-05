@@ -14,33 +14,46 @@ var io = require('socket.io')(server);
 var router = require('./routes/index');
 
 
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(favicon());
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(cookieParser('bear'));
+
+
 //采用connect-mongodb中间件作session存储
-// var session = require('express-session'),
-//     Settings = require('./database/settings'),
-//     MongoStore = require('connect-mongodb'),
-//     db = require('./database/msession');
+var session = require('express-session'),
+    Settings = require('./database/settings'),
+    MongoStore = require('connect-mongodb'),
+    db = require('./database/msession');
 
 // session配置
-// app.use(session({
-//     cookie: { maxAge: 30000 },
-//     secret: Settings.COOKIE_SECRET,
-//     store: new MongoStore({
-//         name: Settings.NAME,
-//         password: Settings.PASSWORD,
-//         url: Settings.URL,
-//         db: db
-//     })
-// }));
-// app.use(function (req, res, next) {
-//     res.locals.user = req.session.user;
-//     var err = req.session.error;
-//     delete req.session.error;
-//     res.locals.message = '';
-//     if (err) {
-//         res.locals.message = '<div class="alert alert-warning">' + err + '</div>';
-//     }
-//     next();
-// });
+app.use(session({
+    cookie: { maxAge: 30000 },
+    secret: Settings.COOKIE_SECRET,
+    resave: true,
+    saveUninitialized: true,
+    store: new MongoStore({
+        username: Settings.NAME,
+        password: Settings.PASSWORD,
+        db: db
+    })
+}));
+
+app.use(function (req, res, next) {
+    res.locals.user = req.session.user;
+    var err = req.session.error;
+    delete req.session.error;
+    res.locals.message = '';
+    if (err) {
+        res.locals.message = '<div class="alert alert-warning">' + err + '</div>';
+    }
+    next();
+});
 
 //监听socket连接
 // var ioSocket = io.on('connection', function (socket) {
@@ -56,16 +69,6 @@ var router = require('./routes/index');
 //         ioSocket.emit('someOneDeleteMeal', data);
 //     });
 // });
-
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use(favicon());
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
-app.use(cookieParser());
 
 app.use('/', router);
 app.use('/login', router);
