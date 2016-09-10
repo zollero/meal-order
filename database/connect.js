@@ -1,10 +1,28 @@
+/**
+ * 连接数据库
+ */
+
+'use strict';
+
+var mongoose = require('mongoose'),
+    dbSettings = require('./settings');
 
 
-var mongodb = require('mongodb'),
-    db = require('./msession');
+mongoose.connect(dbSettings.URL);
 
+var db = mongoose.connection;
 
-db.open(function (err, client) {
-    if(err) throw err;
-    mudule.exports = client;
+db.on('error', console.error.bind(console, '连接错误：'));
+db.once('open', function (callback) {
+    console.log('MongoDB 连接成功');
 });
+
+var UserSchema = new mongoose.Schema({
+    username: String,
+    password: String
+});
+
+var UserModel = db.model('food_user', UserSchema);
+
+module.exports = UserModel;
+

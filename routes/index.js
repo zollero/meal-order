@@ -3,8 +3,6 @@ var express = require('express');
 var router = express.Router();
 var fs = require('fs');
 var path = require('path'),
-    mongodb = require('mongodb'),
-    db = require('../database/msession'),
     connectClient = require('../database/connect');
 
 
@@ -22,27 +20,16 @@ router.route('/login')
 .get(function (req, res) {
     res.render('login', {title: '食'})
 }).post(function (req, res) {
+    var uss = connectClient.find({
+        username: req.body.name,
+        password: req.body.password
+    }, function (err, result) {
+        if (err) return console.error(err);
+        console.log(result);
+    });
 
-    // db.open(function (err, client) {
-    //     if(err) throw err;
-    //     var collection = new mongodb.Collection(client, 'food_user');
-    //     collection.find({
-    //         username: req.body.name,
-    //         password: req.body.password
-    //     }).toArray(function (err, docs) {
-    //         console.log(docs);
-    //
-    //     });
-    //
-    // });
+    // console.log(uss.exec());
 
-    // var collection = new mongodb.Collection(connectClient, 'food_user');
-    // collection.find({
-    //     username: req.body.name,
-    //     password: req.body.password
-    // }).toArray(function (err, docs) {
-    //     console.log(docs);
-    // });
 
     var user = {
         name: 'admin',
