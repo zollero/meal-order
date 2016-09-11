@@ -1,5 +1,5 @@
 doctype html
-html(ng-app='FoodLogin')
+html
 head
     title=title
     meta(name='viewport', content='width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no')
@@ -8,7 +8,7 @@ head
     link(rel='bookmark', type='image/ico', href='/favicon.ico')
     link(rel='stylesheet', href='./lib/bootstrap/dist/css/bootstrap.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
-body(ng-controller='LoginController')
+body
     div(class='top-banner')
         div(class='pos-wrap')
             h1='食'
@@ -23,16 +23,12 @@ body(ng-controller='LoginController')
                 div(class='form-group')
                     div(class='col-sm-12')
                         input(type='password', name='password', class='form-control', placeholder='密码', required)
-
-                div(class='alert alert-danger')=message
+                if (message)
+                    div(class='alert alert-danger')=message
 
                 div(class='form-group')
                     div(class='col-sm-12 col-xs-12 text-center')
                         div(class='col-sm-6 col-xs-6')
                             button(type='submit', class='btn modal-title col-sm-12 col-xs-12 btn-danger')='登录'
                         div(class='col-sm-6 col-xs-6')
-                            button(type='button', class='btn modal-title col-sm-12 col-xs-12 btn-success')='注册'
-
-    script(type='text/javascript' src='./lib/angular.js')
-    script(type='text/javascript' src='./lib/socket.io.js')
-    script(type='text/javascript' src='./javascripts/login.js')
+                            a(type='button', href='./register', class='btn modal-title col-sm-12 col-xs-12 btn-success')='注册'

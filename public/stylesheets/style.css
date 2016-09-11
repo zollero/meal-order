@@ -79,3 +79,30 @@ button:active {
     background-color: darkgray;
     cursor: default;
 }
+
+/* register */
+input.ng-invalid {
+    border-color: red;
+}
+input.ng-valid {
+    border-color: green;
+}
+form[name=registerForm] .popover {
+    top: -26px;
+    background-color: #f2dede;
+    color: #a94442;
+    height: 25px;
+    line-height: 25px;
+    font-size: 12px;
+    left: 50%;
+    border-color: #ebccd1;
+}
+form[name=registerForm] .popover.top > .arrow:after {
+    border-top-color: #f2dede;
+}
+form[name=registerForm] .popover.top > .popover-content {
+    padding: 0 5px;
+}
+.ng-invalid-unique-username ~ div.popover {
+    display: block;
+}

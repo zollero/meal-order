@@ -3,11 +3,10 @@ var express = require('express');
 var router = express.Router();
 var fs = require('fs');
 var path = require('path'),
-    connectClient = require('../database/connect');
+    UserModel = require('../database/connect');
 
 
 router.get('/', function (req, res) {
-    // res.render('index');
     res.redirect('/home');
 });
 
@@ -20,31 +19,64 @@ router.route('/login')
 .get(function (req, res) {
     res.render('login', {title: '食'})
 }).post(function (req, res) {
-    var uss = connectClient.find({
+    var user = {
         username: req.body.name,
         password: req.body.password
-    }, function (err, result) {
+    };
+    //从数据库中查询用户，若成功则跳转至主页
+    UserModel.find(user, function (err, result) {
         if (err) return console.error(err);
         console.log(result);
+        if (result.length === 1) {
+            req.session.user = user;
+            res.redirect('/home');
+        } else {
+            req.session.error = '用户名或密码不正确';
+            res.redirect('/login');
+        }
     });
+});
 
-    // console.log(uss.exec());
+//注册用户时，检查用户名是否唯一
+router.get('/checkUniqueUsername', function (req, res) {
+    var username = req.query.username;
+    UserModel.find({ username: username}, function (err, result) {
+        if (err) {
+            res.send({
+                success: false,
+                message: '系统异常，请稍后再试'
+            });
+            return;
+        }
+        res.send({
+            usable: result.length === 0
+        });
+    });
+});
 
-
+//注册
+router.route('/register').get(function (req, res) {
+    res.render('register', {title: '食 - 新用户注册'})
+}).post(function (req, res) {
     var user = {
-        name: 'admin',
-        password: '123456'
+        username: req.body.username,
+        password: req.body.password,
+        email: req.body.email
     };
-    // console.log(req.body);
-    if (req.body.name === user.name && req.body.password === user.password) {
-        console.log('success');
-        req.session.user = user;
-        res.redirect('/home');
-    } else {
-        console.log('error');
-        req.session.error = '用户名或密码不正确';
-        res.redirect('/login');
-    }
+    UserModel.create(user, function (err, node, numAffected) {
+        if (err) {
+            res.send({
+                success: false,
+                err: err
+            });
+            return;
+        }
+        res.send({
+            success: true,
+            message: '恭喜你：' + node.username + '，注册成功'
+        });
+    })
+
 });
 
 router.get('/logout', function (req, res) {
@@ -55,7 +87,7 @@ router.get('/logout', function (req, res) {
 router.get('/home', function (req, res) {
     authentication(req, res);
     res.render('home', {
-        title: '食－－首页'
+        title: '首页'
     });
 });
 

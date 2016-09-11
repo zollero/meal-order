@@ -19,10 +19,12 @@ db.once('open', function (callback) {
 
 var UserSchema = new mongoose.Schema({
     username: String,
-    password: String
+    password: String,
+    email: String
 });
 
-var UserModel = db.model('food_user', UserSchema);
+var UserModel = db.model('food_user', UserSchema, 'food_user');
+
 
 module.exports = UserModel;
 

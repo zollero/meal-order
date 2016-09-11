@@ -1,0 +1,56 @@
+doctype html
+html(ng-app='FoodRegister')
+head
+    title=title
+    meta(name='viewport', content='width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no')
+    link(rel='icon', type='image/ico', href='favicon.ico')
+    link(rel='shortcut icon', type='image/ico', href='favicon.ico')
+    link(rel='bookmark', type='image/ico', href='/favicon.ico')
+    link(rel='stylesheet', href='./lib/bootstrap/dist/css/bootstrap.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+body(ng-controller='RegisterController')
+    div(class='top-banner')
+        div(class='pos-wrap')
+            h1='食'
+
+    div(class='container form-unit')
+        form(class='col-sm-offset-4 col-sm-4 form-horizontal', novalidate='novalidate', name='registerForm' role='form')
+            fieldset
+                legend='注册账号'
+                div(class='form-group')
+                    div(class='col-sm-12')
+                        input(type='text', name='username', ng-model='account.username', check-username ng-pattern='/^[a-z0-9_]*$/' ng-minlength='5', ng-maxlength='12', class='form-control', placeholder='用户名', required)
+                        p(class='help-block')='5至12位数字、小写字母及下划线'
+                        div(class='popover fade top in')
+                            div(class='arrow')
+                            div(class='popover-content')='用户名被占用，请更换一个'
+                div(class='form-group')
+                    div(class='col-sm-12')
+                        input(type='password', name='password', ng-model='account.password', id='password' ng-pattern='/^[a-z0-9!@]*$/' ng-minlength='6' ng-maxlength='12' class='form-control', placeholder='密码', required)
+                        p(class='help-block')='6至12位数字、小写字母及特殊符号（！或 @）'
+                div(class='form-group')
+                    div(class='col-sm-12')
+                        input(type='password', name='password', check-pwd='password', ng-model='account.pwd', class='form-control', placeholder='确认密码', required)
+                        p(class='help-block')='确认密码'
+                div(class='form-group')
+                    div(class='col-sm-12')
+                        input(type='email', name='email', ng-model='account.email', class='form-control', placeholder='邮箱', required)
+                        p(class='help-block')='请输入正确的个人邮箱'
+
+                div(class='form-group')
+                    div(class='col-sm-12 col-xs-12 text-center')
+                        button(type='button', ng-click='submitForm()', ng-disabled='registerForm.$invalid' class='btn modal-title col-sm-12 col-xs-12 btn-danger')='确定'
+
+    div(class='modal fade bs-example-modal-sm' id='alert-modal' tabindex='-1' role='dialog' aira-hidden='true' data-backdrop='static' data-keyboard='false')
+        div(class='modal-dialog modal-sm')
+            div(class='modal-content')
+                div(class='modal-body')
+                    p(class='text-success' ng-bind='alertMessage')
+                div(class='modal-footer')
+                    a(type='button' class='btn btn-success' href='/login')='返回并登录'
+
+
+    script(type='text/javascript' src='./lib/angular.js')
+    script(type='text/javascript' src='./lib/jquery/dist/jquery.min.js')
+    script(type='text/javascript' src='./lib/bootstrap/dist/js/bootstrap.min.js')
+    script(type='text/javascript' src='./javascripts/register.js')
