@@ -1,6 +1,15 @@
 
-body {
-    /*margin: 10px 20px;*/
+body, dd, div, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, input, li, ol, p, pre, td, textarea, th, ul {
+    padding: 0;
+    margin: 0;
+}
+ol, ul, li {
+    list-style: none;
+}
+
+a {
+    color: #323A45;
+    text-decoration: none;
 }
 
 .top-banner {
@@ -105,4 +114,58 @@ form[name=registerForm] .popover.top > .popover-content {
 }
 .ng-invalid-unique-username ~ div.popover {
     display: block;
+}
+
+/* main page */
+.top_menu {
+    position: fixed;
+    height: 64px;
+    width: 100%;
+    border-bottom: 1px solid #DDD;
+    background-color: #d1e9ea;
+    z-index: 100;
+}
+.top_menu .logo {
+    float: left;
+}
+.top_menu .logo img {
+    height: 50px;
+    margin: 7px 0;
+}
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+.top_menu ul.nav {
+    float: left;
+    height: 64px;
+    line-height: 64px;
+    margin-left: 40px;
+}
+.top_menu ul.nav>li.dropdown {
+    position: relative;
+}
+.top_menu ul.nav>li {
+    float: left;
+    margin: 0 15px;
+    position: relative;
+}
+.top_menu ul.nav>li a {
+    color: #415f77;
+}
+.top_menu ul.nav>li.on a {
+    color: #fc5050;
+}
+.top_menu .user-zone {
+    float: right;
+    position: relative;
+    height: 64px;
+    line-height: 64px;
+    margin-right: 15px;
+}
+.top_menu .user-zone .user-name {
+    color: #fc5050;
 }

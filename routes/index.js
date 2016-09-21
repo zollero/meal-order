@@ -87,7 +87,8 @@ router.get('/logout', function (req, res) {
 router.get('/home', function (req, res) {
     authentication(req, res);
     res.render('home', {
-        title: '首页'
+        title: '首页',
+        username: req.session.user.username
     });
 });
 

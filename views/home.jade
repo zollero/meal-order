@@ -8,17 +8,24 @@ html(ng-app='mealOrder')
         link(rel='bookmark', type='image/ico', href='/favicon.ico')
         link(rel='stylesheet', href='/stylesheets/style.css')
     body(ng-controller='MenuController')
-        p(class='page-title')='内部订餐系统'
-        div(class='menu-list unselected')
-            p(class='menu-title')='待选列表（点击添加到已选列表）'
-            button(ng-repeat='menu in menus' ng-disabled='menu.selected' ng-click='addMeal(menu)' ng-bind='menu.name + ": " + menu.price + "元"')
 
-        div(class='menu-list selected')
-            p(class='menu-title')='已选列表（点击删除已选）'
-            button(ng-repeat='menu in selectedMeals track by $index' ng-click='deleteMeal(menu)' ng-bind='menu.name + ": " + menu.price + "元"')
+        div(class='top_menu')
+            a(class='logo clearfix' href='/')
+                img(src='./images/logo.png')
+            ul(class='nav')
+                li(class='dropdown on')
+                    a(href='/home') 主页
+                li
+                    a(href='/team') 团队
+                li
+                    a(href='/menu') 菜单
+                li
+                    a(href='/order') 订单
 
-        div(class='button-area')
-            button(type='button' ng-click='createSelectedList()' ng-disabled='selectedMeals.length===0')='提交'
+            div(class='user-zone')
+                a(class='user-name' href='javascript:;')=username
+
+
 
         script(type='text/javascript' src='./lib/angular.js')
         script(type='text/javascript' src='./lib/socket.io.js')
