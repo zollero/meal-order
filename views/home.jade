@@ -6,24 +6,84 @@ html(ng-app='mealOrder')
         link(rel='icon', type='image/ico', href='favicon.ico')
         link(rel='shortcut icon', type='image/ico', href='favicon.ico')
         link(rel='bookmark', type='image/ico', href='/favicon.ico')
+        link(rel='stylesheet', href='/lib/bootstrap/dist/css/bootstrap.min.css')
+        link(rel='stylesheet', href='/stylesheets/eden.css')
         link(rel='stylesheet', href='/stylesheets/style.css')
     body(ng-controller='MenuController')
 
-        div(class='top_menu')
-            a(class='logo clearfix' href='/')
-                img(src='./images/logo.png')
-            ul(class='nav')
-                li(class='dropdown on')
-                    a(href='/home') 主页
-                li
-                    a(href='/team') 团队
-                li
-                    a(href='/menu') 菜单
-                li
-                    a(href='/order') 订单
+        div(class='navbar navbar-default navbar-fixed-top')
+            div(class='container')
+                div(class='navbar-header')
+                    a(href='/home' class='navbar-brand') 食
+                    button(class='navbar-toggle' type='button' data-toggle='collapse' data-target='#navbar-main')
+                        span(class='icon-bar') Home
 
-            div(class='user-zone')
-                a(class='user-name' href='javascript:;')=username
+                div(class='navbar-collapse collapse' id='navbar-main')
+                    ul(class='nav navbar-nav')
+                        li
+                            a(href='/home') 主页
+                        li
+                            a(href='/team') 团队
+                        li
+                            a(href='/menu') 菜单
+                        li
+                            a(href='/order') 订单
+
+                    ul(class='nav navbar-nav navbar-right')
+                        li
+                            a(class='#')=username
+
+        div(class='container')
+            div(class='page-header')
+                div(class='row')
+                    div(class='col-lg-12')
+                        h2 进行中的点餐活动:
+
+                        table(class='table table-hover table-striped table-responsive')
+                            thead
+                                tr
+                                    th 序号
+                                    th 团队
+                                    th 菜单
+                                    th 状态
+                            tbody
+                                tr
+                                    td 1
+                                    td 点餐小分队
+                                    td 望湘园
+                                    td 进行中
+
+
+                div(class='row hide')
+                    div(class='col-lg-12')
+                        p(class='text-danger text-center') 没有进行中的点餐活动，
+                            a(href='#') 发起点餐任务
+
+
+
+            footer
+                div(class='row')
+                    div(class='col-lg-12')
+                        hr
+                        p(class='text-danger text-center') Copyright ©️ rocknbear.com
+
+
+
+        //div(class='top_menu')
+        //    a(class='logo clearfix' href='/')
+        //        img(src='./images/logo.png')
+        //    ul(class='nav')
+        //        li(class='dropdown on')
+        //            a(href='/home') 主页
+        //        li
+        //            a(href='/team') 团队
+        //        li
+        //            a(href='/menu') 菜单
+        //        li
+        //            a(href='/order') 订单
+        //
+        //    div(class='user-zone')
+        //        a(class='user-name' href='javascript:;')=username
 
 
 
