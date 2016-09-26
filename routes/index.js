@@ -76,7 +76,6 @@ router.route('/register').get(function (req, res) {
             message: '恭喜你：' + node.username + '，注册成功'
         });
     })
-
 });
 
 router.get('/logout', function (req, res) {
