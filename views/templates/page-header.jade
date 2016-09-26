@@ -1,0 +1,23 @@
+div(class='navbar navbar-default navbar-fixed-top')
+    div(class='container')
+        div(class='navbar-header')
+            a(href='/home' class='navbar-brand') 食
+            button(class='navbar-toggle' type='button' data-toggle='collapse' data-target='#navbar-main')
+                span(class='icon-bar')
+                span(class='icon-bar')
+                span(class='icon-bar')
+
+        div(class='navbar-collapse collapse' id='navbar-main')
+            ul(class='nav navbar-nav')
+                li
+                    a(href='/home') 主页
+                li
+                    a(href='/team') 团队
+                li
+                    a(href='/menu') 菜单
+                li
+                    a(href='/order') 订单
+
+            ul(class='nav navbar-nav navbar-right')
+                li
+                    a(class='#')=username
