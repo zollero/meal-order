@@ -91,6 +91,16 @@ router.get('/home', function (req, res) {
     });
 });
 
+router.get('/team', function (req, res) {
+    authentication(req, res);
+    res.render('team', {
+        title: '团队页',
+        username: req.session.user.username
+    });
+});
+
+
+
 /**
  * 校验用户是否登录,若未登录,则跳转到登录页面
  * @param req

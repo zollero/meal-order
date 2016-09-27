@@ -16,25 +16,28 @@ html(ng-app='mealOrder')
             div(class='page-header')
                 div(class='row')
                     div(class='col-lg-12')
-                        h5 进行中的点餐活动:
+                        h5 你的团队列表:
 
                         table(class='table table-hover table-striped table-responsive')
-                            thead
-                                tr
-                                    th 序号
-                                    th 团队
-                                    th 状态
-                                    th 操作
+
                             tbody
                                 tr
-                                    td 1
-                                    td 点餐小分队
-                                    td 进行中
                                     td
-                                        a(href='#') 加入
+                                        a(href='#') 点餐小分队
+                                tr
+                                    td
+                                        a(href='#') 都是饿死鬼
+                                tr
+                                    td
+                                        a(href='#') 吃货集中营
+                                tr
+                                    td
+                                        a(href='#') 移动BI点餐群
 
-                        p(class='text-danger text-center') 没有进行中的点餐活动，
-                            a(href='#') 发起点餐任务
+                        p(class='text-danger text-center') 你还没有加入任何团队
+                            a(href='#') 搜索加入
+                            span 或
+                            a(href='#') 创建队伍
 
             include templates/page-footer
 
