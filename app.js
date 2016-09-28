@@ -33,7 +33,7 @@ var session = require('express-session'),
 
 // session配置
 app.use(session({
-    cookie: { maxAge: 30000 },
+    cookie: { maxAge: 1800000 },
     secret: Settings.COOKIE_SECRET,
     resave: true,
     saveUninitialized: true,
@@ -55,7 +55,8 @@ app.use(function (req, res, next) {
     next();
 });
 
-
+//设置默认的路由处理函数
+app.use(router);
 
 
 //监听socket连接
@@ -73,10 +74,6 @@ app.use(function (req, res, next) {
 //     });
 // });
 
-app.use('/', router);
-app.use('/login', router);
-app.use('/home', router);
-app.use('/logout', router);
 
 function listenHandler() {
     console.log('Server started on port 3000');
