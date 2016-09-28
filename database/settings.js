@@ -1,4 +1,7 @@
-
+/**
+ * 连接mongodb数据库的配置项
+ * @type {{COOKIE_SECRET: string, URL: string, DB: string, HOST: string, PORT: number, NAME: string, PASSWORD: string}}
+ */
 
 module.exports = {
     COOKIE_SECRET: 'bear',

@@ -8,7 +8,6 @@ html(ng-app='mealOrder')
         link(rel='bookmark', type='image/ico', href='/favicon.ico')
         link(rel='stylesheet', href='/lib/bootstrap/dist/css/bootstrap.min.css')
         link(rel='stylesheet', href='/stylesheets/eden.css')
-        //link(rel='stylesheet', href='http://libs.useso.com/js/font-awesome/4.2.0/css/font-awesome.min.css')
     body(ng-controller='MenuController')
 
         include templates/page-header
@@ -17,33 +16,26 @@ html(ng-app='mealOrder')
             div(class='page-header')
                 div(class='row')
                     div(class='col-lg-12')
-                        ul(class='breadcrumb')
-                            li 主页
-
-                        h5 进行中的点餐活动:
+                        h5 你的菜单列表:
 
                         table(class='table table-hover table-striped table-responsive')
-                            thead
-                                tr
-                                    th 序号
-                                    th 团队
-                                    th 状态
-                                    th 操作
                             tbody
                                 tr
-                                    td 1
-                                    td 点餐小分队
-                                    td 进行中
                                     td
-                                        a(href='#') 加入
+                                        a(href='#') 望湘园
+                                tr
+                                    td
+                                        a(href='#') 避风塘
+                                tr
+                                    td
+                                        a(href='#') 海底捞
 
-                        p(class='text-center') 没有进行中的点餐活动，
-                            a(href='#') 发起点餐任务
+                        p(class='text-center') 你还没有任何菜单
+                            a(href='#') 创建菜单
 
             include templates/page-footer
 
         script(type='text/javascript' src='./lib/jquery/dist/jquery.min.js')
         script(type='text/javascript' src='./lib/bootstrap/dist/js/bootstrap.min.js')
         script(type='text/javascript' src='./lib/angular.js')
-        script(type='text/javascript' src='./lib/socket.io.js')
         script(type='text/javascript' src='./javascripts/index.js')

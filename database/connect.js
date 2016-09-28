@@ -1,5 +1,5 @@
 /**
- * 连接数据库
+ * 连接数据库，初始化数据表设置
  */
 
 'use strict';
@@ -7,14 +7,13 @@
 var mongoose = require('mongoose'),
     dbSettings = require('./settings');
 
-
 mongoose.connect(dbSettings.URL);
 
 var db = mongoose.connection;
 
 db.on('error', console.error.bind(console, '连接错误：'));
-db.once('open', function (callback) {
-    console.log('MongoDB 连接成功');
+db.once('open', function () {
+    console.log('MongoDB 连接成功...');
 });
 
 var UserSchema = new mongoose.Schema({
@@ -23,8 +22,27 @@ var UserSchema = new mongoose.Schema({
     email: String
 });
 
+var MenuSchema = new mongoose.Schema({
+    menuName: String,
+    creatorName: String,
+    dishes: Array
+});
+
+var TeamSchema = new mongoose.Schema({
+    teamName: String,
+    creatorName: String,
+    teamDesc: String,
+    members: Array,
+    menus: Array
+});
+
 var UserModel = db.model('food_user', UserSchema, 'food_user');
+var MenuModel = db.model('food_menu', MenuSchema, 'food_menu');
+var TeamModel = db.model('food_team', TeamSchema, 'food_menu');
 
-
-module.exports = UserModel;
+module.exports = {
+    userModel: UserModel,
+    menuModel: MenuModel,
+    teamModel: TeamModel
+};
 
