@@ -1,5 +1,5 @@
 doctype html
-html(ng-app='mealOrder')
+html
     head
         title= title
         meta(name='viewport', content='width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no')
@@ -8,7 +8,7 @@ html(ng-app='mealOrder')
         link(rel='bookmark', type='image/ico', href='/favicon.ico')
         link(rel='stylesheet', href='/lib/bootstrap/dist/css/bootstrap.min.css')
         link(rel='stylesheet', href='/stylesheets/eden.css')
-    body(ng-controller='MenuController')
+    body
 
         include templates/page-header
 
@@ -16,27 +16,33 @@ html(ng-app='mealOrder')
             div(class='page-header')
                 div(class='row')
                     div(class='col-lg-12')
-                        h5 你的菜单列表:
 
-                        table(class='table table-hover table-striped table-responsive')
-                            tbody
-                                tr
-                                    td
-                                        a(href='#') 望湘园
-                                tr
-                                    td
-                                        a(href='#') 避风塘
-                                tr
-                                    td
-                                        a(href='#') 海底捞
+                        if menuList.length > 0
+                            h5 你的菜单列表:
+                            table(class='table table-hover table-striped table-responsive')
+                                tbody
+                                    tr
+                                        td
+                                            a(href='#') 望湘园
+                                    tr
+                                        td
+                                            a(href='#') 避风塘
+                                    tr
+                                        td
+                                            a(href='#') 海底捞
+                        else
+                            .jumbotron
+                                span
+                                    span(class='glyphicon glyphicon-exclamation-sign text-danger')
+                                    | &nbsp;你还没有任何菜单，请创建新的菜单。
+                                span
+                                    a(href='/menu/add') 创建菜单
 
-                        p(class='text-center') 你还没有任何菜单
-                            a(href='#') 创建菜单
 
             include templates/page-footer
 
         script(type='text/javascript' src='./lib/jquery/dist/jquery.min.js')
         script(type='text/javascript' src='./lib/bootstrap/dist/js/bootstrap.min.js')
         script(type='text/javascript' src='./lib/angular.js')
-        script(type='text/javascript' src='./lib/socket.io.js')
-        script(type='text/javascript' src='./javascripts/index.js')
+        //script(type='text/javascript' src='./lib/socket.io.js')
+        //script(type='text/javascript' src='./javascripts/index.js')

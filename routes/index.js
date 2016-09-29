@@ -1,4 +1,6 @@
 
+'use strict';
+
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
@@ -75,7 +77,7 @@ router.route('/register').get(function (req, res) {
             success: true,
             message: '恭喜你：' + node.username + '，注册成功'
         });
-    })
+    });
 });
 
 router.get('/logout', function (req, res) {
@@ -98,10 +100,28 @@ router.get('/team', function (req, res) {
         username: req.session.user.username
     });
 });
+
+/**
+ * 菜单管理页面
+ */
 router.get('/menu', function (req, res) {
     if (!authentication(req, res)) return;
-    res.render('menu', {
-        title: '菜单页',
+    let userName = req.session.user.username;
+    dbConnect.menuModel.find({userName: userName}, function (err, result) {
+        if (err) {
+            return console.error(err);
+        }
+        res.render('menu', {
+            title: '菜单页',
+            username: userName,
+            menuList: result
+        });
+    });
+});
+router.route('/menu/add').get(function (req, res) {
+    if (!authentication(req, res)) return;
+    res.render('menu-add', {
+        title: '菜单-创建菜单',
         username: req.session.user.username
     });
 });
