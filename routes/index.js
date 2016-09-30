@@ -23,7 +23,8 @@ router.route('/login')
 }).post(function (req, res) {
     var user = {
         username: req.body.name,
-        password: req.body.password
+        password: req.body.password,
+        isDeleted: false
     };
     //从数据库中查询用户，若成功则跳转至主页
     dbConnect.userModel.find(user, function (err, result) {
@@ -63,7 +64,12 @@ router.route('/register').get(function (req, res) {
     var user = {
         username: req.body.username,
         password: req.body.password,
-        email: req.body.email
+        email: req.body.email,
+        isDeleted: false,
+        creatorName: req.body.username,
+        createTime: new Date(),
+        updaterName: req.body.username,
+        updateTime: new Date()
     };
     dbConnect.userModel.create(user, function (err, node, numAffected) {
         if (err) {
@@ -107,10 +113,15 @@ router.get('/team', function (req, res) {
 router.get('/menu', function (req, res) {
     if (!authentication(req, res)) return;
     let userName = req.session.user.username;
-    dbConnect.menuModel.find({userName: userName}, function (err, result) {
+    let menu = {
+        creatorName: userName,
+        isDeleted: false
+    };
+    dbConnect.menuModel.find(menu, function (err, result) {
         if (err) {
             return console.error(err);
         }
+        console.log(result);
         res.render('menu', {
             title: '菜单页',
             username: userName,
@@ -127,10 +138,28 @@ router.route('/menu/add').get(function (req, res) {
 }).post(function (req, res) {
     if (!authentication(req, res)) return;
     let userName = req.session.user.username;
-    console.log(req.body);
-    res.send({
-        success: true,
-        message: '菜单“' + req.body.menuName + '”创建成功！'
+    let menuObj = {
+        menuName: req.body.menuName,
+        dishes: req.body.dishes,
+        isDeleted: false,
+        creatorName: userName,
+        createTime: new Date(),
+        updaterName: userName,
+        updateTime: new Date()
+    };
+
+    new dbConnect.menuModel(menuObj).save(function (err, data) {
+       if (err) {
+           res.send({
+               success: false,
+               message: '创建菜单失败，请稍后重试！'
+           });
+           return false;
+       }
+        res.send({
+            success: true,
+            message: '菜单“' + req.body.menuName + '”创建成功！'
+        });
     });
 });
 router.get('/order', function (req, res) {

@@ -17,7 +17,12 @@
             _id: String,    //唯一ID，数据库自动生成
             username: String,   //用户名
             password: String,   //密码
-            email: String       //邮箱
+            email: String,       //邮箱
+            isDeleted: Boolean,  //是否删除（新增时，默认为false）
+            createTime: Date,   //创建时间
+            creatorName: String,    //创建人用户名
+            updateTime: Date,    //更新时间（修改密码，删除用户时）
+            updaterName: String     //更新人用户名
         }
         
 2. 菜单表
@@ -27,12 +32,16 @@
 
         {   
             _id: String,    //唯一id，数据库自动生成
-            creatorName: String,   //创建者用户名
             menuName: String,   //菜单名
             dishes: [{
-                dishName: String,   
-                price: Float
-            }]
+                dishName: String,   //菜名   
+                price: Number   //单价
+            }],
+            isDeleted: Boolean,     //是否删除
+            creatorName: String,   //创建者用户名
+            createTime: Date,   //创建时间
+            updaterName: String,    //更新者用户名
+            updateTime: Date    //更新时间
         }
         
 3. 团队表
@@ -43,9 +52,13 @@
         {   
             _id: String,    //唯一id,数据库自动生成
             teamName: String,   //团队名
-            creatorName: String,    //创建者用户名
             teamDesc: String,   //团队描述
             members: ['feiyu', 'corona'],   //团队成员
-            menus: ['_menuid1', '_menuid2'] //该团队关联菜单
+            menus: ['_menuid1', '_menuid2'], //该团队关联菜单
+            isDeleted: Boolean,     //是否删除
+            creatorName: String,    //创建者用户名
+            createTime: Date,       //创建时间
+            updaterName: String,    //更新者用户名
+            updateTime: Date        //更新时间
         }
 

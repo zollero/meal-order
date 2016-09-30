@@ -19,21 +19,37 @@ db.once('open', function () {
 var UserSchema = new mongoose.Schema({
     username: String,
     password: String,
-    email: String
+    email: String,
+    isDeleted: Boolean,
+    creatorName: String,
+    createTime: Date,
+    updaterName: String,
+    updateTime: Date
 });
 
 var MenuSchema = new mongoose.Schema({
     menuName: String,
+    dishes: [{
+        dishName: String,
+        price: Number
+    }],
+    isDeleted: Boolean,
     creatorName: String,
-    dishes: Array
+    createTime: Date,
+    updaterName: String,
+    updateTime: Date
 });
 
 var TeamSchema = new mongoose.Schema({
     teamName: String,
-    creatorName: String,
     teamDesc: String,
     members: Array,
-    menus: Array
+    menus: Array,
+    isDeleted: Boolean,
+    creatorName: String,
+    createTime: Date,
+    updaterName: String,
+    updateTime: Date
 });
 
 var UserModel = db.model('food_user', UserSchema, 'food_user');

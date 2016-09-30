@@ -19,17 +19,23 @@ html
 
                         if menuList.length > 0
                             h5 你的菜单列表:
+                                span.pull-right
+                                    a(href='/menu/add') 创建菜单
                             table(class='table table-hover table-striped table-responsive')
+                                thead
+                                    tr
+                                        th 菜单名
+                                        th 创建时间
+                                        th 操作
                                 tbody
-                                    tr
-                                        td
-                                            a(href='#') 望湘园
-                                    tr
-                                        td
-                                            a(href='#') 避风塘
-                                    tr
-                                        td
-                                            a(href='#') 海底捞
+                                    each menu in menuList
+                                        tr
+                                            td=menu.menuName
+                                            td=menu.createTime
+                                            td
+                                                a(href='#') 编辑
+                                                | &nbsp;&nbsp;
+                                                a(href='#') 删除
                         else
                             .jumbotron
                                 span
@@ -39,7 +45,7 @@ html
                                     a(href='/menu/add') 创建菜单
 
 
-            include templates/page-footer
+        include templates/page-footer
 
         script(type='text/javascript' src='./lib/jquery/dist/jquery.min.js')
         script(type='text/javascript' src='./lib/bootstrap/dist/js/bootstrap.min.js')
