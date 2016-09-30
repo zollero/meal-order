@@ -5,7 +5,7 @@ angular.module('FoodMenu', [])
 
     var dishLineHTML = '<div class="form-group">' +
         '<div class="col-lg-5 col-xs-5"><input class="form-control" name="dishName" type="text" placeholder="菜名" /></div>' +
-        '<div class="col-lg-5 col-xs-5"><input class="form-control" name="price" type="text" placeholder="单价" /></div>' +
+        '<div class="col-lg-5 col-xs-5"><input class="form-control" name="price" type="text" placeholder="单价：￥" /></div>' +
         '<div class="col-lg-2 col-xs-2 text-center"><button type="button" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-minus-sign"></span></button></div>' +
         '</div>';
 
