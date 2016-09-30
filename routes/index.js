@@ -124,6 +124,14 @@ router.route('/menu/add').get(function (req, res) {
         title: '菜单-创建菜单',
         username: req.session.user.username
     });
+}).post(function (req, res) {
+    if (!authentication(req, res)) return;
+    let userName = req.session.user.username;
+    console.log(req.body);
+    res.send({
+        success: true,
+        message: '菜单“' + req.body.menuName + '”创建成功！'
+    });
 });
 router.get('/order', function (req, res) {
     if (!authentication(req, res)) return;

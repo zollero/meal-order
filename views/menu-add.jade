@@ -22,30 +22,41 @@ html(ng-app='FoodMenu')
                             li 创建菜单
 
                         .col-sm-12.col-xs-12.well
-                            form.form-horizontal
+                            form.form-horizontal#add-menu-form
                                 fieldset
                                     legend 菜单列表
+                                    .form-group.dish-line
+                                        .col-xs-10.col-sm-5
+                                            input(class='form-control' name='menuName' type='text' placeholder='菜单名')
                                     #dish-list
-                                        .form-group
-                                            .col-xs-12.col-sm-12.text-right
-                                                button.btn.btn-info.btn-sm(type='button' add-dish-line ng-click='addDishLine()')
-                                                    span.glyphicon.glyphicon-plus-sign
-                                        .form-group
+                                        .form-group.dish-line
                                             .col-xs-5.col-sm-5
                                                 input(class='form-control' name='dishName' type='text' placeholder='菜名')
                                             .col-xs-5.col-sm-5
-                                                input(class='form-control' name='price' type='text' placeholder='单价：￥')
+                                                input(class='form-control' name='price' type='text' placeholder='单价')
+                                            .col-xs-2.col-sm-2.text-left
+                                                button.btn.btn-info.btn-sm(type='button' id='add-dish-btn')
+                                                    span.glyphicon.glyphicon-plus-sign
 
                                     .form-group
                                         .col-xs-12.col-sm-12.text-center
-                                            button(type='submit' class='btn btn-primary btn-sm') 提交
+                                            button(type='button' id='submit-btn' class='btn btn-primary btn-sm' data-loading-text="加载中..." autocomplete="off") 提交
                                             | &nbsp;&nbsp;
-                                            button(type='reset' class='btn btn-default btn-sm') 重置
+                                            button(type='reset' id='reset-btn' class='btn btn-default btn-sm' data-loading-text="加载中..." autocomplete="off") 重置
+
+        .modal.bs-example-modal-sm(tabindex='-1' id='message-modal' role='dialog' aria-hidden='true' data-backdrop='static')
+            .modal-dialog.modal-sm
+                .panel.panel-success
+                    .panel-heading
+                        h3.panel-title 菜单创建成功
+                    .modal-body.text-center
+                        a.btn.btn-info.btn-sm(type='button' href='/menu') 回到菜单页
+                        | &nbsp;&nbsp;
+                        button.btn.btn-info.btn-sm(type='button' id='add-more-btn' data-dismiss="modal") 再创建一个
 
 
-            include templates/page-footer
+        include templates/page-footer
 
         script(type='text/javascript' src='/lib/jquery/dist/jquery.min.js')
         script(type='text/javascript' src='/lib/bootstrap/dist/js/bootstrap.min.js')
-        script(type='text/javascript' src='/lib/angular.js')
         script(type='text/javascript' src='/javascripts/menu.js')
