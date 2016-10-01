@@ -34,15 +34,17 @@ html(ng-app='mealOrder')
                                     td
                                         a(href='#') 移动BI点餐群
 
-                        p(class='text-center') 你还没有加入任何团队
+                        p(class='text-center')
+                            span(class='glyphicon glyphicon-exclamation-sign text-danger')
+                            | &nbsp;你还没有加入任何团队
                             a(href='#') 搜索加入
                             span 或
-                            a(href='#') 创建队伍
+                            a(href='/team/add') 创建队伍
 
             include templates/page-footer
 
         script(type='text/javascript' src='./lib/jquery/dist/jquery.min.js')
         script(type='text/javascript' src='./lib/bootstrap/dist/js/bootstrap.min.js')
-        script(type='text/javascript' src='./lib/angular.js')
-        script(type='text/javascript' src='./lib/socket.io.js')
-        script(type='text/javascript' src='./javascripts/index.js')
+        //script(type='text/javascript' src='./lib/angular.js')
+        //script(type='text/javascript' src='./lib/socket.io.js')
+        //script(type='text/javascript' src='./javascripts/index.js')
