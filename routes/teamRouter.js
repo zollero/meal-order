@@ -1,5 +1,6 @@
-
-
+/**
+ * 团队页路由管理
+ */
 
 'use strict';
 
@@ -10,11 +11,35 @@ var util = require('./routerUtil');
 
 router.get('/team', function (req, res) {
     if (!util.authentication(req, res)) return;
-    res.render('team', {
-        title: '团队页',
-        username: req.session.user.username,
-        nav: 'team'
+    let username = req.session.user.username;
+
+    let qureyObj = {
+        creatorName: username,
+        isDeleted: false
+    };
+
+    db.teamModel.find(qureyObj, (err, result) => {
+        console.log(result);
+        if (err) {
+            return console.error(err);
+        }
+        res.render('team', {
+            title: '团队页',
+            username: username,
+            nav: 'team',
+            teamList: result
+        });
     });
+});
+
+router.get('/team/add', (req, res) => {
+    if (!util.authentication(req, res)) return;
+
+    res.render('team-add', {
+        title: '创建团队',
+        nav: 'team',
+        username: req.session.user.username
+    })
 });
 
 

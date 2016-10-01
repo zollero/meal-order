@@ -29,8 +29,8 @@ var MenuSchema = new mongoose.Schema({
 var TeamSchema = new mongoose.Schema({
     teamName: String,
     teamDesc: String,
-    members: Array,
-    menus: Array,
+    members: [String],
+    menus: [String],
     isDeleted: Boolean,
     creatorName: String,
     createTime: Date,
@@ -40,7 +40,7 @@ var TeamSchema = new mongoose.Schema({
 
 var UserModel = db.model('food_user', UserSchema, 'food_user');
 var MenuModel = db.model('food_menu', MenuSchema, 'food_menu');
-var TeamModel = db.model('food_team', TeamSchema, 'food_menu');
+var TeamModel = db.model('food_team', TeamSchema, 'food_team');
 
 module.exports = {
     userModel: UserModel,

@@ -17,5 +17,4 @@ router.get('/home', function (req, res) {
     });
 });
 
-
 module.exports = router;

@@ -18,10 +18,10 @@ router.get('/', function (req, res) {
     res.redirect('/home');
 });
 
-router.get('/menu/all', function (req, res, next) {
-    // var mealMenu = JSON.parse(fs.readFileSync(path.join(__dirname, '../menu/meal.json'), 'utf-8'));
-    res.send({menus: []});
-});
+// router.get('/menu/all', function (req, res, next) {
+//     // var mealMenu = JSON.parse(fs.readFileSync(path.join(__dirname, '../menu/meal.json'), 'utf-8'));
+//     res.send({menus: []});
+// });
 
 router.all(['/user', '/user/*'], userRouter);
 
