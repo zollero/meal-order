@@ -9,7 +9,7 @@ angular.module('FoodRegister', [])
 
     $scope.submitForm = function () {
         console.log($scope.account);
-        $http.post('./register', $scope.account)
+        $http.post('/user/register', $scope.account)
             .success(function (data) {
                 console.log(data);
                 if (data.success) {
@@ -47,7 +47,7 @@ angular.module('FoodRegister', [])
                     });
                     return;
                 }
-                $http.get('./checkUniqueUsername', {
+                $http.get('/user/checkUniqueUsername', {
                     params: { username: ele.val() },
                     cache: false
                 }).success(function (data) {

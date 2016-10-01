@@ -6,7 +6,7 @@ head
     link(rel='icon', type='image/ico', href='favicon.ico')
     link(rel='shortcut icon', type='image/ico', href='favicon.ico')
     link(rel='bookmark', type='image/ico', href='/favicon.ico')
-    link(rel='stylesheet', href='./lib/bootstrap/dist/css/bootstrap.css')
+    link(rel='stylesheet', href='/lib/bootstrap/dist/css/bootstrap.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
 body
     div(class='top-banner')
@@ -14,7 +14,7 @@ body
             h1='食'
 
     div(class='container form-unit')
-        form(class='col-sm-offset-4 col-sm-4 form-horizontal', role='form', method='post', action='/login')
+        form(class='col-sm-offset-4 col-sm-4 form-horizontal', role='form', method='post', action='/user/login')
             fieldset
                 legend='登录'
                 div(class='form-group')
