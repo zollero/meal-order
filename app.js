@@ -13,6 +13,7 @@ var server = app.listen(3000, listenHandler);
 var io = require('socket.io')(server);
 var router = require('./routes/index');
 
+var menuRouter = require('./routes/menuRouter');
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -57,6 +58,7 @@ app.use(function (req, res, next) {
 
 //设置默认的路由处理函数
 app.use(router);
+// app.use(menuRouter);
 
 
 //监听socket连接
