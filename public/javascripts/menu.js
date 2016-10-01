@@ -1,40 +1,5 @@
 
 
-// angular.module('FoodMenu', [])
-// .controller('AddMenuCtrl', ['$scope', function ($scope) {
-//
-//     var dishLineHTML = '<div class="form-group">' +
-//         '<div class="col-lg-5 col-xs-5"><input class="form-control" name="dishName" type="text" placeholder="菜名" /></div>' +
-//         '<div class="col-lg-5 col-xs-5"><input class="form-control" name="price" type="text" placeholder="单价：￥" /></div>' +
-//         '<div class="col-lg-2 col-xs-2 text-center"><button type="button" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-minus-sign"></span></button></div>' +
-//         '</div>';
-//
-//     var delThisDish = $scope.delThisDish = function(e) {
-//         var ele;
-//         if (e.target.nodeName === 'SPAN') {
-//             ele = e.target.parentElement.parentElement.parentElement;
-//         } else {
-//             ele = e.target.parentElement.parentElement;
-//         }
-//         angular.element(ele).remove();
-//     };
-//
-//     $scope.addDishLine = function () {
-//         angular.element('#dish-list').append(dishLineHTML);
-//         angular.element('#dish-list').find('.btn-danger:last').on('click', delThisDish);
-//     };
-//
-//     $scope.submitMenu = function () {
-//         var formArray = angular.element('#add-menu-form').serializeArray();
-//         var formData = angular.element('#add-menu-form').serialize();
-//         console.log(formArray);
-//         console.log(formData);
-//
-//         console.log($scope.dishName)
-//     }
-// }]);
-
-
 ;(function (window, document, $) {
     var dishLineHTML = '<div class="form-group dish-line">' +
         '<div class="col-lg-5 col-xs-5"><input class="form-control" name="dishName" type="text" placeholder="菜名" /></div>' +
@@ -73,7 +38,6 @@
         $(ele).remove();
     }
 
-
     $('#submit-btn').on('click', function (e) {
         var dishInfo = validateForm(addMenuForm);
         //通过校验，将数据发送给后端
@@ -102,7 +66,6 @@
         });
         $('#reset-btn').click();
     });
-
 
     function validateForm(form) {
         var formGroups = form.find('.form-group.dish-line');
@@ -146,9 +109,5 @@
         }
         return false;
     }
-
-
-
-
 
 }(window, document, $));

@@ -18,25 +18,29 @@ html
                     div(class='col-sm-12 col-xs-12')
                         ul(class='breadcrumb')
                             li
-                                a(href='/menu') 菜单
-                            li 创建菜单
+                                a(href='/team') 团队
+                            li 创建团队
 
                         .col-sm-12.col-xs-12.well
-                            form.form-horizontal#add-menu-form
+                            form.form-horizontal#add-team-form
                                 fieldset
-                                    legend 菜单列表
-                                    .form-group.dish-line
-                                        .col-xs-10.col-sm-5
-                                            input(class='form-control' name='menuName' type='text' placeholder='菜单名')
-                                    #dish-list
-                                        .form-group.dish-line
-                                            .col-xs-5.col-sm-5
-                                                input(class='form-control' name='dishName' type='text' placeholder='菜名')
-                                            .col-xs-5.col-sm-5
-                                                input(class='form-control' name='price' type='text' placeholder='单价')
-                                            .col-xs-2.col-sm-2.text-left
-                                                button.btn.btn-info.btn-sm(type='button' id='add-dish-btn')
-                                                    span.glyphicon.glyphicon-plus-sign
+                                    legend 新团队
+                                    .form-group
+                                        label.col-sm-2.col-xs-3.control-label(for='team-name') 团队名
+                                        .col-sm-10.col-xs-9
+                                            input#team-name(class='form-control' name='teamName' type='text' placeholder='团队名')
+                                    .form-group
+                                        label.col-sm-2.col-xs-3.control-label(for='team-desc') 团队说明
+                                        .col-sm-10.col-xs-9
+                                            textarea#team-desc(class='form-control' rows='3' style='resize:none;' name='teamDesc' type='text' placeholder='团队说明')
+                                    .form-group
+                                        label.col-sm-2.col-xs-3.control-label(for='team-member') 成员
+                                        .col-sm-10.col-xs-9
+                                            input#team-member(class='form-control' name='members' type='text' placeholder='请搜索添加新成员')
+                                    .form-group
+                                        label.col-sm-2.col-xs-3.control-label(for='team-menu') 菜单
+                                        .col-sm-10.col-xs-9
+                                            input#team-menu(class='form-control' name='menus' type='text' placeholder='请添加关联菜单')
 
                                     .form-group
                                         .col-xs-12.col-sm-12.text-center
