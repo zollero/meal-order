@@ -10,14 +10,26 @@ div(class='navbar navbar-default navbar-fixed-top')
         div(class='navbar-collapse collapse' id='navbar-main')
             ul(class='nav navbar-nav')
                 li
-                    a(href='/home') 主页
+                    if nav === 'home'
+                        a(href='/home' class='nav-on') 主页
+                    else
+                        a(href='/home') 主页
                 li
-                    a(href='/team') 团队
+                    if nav === 'team'
+                        a(href='/team' class='nav-on') 团队
+                    else
+                        a(href='/team') 团队
                 li
-                    a(href='/menu') 菜单
+                    if nav === 'menu'
+                        a(href='/menu' class='nav-on') 菜单
+                    else
+                        a(href='/menu') 菜单
                 li
-                    a(href='/order') 订单
+                    if nav === 'order'
+                        a(href='/order' class='nav-on') 订单
+                    else
+                        a(href='/order') 订单
 
             ul(class='nav navbar-nav navbar-right')
                 li
-                    a(class='#')=username
+                    a(href='#')=username

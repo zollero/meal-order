@@ -1444,6 +1444,9 @@ a.btn-social,
 .navbar-default .navbar-nav > li > a {
   color: #ffffff;
 }
+.navbar-default .navbar-nav > li > a.nav-on {
+  color: #18bc9c;
+}
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
   color: #18bc9c;

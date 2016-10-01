@@ -95,7 +95,8 @@ router.get('/home', function (req, res) {
     if (!authentication(req, res)) return;
     res.render('home', {
         title: '首页',
-        username: req.session.user.username
+        username: req.session.user.username,
+        nav: 'home'
     });
 });
 
@@ -103,7 +104,8 @@ router.get('/team', function (req, res) {
     if (!authentication(req, res)) return;
     res.render('team', {
         title: '团队页',
-        username: req.session.user.username
+        username: req.session.user.username,
+        nav: 'team'
     });
 });
 
@@ -125,7 +127,8 @@ router.get('/menu', function (req, res) {
         res.render('menu', {
             title: '菜单页',
             username: userName,
-            menuList: result
+            menuList: result,
+            nav: 'menu'
         });
     });
 });
@@ -133,7 +136,8 @@ router.route('/menu/add').get(function (req, res) {
     if (!authentication(req, res)) return;
     res.render('menu-add', {
         title: '菜单-创建菜单',
-        username: req.session.user.username
+        username: req.session.user.username,
+        nav: 'menu'
     });
 }).post(function (req, res) {
     if (!authentication(req, res)) return;
@@ -166,7 +170,8 @@ router.get('/order', function (req, res) {
     if (!authentication(req, res)) return;
     res.render('order', {
         title: '订单页',
-        username: req.session.user.username
+        username: req.session.user.username,
+        nav: 'order'
     });
 });
 
