@@ -1,62 +1,46 @@
-doctype html
-html
-    head
-        title= title
-        meta(name='viewport', content='width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no')
-        link(rel='icon', type='image/ico', href='/favicon.ico')
-        link(rel='shortcut icon', type='image/ico', href='/favicon.ico')
-        link(rel='bookmark', type='image/ico', href='/favicon.ico')
-        link(rel='stylesheet', href='/lib/bootstrap/dist/css/bootstrap.min.css')
-        link(rel='stylesheet', href='/stylesheets/eden.css')
-    body
 
-        include templates/page-header
+extends template-page
 
-        div(class='container' style='margin-top: 42px;')
-            div(class='page-header')
-                div(class='row')
-                    div(class='col-sm-12 col-xs-12')
-                        ul(class='breadcrumb')
-                            li
-                                a(href='/menu') 菜单
-                            li 创建菜单
+block content
+    ul(class='breadcrumb')
+        li
+            a(href='/menu') 菜单
+        li 创建菜单
 
-                        .col-sm-12.col-xs-12.well
-                            form.form-horizontal#add-menu-form
-                                fieldset
-                                    legend 菜单列表
-                                    .form-group.dish-line
-                                        .col-xs-10.col-sm-5
-                                            input(class='form-control' name='menuName' type='text' placeholder='菜单名')
-                                    #dish-list
-                                        .form-group.dish-line
-                                            .col-xs-5.col-sm-5
-                                                input(class='form-control' name='dishName' type='text' placeholder='菜名')
-                                            .col-xs-5.col-sm-5
-                                                input(class='form-control' name='price' type='text' placeholder='单价')
-                                            .col-xs-2.col-sm-2.text-left
-                                                button.btn.btn-info.btn-sm(type='button' id='add-dish-btn')
-                                                    span.glyphicon.glyphicon-plus-sign
+    .col-sm-12.col-xs-12.well
+        form.form-horizontal#add-menu-form
+            fieldset
+                legend 菜单列表
+                .form-group.dish-line
+                    .col-xs-10.col-sm-5
+                        input(class='form-control' name='menuName' type='text' placeholder='菜单名')
+                #dish-list
+                    .form-group.dish-line
+                        .col-xs-5.col-sm-5
+                            input(class='form-control' name='dishName' type='text' placeholder='菜名')
+                        .col-xs-5.col-sm-5
+                            input(class='form-control' name='price' type='text' placeholder='单价')
+                        .col-xs-2.col-sm-2.text-left
+                            button.btn.btn-info.btn-sm(type='button' id='add-dish-btn')
+                                span.glyphicon.glyphicon-plus-sign
 
-                                    .form-group
-                                        .col-xs-12.col-sm-12.text-center
-                                            button(type='button' id='submit-btn' class='btn btn-primary btn-sm' data-loading-text="加载中..." autocomplete="off") 提交
-                                            | &nbsp;&nbsp;
-                                            button(type='reset' id='reset-btn' class='btn btn-default btn-sm' data-loading-text="加载中..." autocomplete="off") 重置
-
-        .modal.bs-example-modal-sm(tabindex='-1' id='message-modal' role='dialog' aria-hidden='true' data-backdrop='static')
-            .modal-dialog.modal-sm
-                .panel.panel-success
-                    .panel-heading
-                        h3.panel-title 菜单创建成功
-                    .modal-body.text-center
-                        a.btn.btn-info.btn-sm(type='button' href='/menu') 回到菜单页
+                .form-group
+                    .col-xs-12.col-sm-12.text-center
+                        button(type='button' id='submit-btn' class='btn btn-primary btn-sm' data-loading-text="加载中..." autocomplete="off") 提交
                         | &nbsp;&nbsp;
-                        button.btn.btn-info.btn-sm(type='button' id='add-more-btn' data-dismiss="modal") 再创建一个
+                        button(type='reset' id='reset-btn' class='btn btn-default btn-sm' data-loading-text="加载中..." autocomplete="off") 重置
 
+    .modal.bs-example-modal-sm(tabindex='-1' id='message-modal' role='dialog' aria-hidden='true' data-backdrop='static')
+        .modal-dialog.modal-sm
+            .panel.panel-success
+                .panel-heading
+                    h3.panel-title 菜单创建成功
+                .modal-body.text-center
+                    a.btn.btn-info.btn-sm(type='button' href='/menu') 回到菜单页
+                    | &nbsp;&nbsp;
+                    button.btn.btn-info.btn-sm(type='button' id='add-more-btn' data-dismiss="modal") 再创建一个
 
-        include templates/page-footer
-
-        script(type='text/javascript' src='/lib/jquery/dist/jquery.min.js')
-        script(type='text/javascript' src='/lib/bootstrap/dist/js/bootstrap.min.js')
-        script(type='text/javascript' src='/javascripts/menu.js')
+block scripts
+    script(type='text/javascript' src='/lib/jquery/dist/jquery.min.js')
+    script(type='text/javascript' src='/lib/bootstrap/dist/js/bootstrap.min.js')
+    script(type='text/javascript' src='/javascripts/menu.js')
