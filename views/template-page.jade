@@ -1,5 +1,5 @@
 doctype html
-html(ng-app='mealOrder')
+html
     head
         title= title
         meta(name='viewport', content='width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no')
@@ -8,7 +8,7 @@ html(ng-app='mealOrder')
         link(rel='bookmark', type='image/ico', href='/favicon.ico')
         link(rel='stylesheet', href='/lib/bootstrap/dist/css/bootstrap.min.css')
         link(rel='stylesheet', href='/stylesheets/eden.css')
-    body(ng-controller='MenuController')
+    body
 
         include templates/page-header
 
@@ -19,35 +19,6 @@ html(ng-app='mealOrder')
 
                         block content
 
-                        //h5 你的团队列表:
-                        //
-                        //table(class='table table-hover table-striped table-responsive')
-                        //
-                        //    tbody
-                        //        tr
-                        //            td
-                        //                a(href='#') 点餐小分队
-                        //        tr
-                        //            td
-                        //                a(href='#') 都是饿死鬼
-                        //        tr
-                        //            td
-                        //                a(href='#') 吃货集中营
-                        //        tr
-                        //            td
-                        //                a(href='#') 移动BI点餐群
-                        //
-                        //p(class='text-center') 你还没有加入任何团队
-                        //    a(href='#') 搜索加入
-                        //    span 或
-                        //    a(href='#') 创建队伍
-
             include templates/page-footer
 
         block scripts
-
-        //script(type='text/javascript' src='./lib/jquery/dist/jquery.min.js')
-        //script(type='text/javascript' src='./lib/bootstrap/dist/js/bootstrap.min.js')
-        //script(type='text/javascript' src='./lib/angular.js')
-        //script(type='text/javascript' src='./lib/socket.io.js')
-        //script(type='text/javascript' src='./javascripts/index.js')
