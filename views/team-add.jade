@@ -21,11 +21,19 @@ block content
                 .form-group
                     label.col-sm-2.col-xs-3.control-label(for='team-member') 成员
                     .col-sm-10.col-xs-9
-                        input#team-member(class='form-control' name='members' type='text' placeholder='请搜索添加新成员')
+                        //input#team-member(class='form-control' name='members' type='text' placeholder='请搜索添加新成员')
+                        button.btn.btn-primary.btn-sm(type='button' data-toggle='modal' data-target='#member-modal') 选择成员
+                .form-group
+                    .col-sm-10.col-xs-9.col-sm-offset-2.col-xs-offset-3
+                        | feiyu、corona、corona7、one
                 .form-group
                     label.col-sm-2.col-xs-3.control-label(for='team-menu') 菜单
                     .col-sm-10.col-xs-9
-                        input#team-menu(class='form-control' name='menus' type='text' placeholder='请添加关联菜单')
+                        //input#team-menu(class='form-control' name='menus' type='text' placeholder='请添加关联菜单')
+                        button.btn.btn-primary.btn-sm(type='button' data-toggle='modal' data-target='#menu-modal') 选择菜单
+                .form-group
+                    .col-sm-10.col-xs-9.col-sm-offset-2.col-xs-offset-3
+                        | 海底捞、鱼非鱼、避风塘
 
                 .form-group
                     .col-xs-12.col-sm-12.text-center
@@ -33,8 +41,66 @@ block content
                         | &nbsp;&nbsp;
                         button(type='reset' id='reset-btn' class='btn btn-default btn-sm' data-loading-text="加载中..." autocomplete="off") 重置
 
-    .modal.bs-example-modal-sm(tabindex='-1' id='message-modal' role='dialog' aria-hidden='true' data-backdrop='static')
-        .modal-dialog.modal-sm
+    .modal.fade.in(tabindex='-1' id='member-modal' role='dialog' aria-hidden='true' data-backdrop='static')
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    button.close(type='button' data-dismiss='modal' aria-label='Close')
+                        span(aria-hidden='true') x
+                    h4.modal-title 添加成员
+                .modal-body.col-sm-12.col-xs-12
+                    .col-sm-10.col-xs-10.col-sm-offset-1.col-xs-offset-1
+                        input.form-control(type='text' placeholder='请输入团队的关键字')
+                        ul.list-group#member-list(style='height:350px;overflow-y:auto;')
+                            li.list-group-item.active(style='cursor:pointer;') feiyu
+                            li.list-group-item(style='cursor:pointer;') corona
+                            li.list-group-item(style='cursor:pointer;') corona7
+                            li.list-group-item(style='cursor:pointer;') soft
+                            li.list-group-item.active(style='cursor:pointer;') feiyu
+                            li.list-group-item(style='cursor:pointer;') corona
+                            li.list-group-item(style='cursor:pointer;') corona7
+                            li.list-group-item(style='cursor:pointer;') soft
+                            li.list-group-item.active(style='cursor:pointer;') feiyu
+                            li.list-group-item(style='cursor:pointer;') corona
+                            li.list-group-item(style='cursor:pointer;') corona7
+                            li.list-group-item(style='cursor:pointer;') soft
+                            li.list-group-item.active(style='cursor:pointer;') feiyu
+                            li.list-group-item(style='cursor:pointer;') corona
+                            li.list-group-item(style='cursor:pointer;') corona7
+                            li.list-group-item(style='cursor:pointer;') soft
+                            li.list-group-item.active(style='cursor:pointer;') feiyu
+                            li.list-group-item(style='cursor:pointer;') corona
+                            li.list-group-item(style='cursor:pointer;') corona7
+                            li.list-group-item(style='cursor:pointer;') soft
+                            li.list-group-item.active(style='cursor:pointer;') feiyu
+                            li.list-group-item(style='cursor:pointer;') corona
+                            li.list-group-item(style='cursor:pointer;') corona7
+                            li.list-group-item(style='cursor:pointer;') soft
+
+                .modal-footer
+                    //button(type='button' class='btn btn-primary btn-sm' data-loading-text="加载中..." autocomplete="off") 保存
+
+    .modal.fade.in(tabindex='-1' id='menu-modal' role='dialog' aria-hidden='true' data-backdrop='static')
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    button.close(type='button' data-dismiss='modal' aria-label='Close')
+                        span(aria-hidden='true') x
+                    h4.modal-title 添加菜单
+                .modal-body.col-sm-12.col-xs-12
+                    .col-sm-10.col-xs-10.col-sm-offset-1.col-xs-offset-1
+                        input.form-control(type='text' placeholder='请输入菜单的关键字')
+                        ul.list-group#menu-list(style='height:350px;overflow-y:auto;')
+                            li.list-group-item.active(style='cursor:pointer;') 旺川
+                            li.list-group-item(style='cursor:pointer;') 海底捞
+                            li.list-group-item(style='cursor:pointer;') 避风塘
+                            li.list-group-item(style='cursor:pointer;') KFC
+
+                .modal-footer
+                    //button(type='button' class='btn btn-primary btn-sm' data-loading-text="加载中..." autocomplete="off") 保存
+
+    .modal.fade.in(tabindex='-1' id='message-modal' role='dialog' aria-hidden='true' data-backdrop='static')
+        .modal-dialog
             .panel.panel-success
                 .panel-heading
                     h3.panel-title 菜单创建成功

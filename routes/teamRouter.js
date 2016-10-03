@@ -41,6 +41,11 @@ router.get('/team/add', (req, res) => {
         username: req.session.user.username
     })
 });
+router.post('/team/add', (req, res) => {
+    if (!util.authentication(req, res)) return;
+
+    //TODO 插入数据
+});
 
 
 module.exports = router;

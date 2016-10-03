@@ -30,6 +30,8 @@ router.get('/menu', function (req, res) {
         });
     });
 });
+
+
 router.route('/menu/add').get(function (req, res) {
     if (!util.authentication(req, res)) return;
     res.render('menu-add', {
