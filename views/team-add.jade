@@ -50,7 +50,7 @@ block content
                     h4.modal-title 添加成员
                 .modal-body.col-sm-12.col-xs-12
                     .col-sm-10.col-xs-10.col-sm-offset-1.col-xs-offset-1
-                        input.form-control(type='text' placeholder='请输入团队的关键字')
+                        input.form-control(type='text' id='team-keyword' placeholder='请输入团队的关键字')
                         ul.list-group#member-list(style='height:350px;overflow-y:auto;')
                             li.list-group-item.active(style='cursor:pointer;') feiyu
                             li.list-group-item(style='cursor:pointer;') corona
@@ -86,15 +86,15 @@ block content
                 .modal-header
                     button.close(type='button' data-dismiss='modal' aria-label='Close')
                         span(aria-hidden='true') x
-                    h4.modal-title 添加菜单
+                    h4.modal-title 添加关联菜单
                 .modal-body.col-sm-12.col-xs-12
-                    .col-sm-10.col-xs-10.col-sm-offset-1.col-xs-offset-1
-                        input.form-control(type='text' placeholder='请输入菜单的关键字')
-                        ul.list-group#menu-list(style='height:350px;overflow-y:auto;')
-                            li.list-group-item.active(style='cursor:pointer;') 旺川
-                            li.list-group-item(style='cursor:pointer;') 海底捞
-                            li.list-group-item(style='cursor:pointer;') 避风塘
-                            li.list-group-item(style='cursor:pointer;') KFC
+                    //.col-sm-10.col-xs-10.col-sm-offset-1.col-xs-offset-1
+                        //input.form-control(type='text' placeholder='请输入菜单的关键字')
+                    ul.list-group#menu-list(style='height:350px;overflow-y:auto;')
+                            //li.list-group-item.active(style='cursor:pointer;') 旺川
+                            //li.list-group-item(style='cursor:pointer;') 海底捞
+                            //li.list-group-item(style='cursor:pointer;') 避风塘
+                            //li.list-group-item(style='cursor:pointer;') KFC
 
                 .modal-footer
                     //button(type='button' class='btn btn-primary btn-sm' data-loading-text="加载中..." autocomplete="off") 保存

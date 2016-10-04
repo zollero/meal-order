@@ -47,5 +47,32 @@ router.post('/team/add', (req, res) => {
     //TODO 插入数据
 });
 
+/**
+ * 获取当前用户创建的菜单
+ */
+router.get('/team/getRelatedMenu', (req, res) => {
+    if (!util.authentication(req, res)) return;
+
+    let queryObj = {
+        creatorName: req.session.user.username,
+        isDeleted: false
+    };
+    db.menuModel.find(queryObj, (err, result) => {
+        if (err) {
+            res.send({
+                status: 500,
+                message: '失败',
+                menus: result
+            });
+           return console.error(err);
+        }
+        res.send({
+            status: 200,
+            message: '成功',
+            menus: result
+        });
+    });
+});
+
 
 module.exports = router;

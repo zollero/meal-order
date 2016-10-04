@@ -4,12 +4,37 @@
 
     var addForm = $('#add-team-form');
 
-    // var
+    var lastTime;
+
+    $('#team-keyword').keyup(function (e) {
+        lastTime = e.timeStamp;
+
+        setTimeout(function () {
+            if (lastTime - e.timeStamp === 0) {
+                console.log(e.target.value);
+            }
+        }, 300);
+    });
 
     $('#submit-btn').on('click', function () {
        if (validateForm()) {
 
        }
+    });
+
+    $.get('/team/getRelatedMenu', function (data) {
+        console.log(data);
+        if (data.status === 200) {
+            if (data.menus.length === 0) {
+                //提示没有关联菜单，请添加菜单后再与团队关联
+            } else {
+                var menuList = '';
+                $.each(data.menus, function (index, value) {
+                    menuList += '<li class="list-group-item">' + value.menuName + '</li>'
+                });
+                $('#menu-list').append(menuList);
+            }
+        }
     });
 
 
