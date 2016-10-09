@@ -8,7 +8,7 @@
 
 1. 服务器端使用 express 和 nodejs
 2. 数据库采用 mongodb
-3. 前段框架使用 angularJS
+3. 前段框架使用 angularJS及jquery
 4. 页面UI采用bootstrap系主题
 
 ### 项目准备
