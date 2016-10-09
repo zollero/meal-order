@@ -19,19 +19,19 @@
 
 安装完成后，进行数据库配置（以下在mongd启动之后，命令行中执行）：
 
-        mongd
-        use food
-        db.createUser({
-            user: "admin",
-            pwd: "123456",
-            roles: [{
+        > $ mongd
+        > $ use food
+        > $ db.createUser({
+              user: "admin",
+              pwd: "123456",
+              roles: [{
                 role: "userAdmin",
                 db: "food"
-            }, {
+              }, {
                 role: "readWrite",
                 db: "food"
-            }]
-        });
+              }]
+            });
 
 2. fork并下载代码到本地 
 
@@ -39,13 +39,13 @@
 
 （这一步，是在你已经安装了nodejs及npm的前提下，如果没有安装，请自行安装）
 
-        npm install
+        > $ npm install
 
 3. 在配置好数据库，并安装好项目以来插件后，就是启动系统并访问了
 
 完成前两步后，直接在项目根目录下执行以下命令来启动系统：
 
-        node app
+        > $ node app
 
 然后，就在浏览器中访问系统：
 
