@@ -30,7 +30,7 @@
             } else {
                 var menuList = '';
                 $.each(data.menus, function (index, value) {
-                    menuList += '<li class="list-group-item">' + value.menuName + '</li>'
+                    menuList += '<li class="list-group-item checkbox"><label><input type="checkbox"/>' + value.menuName + '</label></li>'
                 });
                 $('#menu-list').append(menuList);
             }
