@@ -169,3 +169,8 @@ form[name=registerForm] .popover.top > .popover-content {
 .top_menu .user-zone .user-name {
     color: #fc5050;
 }
+
+/*team*/
+.team-member {
+    padding: 5px;border-radius:5px;background:#ddd;
+}
