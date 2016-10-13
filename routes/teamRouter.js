@@ -43,8 +43,27 @@ router.get('/team/add', (req, res) => {
 });
 router.post('/team/add', (req, res) => {
     if (!util.authentication(req, res)) return;
+    let userName = req.session.user.username;
+    let teamInfo = req.body;
+    teamInfo.isDeleted = false;
+    teamInfo.creatorName = userName;
+    teamInfo.createTime = new Date();
+    teamInfo.updaterName = userName;
+    teamInfo.updateTime = new Date();
 
-    //TODO 插入数据
+    new db.teamModel(teamInfo).save((err, data) => {
+        if (err) {
+            res.send({
+                success: false,
+                message: '创建失败'
+            });
+            return false;
+        }
+        res.send({
+            success: true,
+            message: '创建成功'
+        });
+    });
 });
 
 /**

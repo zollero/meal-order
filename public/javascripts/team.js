@@ -22,7 +22,6 @@
                     data: { keyword: keyWord },
                     dataType: 'json',
                     success: function (data) {
-                        console.log(data);
                         if (data.status === 200) {
                             if (data.users && data.users.length > 0) {
                                 var selectedMemberEles = selectedMemberList.find('label').toArray();
@@ -38,7 +37,7 @@
                                 });
                                 memberSearchList.find('li span[role=button]').on('click', selectTeamMemberHandler);
                             } else {
-                                memberSearchList.html('<span class="glyphicon glyphicon-exclamation-sign text-danger"></span>&nbsp;没有查到你要找的用户，换一个试试吧。');
+                                memberSearchList.html('<span class="glyphicon glyphicon-exclamation-sign text-danger"></span>&nbsp;没查到，换一个试试吧');
                             }
                         } else {
                             if (data.message) alert(data.message);
@@ -75,8 +74,27 @@
     $('#submit-btn').on('click', function () {
         var teamInfo = validateForm();
         if (teamInfo) {
-            //将数据添加到数据库 TODO
-            console.log(teamInfo);
+            //将数据添加到数据库
+            var btn = $(this).parent().find('button').button('loading');
+            $.ajax({
+                url: '/team/add',
+                method: 'post',
+                data: teamInfo,
+                dataType: 'json',
+                success: function(data) {
+                    if (data.success) {
+                        window.location.href = '/team';
+                    } else {
+                        alert(data.message);
+                    }
+                },
+                error: function() {
+                    alert('创建失败');
+                },
+                complete: function() {
+                    btn.button('reset');
+                }
+            });
         }
     });
 
