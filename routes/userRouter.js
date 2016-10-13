@@ -25,7 +25,7 @@ router.route('/user/login')
             res.redirect('/home');
         } else {
             req.session.error = '用户名或密码不正确';
-            res.redirect('/login');
+            res.redirect('/user/login');
         }
     });
 });
