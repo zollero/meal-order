@@ -12,13 +12,14 @@ var util = require('./routerUtil');
 router.get('/team', function (req, res) {
     if (!util.authentication(req, res)) return;
     let username = req.session.user.username;
-
-    let qureyObj = {
+    //TODO 应该是获取团队成员包含该角色的团队
+    let queryObj = {
         creatorName: username,
+        //members: [username],
         isDeleted: false
     };
 
-    db.teamModel.find(qureyObj, (err, result) => {
+    db.teamModel.find(queryObj, (err, result) => {
         console.log(result);
         if (err) {
             return console.error(err);

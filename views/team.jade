@@ -8,18 +8,22 @@ block content
                 a(href='/team/add') 创建队伍
         table(class='table table-hover table-striped table-responsive')
             tbody
-                tr
-                    td
-                        a(href='#') 点餐小分队
-                tr
-                    td
-                        a(href='#') 都是饿死鬼
-                tr
-                    td
-                        a(href='#') 吃货集中营
-                tr
-                    td
-                        a(href='#') 移动BI点餐群
+                each team in teamList
+                    tr
+                        td
+                            a(href='#')=team.teamName
+                //tr
+                //    td
+                //        a(href='#') 点餐小分队
+                //tr
+                //    td
+                //        a(href='#') 都是饿死鬼
+                //tr
+                //    td
+                //        a(href='#') 吃货集中营
+                //tr
+                //    td
+                //        a(href='#') 移动BI点餐群
     else
         p(class='text-center')
             span(class='glyphicon glyphicon-exclamation-sign text-danger')
