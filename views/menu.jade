@@ -17,9 +17,9 @@ block content
                         td=menu.menuName
                         //td=menu.createTime
                         td(_id=menu._id)
-                            a(href='#') 编辑
+                            a.edit-btn(href='#') 编辑
                             | &nbsp;&nbsp;
-                            a(href='#') 删除
+                            a.del-btn(href='#') 删除
     else
         .jumbotron
             span
@@ -30,6 +30,6 @@ block content
 
 
 block scripts
-    script(type='text/javascript' src='./lib/jquery/dist/jquery.min.js')
-    script(type='text/javascript' src='./lib/bootstrap/dist/js/bootstrap.min.js')
-    script(type='text/javascript' src='./lib/angular.js')
+    script(type='text/javascript' src='/lib/jquery/dist/jquery.min.js')
+    script(type='text/javascript' src='/lib/bootstrap/dist/js/bootstrap.min.js')
+    script(type='text/javascript' src='/javascripts/menu.js')
