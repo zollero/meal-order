@@ -14,8 +14,7 @@ router.get('/team', function (req, res) {
     let username = req.session.user.username;
     //TODO 应该是获取团队成员包含该角色的团队
     let queryObj = {
-        creatorName: username,
-        //members: [username],
+        members: username,  //匹配所有团队成员中包含当前用户的团队
         isDeleted: false
     };
 
