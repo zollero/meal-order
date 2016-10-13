@@ -79,7 +79,7 @@ router.route('/user/register').get(function (req, res) {
 //通过用户名搜索用户，全匹配查询（非模糊查询）
 router.get('/user/getUserByName', (req, res) => {
     var keyword = req.query.keyword;
-    db.userModel.find({ username: keyword, isDeleted, false }, { username: 1 }, (err, result) => {
+    db.userModel.find({ username: keyword, isDeleted:false }, { username: 1 }, (err, result) => {
         if (err) {
             res.send({
                 status: 500,
