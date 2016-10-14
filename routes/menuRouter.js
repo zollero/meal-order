@@ -37,7 +37,7 @@ router.get('/menu', function (req, res) {
 //创建菜单
 router.route('/menu/add').get(function (req, res) {
     if (!util.authentication(req, res)) return;
-    res.render('menu-add', {
+    res.render('menu-info', {
         title: '菜单-创建菜单',
         username: req.session.user.username,
         nav: 'menu'
@@ -112,7 +112,7 @@ router.get('/menu/edit', (req, res) => {
             });
             return false;
         }
-        res.render('menu-add', {
+        res.render('menu-info', {
             title: '菜单-编辑菜单',
             username: req.session.user.username,
             nav: 'menu',
