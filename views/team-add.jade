@@ -44,7 +44,7 @@ block content
                     .col-sm-10.col-xs-9.col-sm-offset-2.col-xs-offset-3#selectedMenuList
                         if teamInfo
                             each menu in teamInfo.menus
-                                span(menu-id=menu.menuId)=menu.menuName + '、'
+                                span(menu-id=menu.menuId menu-name=menu.menuName)=menu.menuName + '、'
 
                 .form-group
                     .col-xs-12.col-sm-12.text-center

@@ -48,25 +48,47 @@ router.post('/team/add', (req, res) => {
     if (!util.authentication(req, res)) return;
     let userName = req.session.user.username;
     let teamInfo = req.body;
-    teamInfo.isDeleted = false;
-    teamInfo.creatorName = userName;
-    teamInfo.createTime = new Date();
-    teamInfo.updaterName = userName;
-    teamInfo.updateTime = new Date();
+    let teamId = req.body.teamId;
 
-    new db.teamModel(teamInfo).save((err, data) => {
-        if (err) {
+    if (teamId) {
+        delete teamInfo.teamId;
+        teamInfo.updaterName = userName;
+        teamInfo.updateTime = new Date();
+
+        db.teamModel.update({_id: teamId}, {$set: teamInfo}, (err) => {
+            if (err) {
+                res.send({
+                    success: false,
+                    message: '更新菜单失败，请稍后重试！'
+                });
+                return false;
+            }
             res.send({
-                success: false,
-                message: '创建失败'
+                success: true,
+                message: '更新成功！'
             });
-            return false;
-        }
-        res.send({
-            success: true,
-            message: '创建成功'
         });
-    });
+    } else {
+        teamInfo.isDeleted = false;
+        teamInfo.creatorName = userName;
+        teamInfo.createTime = new Date();
+        teamInfo.updaterName = userName;
+        teamInfo.updateTime = new Date();
+
+        new db.teamModel(teamInfo).save((err, data) => {
+            if (err) {
+                res.send({
+                    success: false,
+                    message: '创建失败'
+                });
+                return false;
+            }
+            res.send({
+                success: true,
+                message: '创建成功'
+            });
+        });
+    }
 });
 
 /**
@@ -109,7 +131,6 @@ router.get('/team/edit', (req, res) => {
         members: 1,
         menus: 1,
     };
-    console.log(teamId);
     db.teamModel.find({_id: teamId, isDeleted: false}, outObj, (err, result) => {
         if (err) {
             res.send({
@@ -118,7 +139,6 @@ router.get('/team/edit', (req, res) => {
             });
             return false;
         }
-        console.log(result);
         res.render('team-add', {
             title: '团队-编辑团队',
             username: req.session.user.username,

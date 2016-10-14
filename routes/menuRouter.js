@@ -64,7 +64,7 @@ router.route('/menu/add').get(function (req, res) {
                 updaterName: userName,
                 updateTime: new Date()
             }
-        }, (err, result) => {
+        }, (err) => {
             if (err) {
                 res.send({
                     success: false,

@@ -138,13 +138,13 @@
         var teamName = teamNameEle.val(),
             teamDesc = teamDescEle.val();
 
-        var formData = {};
+
+        var teamInfo;
 
         if (!teamName) {
             teamNameEle.parent().append('<label class="text-danger" style="position: absolute;top: 0;right: 30px;height: 34px;line-height: 34px;">团队名不能为空</label>');
             teamNameEle.parent().addClass('has-error');
             teamNameEle.parent().removeClass('has-success');
-            formData.teamName = teamName;
         } else {
             teamNameEle.parent().find('label').remove();
             teamNameEle.parent().removeClass('has-error');
@@ -165,12 +165,18 @@
                 });
             });
 
-            return {
+            teamInfo = {
                 teamName: teamName,
                 teamDesc: teamDesc,
                 members: members,
                 menus: menus
             };
+
+            if ($('#team-id').length > 0) {
+                teamInfo.teamId = $('#team-id').text()
+            }
+
+            return teamInfo;
         }
         return false;
     }
