@@ -2,27 +2,49 @@
 extends template-page
 
 block content
-    ul(class='breadcrumb')
-        li
-            a(href='/menu') 菜单
-        li 创建菜单
+    //ul(class='breadcrumb')
+    //    li
+    //        a(href='/menu') 菜单
+    //    li 创建菜单
 
     .col-sm-12.col-xs-12.well
         form.form-horizontal#add-menu-form
             fieldset
                 legend 菜单列表
-                .form-group.dish-line
-                    .col-xs-10.col-sm-5
-                        input(class='form-control' name='menuName' type='text' placeholder='菜单名')
-                #dish-list
+                if menuInfo
                     .form-group.dish-line
-                        .col-xs-5.col-sm-5
-                            input(class='form-control' name='dishName' type='text' placeholder='菜名')
-                        .col-xs-5.col-sm-5
-                            input(class='form-control' name='price' type='text' placeholder='单价')
-                        .col-xs-2.col-sm-2.text-left
+                        span.hide#menu_id=menuInfo._id
+                        .col-xs-10.col-sm-5
+                            input.form-control(name='menuName' type='text' placeholder='菜单名' value=menuInfo.menuName)
+                        .col-xs-2.col-sm-7.text-left
                             button.btn.btn-info.btn-sm(type='button' id='add-dish-btn')
                                 span.glyphicon.glyphicon-plus-sign
+                    #dish-list
+                        each dish in menuInfo.dishes
+                            .form-group.dish-line
+                                .col-xs-5.col-sm-5
+                                    input.form-control(name='dishName' type='text' placeholder='菜名' value=dish.dishName)
+                                .col-xs-5.col-sm-5
+                                    input.form-control(name='price' type='text' placeholder='单价' value=dish.price)
+                                .col-xs-2.col-sm-2.text-left
+                                    button.btn.btn-danger.del-btn.btn-sm(type='button')
+                                        span.glyphicon.glyphicon-minus-sign
+                else
+                    .form-group.dish-line
+                        .col-xs-10.col-sm-5
+                            input.form-control(name='menuName' type='text' placeholder='菜单名')
+                        .col-xs-2.col-sm-7.text-left
+                            button.btn.btn-info.btn-sm(type='button' id='add-dish-btn')
+                                span.glyphicon.glyphicon-plus-sign
+                    #dish-list
+                        .form-group.dish-line
+                            .col-xs-5.col-sm-5
+                                input(class='form-control' name='dishName' type='text' placeholder='菜名')
+                            .col-xs-5.col-sm-5
+                                input(class='form-control' name='price' type='text' placeholder='单价')
+                            .col-xs-2.col-sm-2.text-left
+                                button.btn.btn-danger.del-btn.btn-sm(type='button')
+                                    span.glyphicon.glyphicon-minus-sign
 
                 .form-group
                     .col-xs-12.col-sm-12.text-center

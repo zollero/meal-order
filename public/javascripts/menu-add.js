@@ -4,7 +4,7 @@
     var dishLineHTML = '<div class="form-group dish-line">' +
         '<div class="col-lg-5 col-xs-5"><input class="form-control" name="dishName" type="text" placeholder="菜名" /></div>' +
         '<div class="col-lg-5 col-xs-5"><input class="form-control" name="price" type="text" placeholder="单价" /></div>' +
-        '<div class="col-lg-2 col-xs-2 text-left"><button type="button" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-minus-sign"></span></button></div>' +
+        '<div class="col-lg-2 col-xs-2 text-left"><button type="button" class="btn btn-danger del-btn btn-sm"><span class="glyphicon glyphicon-minus-sign"></span></button></div>' +
         '</div>';
 
     var dishList = $('#dish-list'),
@@ -15,6 +15,8 @@
 
     $('#add-dish-btn').on('click', addDishLine);
     addMenuForm.find('input').on('focus', inputFocusHandler);
+
+    dishList.find('.del-btn').on('click', delThisDish);
 
     function addDishLine() {
         dishList.append(dishLineHTML);
@@ -45,10 +47,10 @@
             console.log(dishInfo);
             var btn = $(this).parent().find('button').button('loading');
             $.post('/menu/add', dishInfo, function (data) {
-                console.log(data);
                 if (data.success) {
-                    messageModal.find('.panel-title').html(data.message);
-                    messageModal.modal('show');
+                    //messageModal.find('.panel-title').html(data.message);
+                    //messageModal.modal('show');
+                    window.location.href = '/menu';
                 }
                 btn.button('reset');
             });
@@ -67,13 +69,13 @@
         $('#reset-btn').click();
     });
 
+    //TODO 通过是否有_id字段，判断是新增还是编辑
     function validateForm(form) {
         var formGroups = form.find('.form-group.dish-line');
         var dishInfo = {
             menuName: undefined,
             dishes: []
         };
-        var dishes = [];
         $.each(formGroups, function (index, value) {
             var inputs = $(value).find('input');
             var dishObj = {};
@@ -105,6 +107,8 @@
             dishInfo.dishes.push(dishObj);
         });
         if (form.find('.has-error').length === 0) {
+            var menuId = $('#menu_id').text();
+            if (menuId) dishInfo.menuId = menuId;
             return dishInfo;
         }
         return false;
