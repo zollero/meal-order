@@ -38,7 +38,7 @@ router.get('/team', function (req, res) {
 router.get('/team/add', (req, res) => {
     if (!util.authentication(req, res)) return;
 
-    res.render('team-add', {
+    res.render('team-info', {
         title: '创建团队',
         nav: 'team',
         username: req.session.user.username
@@ -139,7 +139,7 @@ router.get('/team/edit', (req, res) => {
             });
             return false;
         }
-        res.render('team-add', {
+        res.render('team-info', {
             title: '团队-编辑团队',
             username: req.session.user.username,
             nav: 'team',
