@@ -121,4 +121,17 @@ router.get('/menu/edit', (req, res) => {
     });
 });
 
+//删除菜单
+router.post('/menu/del', (req, res) => {
+    if (!util.authentication(req, res)) return;
+    let menuId = req.body.menuId;
+
+    db.menuModel.update({_id: menuId}, {$set: {isDeleted: true}}, (err, result) => {
+        res.send({
+            success: !err,
+            message: !err ? '操作成功' : '操作失败'
+        });
+    });
+});
+
 module.exports = router;
