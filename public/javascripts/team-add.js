@@ -56,7 +56,7 @@
     function selectTeamMemberHandler() {
         var dataLi = $(this).parent();
         var username = dataLi.attr('username');
-        selectedMemberList.append('<label style="padding: 5px;margin-right: 5px;border-radius:5px;background:#a9e8ff" username="' + username + '">' + username + '&nbsp;<span class="glyphicon glyphicon-remove text-danger" role="button"></span></label>');
+        selectedMemberList.append('<label style="padding: 5px;margin-right: 5px;border-radius:5px;background:#00e7af" username="' + username + '">' + username + '&nbsp;<span class="glyphicon glyphicon-remove text-danger" role="button"></span></label>');
         $(this).removeAttr('role');
         $(this)[0].classList = 'glyphicon glyphicon-ok-sign text-success';
         $(this).off('click', selectTeamMemberHandler);
@@ -120,7 +120,7 @@
                         menuName = $(this).attr('menu-name');
                     if (checked) {
                         //添加选择
-                        selectedMenuListEle.append('<span menu-id="' + menuId + '">' + menuName + '、</span>')
+                        selectedMenuListEle.append('<span menu-id="' + menuId + '" menu-name="' + menuName + '">' + menuName + '、</span>')
                     } else {
                         //取消选择
                         var unselectedMenuEle = selectedMenuListEle.find('span[menu-id=' + menuId + ']');
@@ -159,7 +159,10 @@
                 members.push(v.getAttribute('username'));
             });
             $.each(selectedMenus, function (i, v) {
-                menus.push(v.getAttribute('menu-id'));
+                menus.push({
+                    menuId: v.getAttribute('menu-id'),
+                    menuName: v.getAttribute('menu-name')
+                });
             });
 
             return {

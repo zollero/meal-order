@@ -54,7 +54,10 @@
             teamName: String,   //团队名
             teamDesc: String,   //团队描述
             members: ['feiyu', 'corona'],   //团队成员
-            menus: ['_menuid1', '_menuid2'], //该团队关联菜单
+            menus: [{
+                menuId: String, //菜单_id
+                menuName: String    //菜单名称
+            }], //该团队关联菜单
             isDeleted: Boolean,     //是否删除
             creatorName: String,    //创建者用户名
             createTime: Date,       //创建时间

@@ -30,7 +30,10 @@ var TeamSchema = new mongoose.Schema({
     teamName: String,
     teamDesc: String,
     members: [String],
-    menus: [String],
+    menus: [{
+        menuId: String,
+        menuName: String
+    }],
     isDeleted: Boolean,
     creatorName: String,
     createTime: Date,

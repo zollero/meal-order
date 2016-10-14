@@ -79,7 +79,10 @@ router.get('/team/getRelatedMenu', (req, res) => {
         creatorName: req.session.user.username,
         isDeleted: false
     };
-    db.menuModel.find(queryObj, (err, result) => {
+    let outObj = {
+        menuName: 1
+    };
+    db.menuModel.find(queryObj, outObj, (err, result) => {
         if (err) {
             res.send({
                 status: 500,
