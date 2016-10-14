@@ -2,10 +2,10 @@
 extends template-page
 
 block content
-    //ul(class='breadcrumb')
-    //    li
-    //        a(href='/menu') 菜单
-    //    li 创建菜单
+    ul(class='breadcrumb')
+        li
+            a(href='/menu') 菜单
+        li=menuInfo ? '编辑菜单' : '创建菜单'
 
     .col-sm-12.col-xs-12.well
         form.form-horizontal#add-menu-form

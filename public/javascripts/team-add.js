@@ -101,13 +101,17 @@
     $.get('/team/getRelatedMenu', function (data) {
         if (data.status === 200) {
             var menuListEle = $('#menu-list');
+            var selectedMenus = selectedMenuListEle.find('span').toArray();
             if (data.menus.length === 0) {
                 //提示没有关联菜单，请添加菜单后再与团队关联
                 menuListEle.append('<p class="text-center"><span class="glyphicon glyphicon-exclamation-sign text-danger"></span>&nbsp;你还没有创建任何菜单，可在创建团队后添加</p>')
             } else {
                 var menuList = '';
                 $.each(data.menus, function (index, value) {
-                    menuList += '<li class="list-group-item checkbox"><label><input type="checkbox" menu-id="' + value._id + '" menu-name="' + value.menuName + '" />' + value.menuName + '</label></li>'
+                    var selectedFlag = selectedMenus.some(function (v) {
+                        return v.getAttribute('menu-id') === value._id;
+                    });
+                    menuList += '<li class="list-group-item checkbox"><label><input type="checkbox" menu-id="' + value._id + '"' + (selectedFlag ? ' checked="checked" ' : '') + ' menu-name="' + value.menuName + '" />' + value.menuName + '</label></li>'
                 });
                 menuListEle.append(menuList);
                 menuListEle.find('li input').on('click', function () {

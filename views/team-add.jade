@@ -9,28 +9,42 @@ block content
     .col-sm-12.col-xs-12.well
         form.form-horizontal#add-team-form
             fieldset
-                legend 新团队
+                legend=teamInfo ? '编辑团队' : '新团队'
                 .form-group
+                    if teamInfo
+                        span.hide#team-id=teamInfo._id
                     label.col-sm-2.col-xs-3.control-label(for='team-name') 团队名
                     .col-sm-10.col-xs-9
-                        input#team-name(class='form-control' name='teamName' type='text' placeholder='团队名')
+                        input#team-name(class='form-control' name='teamName' type='text' placeholder='团队名' value=teamInfo?teamInfo.teamName:'')
                 .form-group
                     label.col-sm-2.col-xs-3.control-label(for='team-desc') 团队说明
                     .col-sm-10.col-xs-9
-                        textarea#team-desc(class='form-control' rows='3' style='resize:none;' name='teamDesc' type='text' placeholder='团队说明')
+                        textarea#team-desc(class='form-control' rows='3' style='resize:none;' name='teamDesc' placeholder='团队说明')
+                            if teamInfo
+                                =teamInfo.teamDesc
                 .form-group
                     label.col-sm-2.col-xs-3.control-label 成员
                     .col-sm-10.col-xs-9
                         button.btn.btn-primary.btn-sm(type='button' data-toggle='modal' data-target='#member-modal') 添加新成员
                 .form-group
                     .col-sm-10.col-xs-9.col-sm-offset-2.col-xs-offset-3#selectedMemberList
-                        label(style='padding: 5px;margin-right: 5px;border-radius:5px;background:#00e7af' username=username)= username
+                        if teamInfo
+                            each member in teamInfo.members
+                                label(style='padding: 5px;margin-right: 5px;border-radius:5px;background:#00e7af' username=member)= member
+                                    if member !== username
+                                        | &nbsp;
+                                        span.glyphicon.glyphicon-remove.text-danger(role='button')
+                        else
+                            label(style='padding: 5px;margin-right: 5px;border-radius:5px;background:#00e7af' username=username)= username
                 .form-group
                     label.col-sm-2.col-xs-3.control-label 菜单
                     .col-sm-10.col-xs-9
                         button.btn.btn-primary.btn-sm(type='button' data-toggle='modal' data-target='#menu-modal') 选择菜单
                 .form-group
                     .col-sm-10.col-xs-9.col-sm-offset-2.col-xs-offset-3#selectedMenuList
+                        if teamInfo
+                            each menu in teamInfo.menus
+                                span(menu-id=menu)=menu+'、'
 
                 .form-group
                     .col-xs-12.col-sm-12.text-center
@@ -64,15 +78,6 @@ block content
 
                 .modal-footer
 
-    .modal.fade.in(tabindex='-1' id='message-modal' role='dialog' aria-hidden='true' data-backdrop='static')
-        .modal-dialog
-            .panel.panel-success
-                .panel-heading
-                    h3.panel-title 菜单创建成功
-                .modal-body.text-center
-                    a.btn.btn-info.btn-sm(type='button' href='/team') 回到团队页
-                    | &nbsp;&nbsp;
-                    button.btn.btn-info.btn-sm(type='button' id='add-more-btn' data-dismiss="modal") 再创建一个
 
 block scripts
     script(type='text/javascript' src='/lib/jquery/dist/jquery.min.js')

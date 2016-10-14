@@ -17,8 +17,12 @@ router.get('/team', function (req, res) {
         members: username,  //匹配所有团队成员中包含当前用户的团队
         isDeleted: false
     };
+    let outObj = {
+        teamName: 1,
+        creatorName: 1
+    };
 
-    db.teamModel.find(queryObj, (err, result) => {
+    db.teamModel.find(queryObj, outObj, (err, result) => {
         if (err) {
             return console.error(err);
         }
@@ -90,6 +94,36 @@ router.get('/team/getRelatedMenu', (req, res) => {
             menus: result
         });
     });
+});
+
+//编辑团队信息
+router.get('/team/edit', (req, res) => {
+    if (!util.authentication(req, res)) return;
+    let teamId = req.query.teamId;
+    let outObj = {
+        teamName: 1,
+        teamDesc: 1,
+        members: 1,
+        menus: 1,
+    };
+    console.log(teamId);
+    db.teamModel.find({_id: teamId, isDeleted: false}, outObj, (err, result) => {
+        if (err) {
+            res.send({
+                success: false,
+                message: '操作失败'
+            });
+            return false;
+        }
+        console.log(result);
+        res.render('team-add', {
+            title: '团队-编辑团队',
+            username: req.session.user.username,
+            nav: 'team',
+            teamInfo: result[0]
+        });
+    });
+
 });
 
 

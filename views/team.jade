@@ -7,23 +7,23 @@ block content
             span.pull-right
                 a(href='/team/add') 创建队伍
         table(class='table table-hover table-striped table-responsive')
+            thead
+                tr
+                    th 团队名
+                    //th 创建时间
+                    th 创建人
+                    th 操作
             tbody
                 each team in teamList
                     tr
+                        td=team.teamName
+                        td=team.creatorName
                         td
-                            a(href='#')=team.teamName
-                //tr
-                //    td
-                //        a(href='#') 点餐小分队
-                //tr
-                //    td
-                //        a(href='#') 都是饿死鬼
-                //tr
-                //    td
-                //        a(href='#') 吃货集中营
-                //tr
-                //    td
-                //        a(href='#') 移动BI点餐群
+                            if username === team.creatorName
+                                a.edit-btn(href='#' _id=team._id) 编辑
+                                | &nbsp;&nbsp;
+                                a.del-btn(href='#' _id=team._id) 删除
+
     else
         p(class='text-center')
             span(class='glyphicon glyphicon-exclamation-sign text-danger')
@@ -35,3 +35,4 @@ block content
 block scripts
     script(type='text/javascript' src='./lib/jquery/dist/jquery.min.js')
     script(type='text/javascript' src='./lib/bootstrap/dist/js/bootstrap.min.js')
+    script(type='text/javascript' src='/javascripts/team.js')
