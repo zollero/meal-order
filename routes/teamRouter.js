@@ -168,8 +168,6 @@ router.get('/team/getTeamList', (req, res) => {
     let username = req.session.user.username;
     let queryKey = req.query.keyword;
 
-    console.log(queryKey);
-
     db.teamModel.find({ teamName: queryKey, isDeleted: false }, {teamName: 1, creatorName: 1, members: 1}, (err, result) => {
         if (err) {
             res.send({
@@ -183,6 +181,7 @@ router.get('/team/getTeamList', (req, res) => {
             return {
                 teamId: value._id,
                 teamName: value.teamName,
+                creatorName: value.creatorName,
                 in: value.members.indexOf(username) !== -1
             };
         });
@@ -193,7 +192,29 @@ router.get('/team/getTeamList', (req, res) => {
             list: teamList
         });
     });
+});
 
+//加入团队
+router.post('/team/join', (req, res) => {
+    if (!util.authentication(req, res)) return;
+    let username = req.session.user.username;
+    let teamId = req.body.teamId;
+    let updateObj = {
+        $push:{
+            members: username
+        },
+        $set: {
+            updaterName: username,
+            updateTime: new Date()
+        }
+    };
+
+    db.teamModel.update({_id: teamId}, updateObj, (err) => {
+        res.send({
+            success: !err,
+            message: !err ? '操作成功' : '操作失败'
+        });
+    });
 });
 
 

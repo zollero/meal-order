@@ -19,7 +19,6 @@ router.route('/user/login')
     //从数据库中查询用户，若成功则跳转至主页
     db.userModel.find(user, function (err, result) {
         if (err) return console.error(err);
-        console.log(result);
         if (result.length === 1) {
             req.session.user = user;
             res.redirect('/home');

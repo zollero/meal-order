@@ -5,7 +5,7 @@ block content
     if teamList.length > 0
         h5 你的团队列表:
             span.pull-right
-                a(href='#' data-toggle='modal' data-target='#team-search-modal') 搜索队伍
+                a(href='#' data-toggle='modal' data-target='#team-search-modal') 搜索团队
                 | &nbsp;&nbsp;&nbsp;
                 a(href='/team/add') 创建队伍
         table(class='table table-hover table-striped table-responsive')
@@ -14,7 +14,7 @@ block content
                     th 团队名
                     th 创建人
                     th 操作
-            tbody
+            tbody#team-list
                 each team in teamList
                     tr
                         td=team.teamName
@@ -29,7 +29,7 @@ block content
         p(class='text-center')
             span(class='glyphicon glyphicon-exclamation-sign text-danger')
             | &nbsp;你还没有加入任何团队
-            a(href='#') 搜索团队
+            a(href='#' data-toggle='modal' data-target='#team-search-modal') 搜索团队
             span 或
             a(href='/team/add') 创建团队
 
@@ -43,7 +43,7 @@ block content
                 .modal-body.col-sm-12.col-xs-12
                     .col-sm-10.col-xs-10.col-sm-offset-1.col-xs-offset-1
                         input.form-control(type='text' id='team-keyword' placeholder='请输入团队名进行查询')
-                        ul.list-group#team-list(style='height:200px;overflow-y:auto;margin-top:10px;')
+                        ul.list-group#team-search-list(style='height:200px;overflow-y:auto;margin-top:10px;')
 
                 .modal-footer
 
