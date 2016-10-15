@@ -4,7 +4,7 @@ block content
     ul(class='breadcrumb')
         li
             a(href='/team') 团队
-        li 创建团队
+        li=teamInfo ? '编辑团队' : '创建团队'
 
     .col-sm-12.col-xs-12.well
         form.form-horizontal#add-team-form
