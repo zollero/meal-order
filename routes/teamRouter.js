@@ -146,7 +146,20 @@ router.get('/team/edit', (req, res) => {
             teamInfo: result[0]
         });
     });
+});
 
+//删除团队
+router.post('/team/del', (req, res) => {
+    if (!util.authentication(req, res)) return;
+
+    let teamId = req.body.teamId;
+
+    db.teamModel.update({_id: teamId}, {$set: {isDeleted: true}}, (err) => {
+        res.send({
+            success: !err,
+            message: !err ? '操作成功' : '操作失败'
+        });
+    });
 });
 
 
