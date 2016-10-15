@@ -162,5 +162,39 @@ router.post('/team/del', (req, res) => {
     });
 });
 
+//获取团队列表
+router.get('/team/getTeamList', (req, res) => {
+    if (!util.authentication(req, res)) return;
+    let username = req.session.user.username;
+    let queryKey = req.query.keyword;
+
+    console.log(queryKey);
+
+    db.teamModel.find({ teamName: queryKey, isDeleted: false }, {teamName: 1, creatorName: 1, members: 1}, (err, result) => {
+        if (err) {
+            res.send({
+                success: false,
+                message: '请求报错'
+            });
+            return false;
+        }
+
+        let teamList = result.map((value) => {
+            return {
+                teamId: value._id,
+                teamName: value.teamName,
+                in: value.members.indexOf(username) !== -1
+            };
+        });
+
+        res.send({
+            success: true,
+            message: '操作成功',
+            list: teamList
+        });
+    });
+
+});
+
 
 module.exports = router;

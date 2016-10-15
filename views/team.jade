@@ -5,14 +5,13 @@ block content
     if teamList.length > 0
         h5 你的团队列表:
             span.pull-right
-                a(href='#') 搜索队伍
+                a(href='#' data-toggle='modal' data-target='#team-search-modal') 搜索队伍
                 | &nbsp;&nbsp;&nbsp;
                 a(href='/team/add') 创建队伍
         table(class='table table-hover table-striped table-responsive')
             thead
                 tr
                     th 团队名
-                    //th 创建时间
                     th 创建人
                     th 操作
             tbody
@@ -30,9 +29,23 @@ block content
         p(class='text-center')
             span(class='glyphicon glyphicon-exclamation-sign text-danger')
             | &nbsp;你还没有加入任何团队
-            a(href='#') 搜索加入
+            a(href='#') 搜索团队
             span 或
-            a(href='/team/add') 创建队伍
+            a(href='/team/add') 创建团队
+
+    .modal.fade.in(tabindex='-1' id='team-search-modal' role='dialog' aria-hidden='true' data-backdrop='static')
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    button.close(type='button' data-dismiss='modal' aria-label='Close')
+                        span(aria-hidden='true') x
+                    h4.modal-title 搜索团队
+                .modal-body.col-sm-12.col-xs-12
+                    .col-sm-10.col-xs-10.col-sm-offset-1.col-xs-offset-1
+                        input.form-control(type='text' id='team-keyword' placeholder='请输入团队名进行查询')
+                        ul.list-group#team-list(style='height:200px;overflow-y:auto;margin-top:10px;')
+
+                .modal-footer
 
 block scripts
     script(type='text/javascript' src='./lib/jquery/dist/jquery.min.js')

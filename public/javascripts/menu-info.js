@@ -8,8 +8,7 @@
         '</div>';
 
     var dishList = $('#dish-list'),
-        addMenuForm = $('#add-menu-form'),
-        messageModal = $('#message-modal');
+        addMenuForm = $('#add-menu-form');
 
     var priceRegExp = new RegExp(/^(\d|[1-9]\d+)(\.\d+)?$/);
 
@@ -48,8 +47,6 @@
             var btn = $(this).parent().find('button').button('loading');
             $.post('/menu/add', dishInfo, function (data) {
                 if (data.success) {
-                    //messageModal.find('.panel-title').html(data.message);
-                    //messageModal.modal('show');
                     window.location.href = '/menu';
                 }
                 btn.button('reset');
@@ -69,7 +66,7 @@
         $('#reset-btn').click();
     });
 
-    //TODO 通过是否有_id字段，判断是新增还是编辑
+    //通过是否有_id字段，判断是新增还是编辑
     function validateForm(form) {
         var formGroups = form.find('.form-group.dish-line');
         var dishInfo = {
