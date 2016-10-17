@@ -39,7 +39,8 @@ router.get('/home/getTeamList', (req, res) => {
         isDeleted: false
     }, {
         teamName: 1,
-        creatorName: 1
+        creatorName: 1,
+        menus: 1
     }, (err, result) => {
         if (err) {
             res.send({
@@ -53,6 +54,38 @@ router.get('/home/getTeamList', (req, res) => {
             message: '获取团队列表成功',
             list: result
         });
+    });
+});
+
+//点餐页
+router.get('/home/meal', (req, res) => {
+    if (!util.authentication(req, res)) return;
+
+    let username = req.session.user.username;
+    let teamId = req.query.teamId;
+    let teamName = req.query.teamName;
+    let menuId = req.query.menuId;
+
+    db.menuModel.find({ isDeleted: false, _id: menuId }, { menuName: 1, dishes: 1 }, (err, result) => {
+        if (err) {
+            res.send({ success: false, message: '操作失败' });
+            return false;
+        }
+        if (result.length === 0) {
+            res.send({ success: false, message: '未发现该菜单'});
+            return false;
+        }
+        let menu = result[0];
+        let outObj = {
+            username: username,
+            nav: 'home',
+            title: '点餐',
+            teamId: teamId,
+            teamName: teamName,
+            menuName: menu.menuName,
+            dishes: menu.dishes
+        };
+        res.render('meal', outObj);
     });
 });
 

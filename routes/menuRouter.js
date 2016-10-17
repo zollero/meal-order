@@ -125,11 +125,21 @@ router.get('/menu/edit', (req, res) => {
 router.post('/menu/del', (req, res) => {
     if (!util.authentication(req, res)) return;
     let menuId = req.body.menuId;
-
-    db.menuModel.update({_id: menuId}, {$set: {isDeleted: true}}, (err, result) => {
-        res.send({
-            success: !err,
-            message: !err ? '操作成功' : '操作失败'
+    //首先判断，如果该菜单已经被未删除的团队引用，则该菜单不能删除
+    db.teamModel.find({ 'menus.menuId': menuId, isDeleted: false }, (error, result) => {
+        if (error) {
+            res.send({ success: false, message: '操作失败' });
+            return false;
+        }
+        if (result.length > 0) {
+            res.send({ success: false, message: '该菜单有关联团队，不能删除' });
+            return false;
+        }
+        db.menuModel.update({_id: menuId}, {$set: {isDeleted: true}}, (err) => {
+            res.send({
+                success: !err,
+                message: !err ? '操作成功' : '操作失败'
+            });
         });
     });
 });
