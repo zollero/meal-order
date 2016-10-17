@@ -1,8 +1,14 @@
+/**
+ * 管理数据表数据结构
+ * @type {*|exports|module.exports}
+ */
 
-var mongoose = require('mongoose');
-var db = require('./connect');
+'use strict';
 
-var UserSchema = new mongoose.Schema({
+const mongoose = require('mongoose');
+const db = require('./connect');
+
+let UserSchema = new mongoose.Schema({
     username: String,
     password: String,
     email: String,
@@ -13,7 +19,7 @@ var UserSchema = new mongoose.Schema({
     updateTime: Date
 });
 
-var MenuSchema = new mongoose.Schema({
+let MenuSchema = new mongoose.Schema({
     menuName: String,
     dishes: [{
         dishName: String,
@@ -26,7 +32,7 @@ var MenuSchema = new mongoose.Schema({
     updateTime: Date
 });
 
-var TeamSchema = new mongoose.Schema({
+let TeamSchema = new mongoose.Schema({
     teamName: String,
     teamDesc: String,
     members: [String],
@@ -34,6 +40,7 @@ var TeamSchema = new mongoose.Schema({
         menuId: String,
         menuName: String
     }],
+    ordering: Boolean,
     isDeleted: Boolean,
     creatorName: String,
     createTime: Date,
@@ -41,12 +48,31 @@ var TeamSchema = new mongoose.Schema({
     updateTime: Date
 });
 
-var UserModel = db.model('food_user', UserSchema, 'food_user');
-var MenuModel = db.model('food_menu', MenuSchema, 'food_menu');
-var TeamModel = db.model('food_team', TeamSchema, 'food_team');
+let OrderSchema = new mongoose.Schema({
+    teamId: String,
+    menuId: String,
+    dishes: [{
+        dishName: String,
+        price: Number,
+        number: Number
+    }],
+    total: Number,
+    status: Number,
+    isDeleted: Boolean,
+    creatorName: String,
+    createTime: Date,
+    updaterName: String,
+    updateTime: Date
+});
+
+let UserModel = db.model('food_user', UserSchema, 'food_user');
+let MenuModel = db.model('food_menu', MenuSchema, 'food_menu');
+let TeamModel = db.model('food_team', TeamSchema, 'food_team');
+let OrderModel = db.model('food_order', OrderSchema, 'food_order');
 
 module.exports = {
     userModel: UserModel,
     menuModel: MenuModel,
-    teamModel: TeamModel
+    teamModel: TeamModel,
+    orderModel: OrderModel
 };

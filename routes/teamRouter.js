@@ -69,6 +69,7 @@ router.post('/team/add', (req, res) => {
             });
         });
     } else {
+        teamInfo.ordering = false;
         teamInfo.isDeleted = false;
         teamInfo.creatorName = userName;
         teamInfo.createTime = new Date();

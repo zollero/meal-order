@@ -8,6 +8,8 @@ let util = require('./routerUtil');
 
 router.get('/home', function (req, res) {
     if (!util.authentication(req, res)) return;
+    let username = req.session.user.username;
+
     res.render('home', {
         title: '首页',
         username: req.session.user.username,
