@@ -1,46 +1,49 @@
 extends template-page
 
 block content
+    ul(class='breadcrumb')
+        li
+            a(href='/home') 主页
+        li 订餐
 
-    if list && list.length > 0
-        h5 正在进行中的点餐活动:
-            span.pull-right
-                a(href='#' data-toggle='modal' id='team-modal-btn' data-target='#team-order-modal') 发起点餐
+    h5 吃货团 / 望湘园
 
-        table.table.table-hover.table-striped.table-responsive
-            thead
-                tr
-                    th 团队
-                    th 创造者
-                    th 操作
-            tbody
-                each team in list
-                    tr
-                        td=team.teamName
-                        td=team.creatorName
-                        td
-                            a(href='#' team-id=team._id) 加入
-    else
-        p(class='text-center') 没有进行中的点餐活动，
-            a(href='#' data-toggle='modal' id='team-modal-btn' data-target='#team-order-modal') 发起点餐
-
-    .modal.fade.in(tabindex='-1' id='team-order-modal' role='dialog' aria-hidden='true' data-backdrop='static')
-        .modal-dialog
-            .modal-content
-                .modal-header
-                    button.close(type='button' data-dismiss='modal' aria-label='Close')
-                        span(aria-hidden='true') x
-                    h4.modal-title 团队列表
-                .modal-body.col-sm-12.col-xs-12
-                    table.table.table-hover.table-striped.table-responsive
-                        thead
-                            tr
-                                th 团队
-                                th 创建者
-                                th 操作
-                        tbody#team-list
-
-                .modal-footer
+    .col-lg-3.col-sm-6.col-xs-6
+        .jumbotron
+            h6 土豆烧鸡
+                span.text-danger.pull-right ￥18
+            .text-right
+                button.btn.btn-danger.btn-sm 加入菜单
+    .col-lg-3.col-sm-6.col-xs-6
+        .jumbotron
+            h6 土豆烧鸡
+                span.text-danger.pull-right ￥18
+            .text-right
+                button.btn.btn-danger.btn-sm 加入菜单
+    .col-lg-3.col-sm-6.col-xs-6
+        .jumbotron
+            h6 土豆烧鸡
+                span.text-danger.pull-right ￥18
+            .text-right
+                button.btn.btn-danger.btn-sm 加入菜单
+    .col-lg-3.col-sm-6.col-xs-6
+        .jumbotron
+            h6 土豆烧鸡
+                span.text-danger.pull-right ￥18
+            .text-right
+                button.btn.btn-danger.btn-sm 加入菜单
+    .col-lg-3.col-sm-6.col-xs-6
+        .jumbotron
+            h6 土豆烧鸡
+                span.text-danger.pull-right ￥18
+            .text-right
+                button.btn.btn-danger.btn-sm 加入菜单
+    .col-lg-3.col-sm-6.col-xs-6
+        .jumbotron
+            h6 土豆烧鸡
+                span.text-danger.pull-right ￥18
+            .text-right
+                button.btn.btn-danger.btn-sm 加入菜单
 
 block scripts
     script(type='text/javascript' src='/lib/jquery/dist/jquery.min.js')
