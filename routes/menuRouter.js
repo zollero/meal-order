@@ -1,10 +1,10 @@
 
 'use strict';
 
-var express = require('express');
-var router = express.Router();
-var db = require('../database/model');
-var util = require('./routerUtil');
+let express = require('express');
+let router = express.Router();
+let db = require('../database/model');
+let util = require('./routerUtil');
 
 
 /**

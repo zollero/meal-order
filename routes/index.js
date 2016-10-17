@@ -4,14 +4,14 @@
 
 'use strict';
 
-var express = require('express');
-var router = express.Router();
+let express = require('express');
+let router = express.Router();
 
-var userRouter = require('./userRouter');
-var menuRouter = require('./menuRouter');
-var teamRouter = require('./teamRouter');
-var orderRouter = require('./orderRouter');
-var homeRouter = require('./homeRouter');
+let userRouter = require('./userRouter');
+let menuRouter = require('./menuRouter');
+let teamRouter = require('./teamRouter');
+let orderRouter = require('./orderRouter');
+let homeRouter = require('./homeRouter');
 
 router.get('/', function (req, res) {
     res.redirect('/home');

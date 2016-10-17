@@ -2,16 +2,16 @@
 
 'use strict';
 
-var express = require('express');
-var router = express.Router();
-var db = require('../database/model');
+let express = require('express');
+let router = express.Router();
+let db = require('../database/model');
 
 
 router.route('/user/login')
     .get(function (req, res) {
         res.render('login', {title: '食'})
     }).post(function (req, res) {
-    var user = {
+    let user = {
         username: req.body.name,
         password: req.body.password,
         isDeleted: false
@@ -31,7 +31,7 @@ router.route('/user/login')
 
 //注册用户时，检查用户名是否唯一
 router.get('/user/checkUniqueUsername', function (req, res) {
-    var username = req.query.username;
+    let username = req.query.username;
     db.userModel.find({ username: username}, function (err, result) {
         if (err) {
             res.send({
@@ -50,7 +50,7 @@ router.get('/user/checkUniqueUsername', function (req, res) {
 router.route('/user/register').get(function (req, res) {
     res.render('register', {title: '食 - 新用户注册'})
 }).post(function (req, res) {
-    var user = {
+    let user = {
         username: req.body.username,
         password: req.body.password,
         email: req.body.email,
@@ -77,7 +77,7 @@ router.route('/user/register').get(function (req, res) {
 
 //通过用户名搜索用户，全匹配查询（非模糊查询）
 router.get('/user/getUserByName', (req, res) => {
-    var keyword = req.query.keyword;
+    let keyword = req.query.keyword;
     db.userModel.find({ username: keyword, isDeleted:false }, { username: 1 }, (err, result) => {
         if (err) {
             res.send({
