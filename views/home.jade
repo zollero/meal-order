@@ -2,28 +2,49 @@ extends template-page
 
 block content
 
-    h5 正在进行中的点餐活动:
+    if list && list.length > 0
+        h5 正在进行中的点餐活动:
 
-    table(class='table table-hover table-striped table-responsive')
-        thead
-            tr
-                th 团队
-                th 发起人
-                th 操作
-        tbody
-            tr
-                td 点餐小分队
-                td feiyu
-                td
-                    a(href='#') 加入
+        table.table.table-hover.table-striped.table-responsive
+            thead
+                tr
+                    th 团队
+                    th 发起人
+                    th 操作
+            tbody
+                tr
+                    td 点餐小分队
+                    td feiyu
+                    td
+                        a(href='#') 加入
+    else
+        p(class='text-center') 没有进行中的点餐活动，
+            a(href='#' data-toggle='modal' id='team-modal-btn' data-target='#team-order-modal') 发起点餐任务
 
-    p(class='text-center') 没有进行中的点餐活动，
-        a(href='#') 发起点餐任务
+    .modal.fade.in(tabindex='-1' id='team-order-modal' role='dialog' aria-hidden='true' data-backdrop='static')
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    button.close(type='button' data-dismiss='modal' aria-label='Close')
+                        span(aria-hidden='true') x
+                    h4.modal-title 团队列表
+                .modal-body.col-sm-12.col-xs-12
+                    table.table.table-hover.table-striped.table-responsive
+                        thead
+                            tr
+                                th 团队
+                                th 创建者
+                                th 操作
+                        tbody#team-list
+                            //tr
+                            //    td 点餐小分队
+                            //    td feiyu
+                            //    td
+                            //        a(href='#') 发起
 
+                .modal-footer
 
 block scripts
-    script(type='text/javascript' src='./lib/jquery/dist/jquery.min.js')
-    script(type='text/javascript' src='./lib/bootstrap/dist/js/bootstrap.min.js')
-    script(type='text/javascript' src='./lib/angular.js')
-    script(type='text/javascript' src='./lib/socket.io.js')
-    script(type='text/javascript' src='./javascripts/index.js')
+    script(type='text/javascript' src='/lib/jquery/dist/jquery.min.js')
+    script(type='text/javascript' src='/lib/bootstrap/dist/js/bootstrap.min.js')
+    script(type='text/javascript' src='/javascripts/home.js')

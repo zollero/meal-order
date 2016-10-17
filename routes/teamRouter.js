@@ -130,7 +130,7 @@ router.get('/team/edit', (req, res) => {
         teamName: 1,
         teamDesc: 1,
         members: 1,
-        menus: 1,
+        menus: 1
     };
     db.teamModel.find({_id: teamId, isDeleted: false}, outObj, (err, result) => {
         if (err) {
