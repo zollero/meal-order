@@ -4,22 +4,25 @@ block content
 
     if list && list.length > 0
         h5 正在进行中的点餐活动:
+            span.pull-right
+                a(href='#' data-toggle='modal' id='team-modal-btn' data-target='#team-order-modal') 发起点餐
 
         table.table.table-hover.table-striped.table-responsive
             thead
                 tr
                     th 团队
-                    th 发起人
+                    th 创造者
                     th 操作
             tbody
-                tr
-                    td 点餐小分队
-                    td feiyu
-                    td
-                        a(href='#') 加入
+                each team in list
+                    tr
+                        td=team.teamName
+                        td=team.creatorName
+                        td
+                            a(href='#' team-id=team._id) 加入
     else
         p(class='text-center') 没有进行中的点餐活动，
-            a(href='#' data-toggle='modal' id='team-modal-btn' data-target='#team-order-modal') 发起点餐任务
+            a(href='#' data-toggle='modal' id='team-modal-btn' data-target='#team-order-modal') 发起点餐
 
     .modal.fade.in(tabindex='-1' id='team-order-modal' role='dialog' aria-hidden='true' data-backdrop='static')
         .modal-dialog
@@ -36,11 +39,6 @@ block content
                                 th 创建者
                                 th 操作
                         tbody#team-list
-                            //tr
-                            //    td 点餐小分队
-                            //    td feiyu
-                            //    td
-                            //        a(href='#') 发起
 
                 .modal-footer
 
