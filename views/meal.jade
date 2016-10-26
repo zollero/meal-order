@@ -6,44 +6,23 @@ block content
             a(href='/home') 主页
         li 订餐
 
-    h5 吃货团 / 望湘园
+    h5
+        =teamName
+        | &nbsp;/&nbsp;
+        =menuName
 
-    .col-lg-3.col-sm-6.col-xs-6
-        .well
-            h6 土豆烧鸡
-                span.text-danger.pull-right ￥18
-            .text-right
-                button.btn.btn-danger.btn-sm 加入菜单
-    .col-lg-3.col-sm-6.col-xs-6
-        .well
-            h6 土豆烧鸡
-                span.text-danger.pull-right ￥18
-            .text-right
-                button.btn.btn-danger.btn-sm 加入菜单
-    .col-lg-3.col-sm-6.col-xs-6
-        .well
-            h6 土豆烧鸡
-                span.text-danger.pull-right ￥18
-            .text-right
-                button.btn.btn-danger.btn-sm 加入菜单
-    .col-lg-3.col-sm-6.col-xs-6
-        .well
-            h6 土豆烧鸡
-                span.text-danger.pull-right ￥18
-            .text-right
-                button.btn.btn-danger.btn-sm 加入菜单
-    .col-lg-3.col-sm-6.col-xs-6
-        .well
-            h6 土豆烧鸡
-                span.text-danger.pull-right ￥18
-            .text-right
-                button.btn.btn-danger.btn-sm 加入菜单
-    .col-lg-3.col-sm-6.col-xs-6
-        .well
-            h6 土豆烧鸡
-                span.text-danger.pull-right ￥18
-            .text-right
-                button.btn.btn-danger.btn-sm 加入菜单
+    if dishes.length > 0
+        each dish in dishes
+            .col-lg-3.col-sm-6.col-xs-6
+                .well
+                    h6
+                        =dish.dishName
+                        span.text-danger （￥
+                            =dish.price
+                            | ）
+                    .text-right(dish-id=dish._id dish-name=dish.dishName dish-price=dish.price)
+                        button.btn.btn-danger.btn-sm.add-dish-btn 加入菜单
+
 
     .affix.col-lg-4.col-sm-6.col-xs-12(style='right:0;bottom:0;padding:0;z-index:100;')
         .cart-basket(style='top: -90px;height: auto;z-index: 1;position: absolute;width: 100%;background-color: #fff;box-shadow: 0 1px 15px #ccc;')
@@ -54,6 +33,13 @@ block content
                     div(style='height: 30px;')
                         | 购物车
                         a [清空]
+            div(style='display: table;table-layout: fixed;height: 45px;width: 100%;padding: 0 10px;margin-top: -1px;')
+                div(style='display: table-cell;vertical-align: middle;border-bottom: 1px solid #eee;width: 50%;margin-right: 10px;font-size: 14px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;color: #666;') 麦辣鸡腿汉堡中套餐
+                div(style='display: table-cell;vertical-align: middle;border-bottom: 1px solid #eee;width: 25%;text-align: center;')
+                    button(style='background-color: #fff;height: 20px;width: 20px;line-height: 18px;vertical-align: top;border: 1px solid #ddd;outline: 0;cursor: pointer;color: #666;') -
+                    input(type='text' style='border: 0;border-top: 1px solid #ddd;border-bottom: 1px solid #ddd;height: 20px;width: 30px;line-height: 20px;font-size: 12px;vertical-align: top;text-align: center;outline: 0;color: #666;')
+                    button(style='background-color: #fff;height: 20px;width: 20px;line-height: 18px;vertical-align: top;border: 1px solid #ddd;outline: 0;cursor: pointer;color: #666;') +
+                div(style='text-align: right;color: #f17530;display: table-cell;vertical-align: middle;border-bottom: 1px solid #eee;') ¥64,438
             div(style='display: table;table-layout: fixed;height: 45px;width: 100%;padding: 0 10px;margin-top: -1px;')
                 div(style='display: table-cell;vertical-align: middle;border-bottom: 1px solid #eee;width: 50%;margin-right: 10px;font-size: 14px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;color: #666;') 麦辣鸡腿汉堡中套餐
                 div(style='display: table-cell;vertical-align: middle;border-bottom: 1px solid #eee;width: 25%;text-align: center;')
@@ -74,4 +60,5 @@ block content
 block scripts
     script(type='text/javascript' src='/lib/jquery/dist/jquery.min.js')
     script(type='text/javascript' src='/lib/bootstrap/dist/js/bootstrap.min.js')
-    script(type='text/javascript' src='/javascripts/home.js')
+    script(type='text/javascript' src='/lib/socket.io.js')
+    script(type='text/javascript' src='/javascripts/meal.js')

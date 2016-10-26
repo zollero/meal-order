@@ -62,19 +62,28 @@ app.use(router);
 
 
 //监听socket连接
-// var ioSocket = io.on('connection', function (socket) {
-//     socket.emit('news', { hello: 'world' });
-//     //监听添加选菜事件
-//     socket.on('addMeal', function (data) {
-//         console.log(data);
-//         ioSocket.emit('someOneAddMeal', data);
-//     });
-//
-//     socket.on('deleteMeal', function (data) {
-//         console.log(data);
-//         ioSocket.emit('someOneDeleteMeal', data);
-//     });
-// });
+var ioSocket = io.on('connection', function (socket) {
+    socket.emit('connect-success', { hello: 'world' });
+
+    socket.on('select-dish', function (data) {
+        ioSocket.emit('addDish', data);
+    });
+
+    socket.on('unselect-dish', function (data) {
+        ioSocket.emit('delDish', data);
+    });
+
+    //监听添加选菜事件
+    socket.on('addMeal', function (data) {
+        console.log(data);
+        ioSocket.emit('someOneAddMeal', data);
+    });
+
+    socket.on('deleteMeal', function (data) {
+        console.log(data);
+        ioSocket.emit('someOneDeleteMeal', data);
+    });
+});
 
 
 function listenHandler() {
