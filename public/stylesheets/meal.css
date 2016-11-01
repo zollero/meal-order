@@ -4,35 +4,29 @@
 }
 
 .cart-container .cart-basket {
-    top: -90px;
-    height: auto;
+    top: 0;
     z-index: 1;
-    position: absolute;
+    position: relative;
     width: 100%;
     background-color: #fff;
     box-shadow: 0 1px 15px #ccc;
+    -webkit-transition: top ease-in-out .3s;
+    transition: top ease-in-out .3s;
 }
 .cart-container .cart-basket .basket-banner {
-    background-color: #fafafa;
-    border-top: 2px solid #0089dc;
+    background-color: #d4d6d8;
+    border-top: 2px solid #2c3e50;
     padding: 12px 10px;
     height: 45px;
     position: relative;
     font-size: 14px;
     border-bottom: 1px solid #eee;
 }
-.cart-basket .basket-banner .basket-shopping {
-    position: absolute;
-    top: 12px;
-    right: 10px;
-    width: 20px;
-    height: 20px;
-    font-size: 20px;
-    color: #0089dc;
-    cursor: pointer;
-}
-.cart-basket .basket-banner .basket-shopping .glyphicon-shopping-cart {
-    font-size: 20px;
+.cart-container .cart-basket .dish-list {
+    position: relative;
+    height: 0;
+    -webkit-transition: height ease-in-out .5s;
+    transition: height ease-in-out .5s;
 }
 
 .cart-basket .dish-line {
@@ -97,9 +91,9 @@
     cursor: pointer;
     color: #666;
 }
-.cart-basket .dish-line .ope-btns .total-price {
+.cart-basket .dish-line .total-price {
     text-align: right;
-    color: #f17530;
+    color: #e74c3c;
     display: table-cell;
     vertical-align: middle;
     border-bottom: 1px solid #eee;
@@ -112,6 +106,7 @@
     color:#fff;
     height: 46px;
     line-height: 46px;
+    font-size: 20px;
     background-color: #2c3e50;
     box-shadow: 0 1px 3px #2c3e50;
     padding:0 10px;
@@ -120,9 +115,9 @@
     position:relative;
     display:inline-block;
 }
-.cart-container .basket-info .basket-dishes .glyphicon-shopping-cart {
-    font-size: 20px;
-}
+/*.cart-container .basket-info .basket-dishes .glyphicon-shopping-cart {*/
+    /*font-size: 20px;*/
+/*}*/
 .cart-container .basket-info .basket-dishes .badge {
     position:relative;
     top:-15px;
@@ -130,7 +125,7 @@
     background-color:#ff2828;
 }
 .cart-container .basket-info .currency-type {
-    font-size:14px;
+    /*font-size:14px;*/
     font-weight:bold;
     padding:0 2px;
 }
@@ -139,6 +134,6 @@
     top:0;
     right:0;
     bottom:0;
-    width:120px;
+    width:80px;
     border-radius:0;
 }

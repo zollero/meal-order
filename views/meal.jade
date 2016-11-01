@@ -27,35 +27,31 @@ block content
                         button.btn.btn-danger.btn-sm.add-dish-btn 加入菜单
 
     .affix.col-lg-4.col-sm-6.col-xs-12.cart-container
-        .cart-basket
-            div.basket-banner
-                a.basket-shopping(href='#')
-                    span.glyphicon.glyphicon-shopping-cart
-                div(style='height: 30px;')
-                    | 购物车
-                    a [清空]
-            div.dish-line
-                div.dish-name 麦辣鸡腿汉堡中套餐
-                div.ope-btns
-                    button.minus-btn -
-                    input.selected-no(type='text')
-                    button.plus-btn +
-                div.total-price ¥64,438
-            div.dish-line
-                div.dish-name 麦辣鸡腿汉堡中套餐
-                div.ope-btns
-                    button.minus-btn -
-                    input.selected-no(type='text')
-                    button.plus-btn +
-                div.total-price ¥64,438
+        .cart-basket#cart-basket
+            .basket-banner 购物车
+            .dish-list#dish-list
+            //.dish-line
+            //    .dish-name 麦辣鸡腿汉堡中套餐
+            //    .ope-btns
+            //        button.minus-btn -
+            //        input.selected-no(type='text' value=1)
+            //        button.plus-btn +
+            //    .total-price ¥64,438
+            //.dish-line
+            //    .dish-name 麦辣鸡腿汉堡中套餐
+            //    .ope-btns
+            //        button.minus-btn -
+            //        input.selected-no(type='text' value=1)
+            //        button.plus-btn +
+            //    .total-price ¥64,438
 
-        div.basket-info
-            div.basket-dishes
+        .basket-info#basket-info
+            .basket-dishes
                 span.glyphicon.glyphicon-shopping-cart
                 span.badge 2
-            span.currency-type ￥
+            span.currency-type ¥
             span(style='font-size:20px;') 222
-            button.btn.btn-success.btn-block#submit-meal-btn 提交
+            button.btn.btn-danger#submit-meal-btn 提交
 
 
 block scripts
