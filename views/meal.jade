@@ -1,5 +1,8 @@
 extends template-page
 
+block styles
+    link(rel='stylesheet', href='/stylesheets/meal.css')
+
 block content
     ul(class='breadcrumb')
         li
@@ -23,38 +26,36 @@ block content
                     .text-right(dish-id=dish._id dish-name=dish.dishName dish-price=dish.price)
                         button.btn.btn-danger.btn-sm.add-dish-btn 加入菜单
 
+    .affix.col-lg-4.col-sm-6.col-xs-12.cart-container
+        .cart-basket
+            div.basket-banner
+                a.basket-shopping(href='#')
+                    span.glyphicon.glyphicon-shopping-cart
+                div(style='height: 30px;')
+                    | 购物车
+                    a [清空]
+            div.dish-line
+                div.dish-name 麦辣鸡腿汉堡中套餐
+                div.ope-btns
+                    button.minus-btn -
+                    input.selected-no(type='text')
+                    button.plus-btn +
+                div.total-price ¥64,438
+            div.dish-line
+                div.dish-name 麦辣鸡腿汉堡中套餐
+                div.ope-btns
+                    button.minus-btn -
+                    input.selected-no(type='text')
+                    button.plus-btn +
+                div.total-price ¥64,438
 
-    .affix.col-lg-4.col-sm-6.col-xs-12(style='right:0;bottom:0;padding:0;z-index:100;')
-        .cart-basket(style='top: -90px;height: auto;z-index: 1;position: absolute;width: 100%;background-color: #fff;box-shadow: 0 1px 15px #ccc;')
-            div
-                div(style='background-color: #fafafa;border-top: 2px solid #0089dc;padding: 12px 10px;height: 45px;position: relative;font-size: 14px;border-bottom: 1px solid #eee;')
-                    a(href='#' style='position: absolute;top: 12px;right: 10px;width: 20px;height: 20px;font-size: 20px;color: #0089dc;cursor: pointer;')
-                        span.glyphicon.glyphicon-shopping-cart(style='font-size:20px;')
-                    div(style='height: 30px;')
-                        | 购物车
-                        a [清空]
-            div(style='display: table;table-layout: fixed;height: 45px;width: 100%;padding: 0 10px;margin-top: -1px;')
-                div(style='display: table-cell;vertical-align: middle;border-bottom: 1px solid #eee;width: 50%;margin-right: 10px;font-size: 14px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;color: #666;') 麦辣鸡腿汉堡中套餐
-                div(style='display: table-cell;vertical-align: middle;border-bottom: 1px solid #eee;width: 25%;text-align: center;')
-                    button(style='background-color: #fff;height: 20px;width: 20px;line-height: 18px;vertical-align: top;border: 1px solid #ddd;outline: 0;cursor: pointer;color: #666;') -
-                    input(type='text' style='border: 0;border-top: 1px solid #ddd;border-bottom: 1px solid #ddd;height: 20px;width: 30px;line-height: 20px;font-size: 12px;vertical-align: top;text-align: center;outline: 0;color: #666;')
-                    button(style='background-color: #fff;height: 20px;width: 20px;line-height: 18px;vertical-align: top;border: 1px solid #ddd;outline: 0;cursor: pointer;color: #666;') +
-                div(style='text-align: right;color: #f17530;display: table-cell;vertical-align: middle;border-bottom: 1px solid #eee;') ¥64,438
-            div(style='display: table;table-layout: fixed;height: 45px;width: 100%;padding: 0 10px;margin-top: -1px;')
-                div(style='display: table-cell;vertical-align: middle;border-bottom: 1px solid #eee;width: 50%;margin-right: 10px;font-size: 14px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;color: #666;') 麦辣鸡腿汉堡中套餐
-                div(style='display: table-cell;vertical-align: middle;border-bottom: 1px solid #eee;width: 25%;text-align: center;')
-                    button(style='background-color: #fff;height: 20px;width: 20px;line-height: 18px;vertical-align: top;border: 1px solid #ddd;outline: 0;cursor: pointer;color: #666;') -
-                    input(type='text' style='border: 0;border-top: 1px solid #ddd;border-bottom: 1px solid #ddd;height: 20px;width: 30px;line-height: 20px;font-size: 12px;vertical-align: top;text-align: center;outline: 0;color: #666;')
-                    button(style='background-color: #fff;height: 20px;width: 20px;line-height: 18px;vertical-align: top;border: 1px solid #ddd;outline: 0;cursor: pointer;color: #666;') +
-                div(style='text-align: right;color: #f17530;display: table-cell;vertical-align: middle;border-bottom: 1px solid #eee;') ¥64,438
-
-        div(style='z-index: 2;position: relative;cursor: pointer;color:#fff;height: 46px;line-height: 46px;background-color: #2c3e50;box-shadow: 0 1px 3px #2c3e50;padding:0 10px;')
-            div(style='position:relative;display:inline-block;')
-                span.glyphicon.glyphicon-shopping-cart(style='font-size:20px;')
-                span.badge(style='position:relative;top:-15px;left:-10px;background-color:#ff2828;') 2
-            span(style='font-size:14px;font-weight:bold;padding:0 2px;') ￥
+        div.basket-info
+            div.basket-dishes
+                span.glyphicon.glyphicon-shopping-cart
+                span.badge 2
+            span.currency-type ￥
             span(style='font-size:20px;') 222
-            button.btn.btn-success.btn-block(style='position:absolute;top:0;right:0;bottom:0;width:120px;border-radius:0;') 提交
+            button.btn.btn-success.btn-block#submit-meal-btn 提交
 
 
 block scripts
