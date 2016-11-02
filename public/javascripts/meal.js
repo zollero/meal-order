@@ -31,10 +31,10 @@
         }
     };
 
-    var urlSearch = window.location.search;
-    //var urlParams =
+    var urlParams = urlSearch2Obj(window.location.search);
 
-    var addMealURL = '/ordering/';
+    //var addMealURL = '/meal/' + urlParams.teamId;
+    var addMealURL = '/meal';
 
     /**
      * TODO
@@ -43,7 +43,15 @@
      * 3. client端传不同的参数在url上，与server连接
      */
 
-        //var dishSocket = io(addMealURL);
+    var mealSocket = io(addMealURL);
+
+    mealSocket.emit('hi', {
+        a: 1,
+        b: 2
+    });
+    mealSocket.on('hi', function(data) {
+        console.log(data)
+    });
     //
     //addDishBtn.on('click', function (e) {
     //    var infoEle = $(this).parent();
@@ -179,6 +187,20 @@
         setTimeout(function() {
             thisMessageEle.remove();
         }, 5000);
+    }
+
+    function urlSearch2Obj(searchStr) {
+        var obj = {};
+        if (searchStr.indexOf('?') !== -1) {
+            searchStr = searchStr.split('?')[1];
+        }
+        var str = searchStr.split('#')[0];
+        var temp = str.split('&');
+        for (var i = 0; i < temp.length; i++) {
+            var temp2 = temp[i].split('=');
+            obj[temp2[0]] = temp2[1];
+        }
+        return obj;
     }
 
 }(window, document, $));

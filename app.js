@@ -2,6 +2,9 @@
  * 项目启动文件
  * 包含：路由及系统配置
  */
+
+'use strict';
+
 var express = require('express');
 var path = require('path');
 var favicon = require('static-favicon');
@@ -63,26 +66,36 @@ app.use(router);
 
 //监听socket连接
 var ioSocket = io.on('connection', function (socket) {
-    socket.emit('connect-success', { hello: 'world' });
+    console.log('success...socket');
+    //socket.emit('connect-success', { hello: 'world' });
+    //
+    //socket.on('select-dish', function (data) {
+    //    ioSocket.emit('addDish', data);
+    //});
+    //
+    //socket.on('unselect-dish', function (data) {
+    //    ioSocket.emit('delDish', data);
+    //});
+    //
+    ////监听添加选菜事件
+    //socket.on('addMeal', function (data) {
+    //    console.log(data);
+    //    ioSocket.emit('someOneAddMeal', data);
+    //});
+    //
+    //socket.on('deleteMeal', function (data) {
+    //    console.log(data);
+    //    ioSocket.emit('someOneDeleteMeal', data);
+    //});
+});
 
-    socket.on('select-dish', function (data) {
-        ioSocket.emit('addDish', data);
-    });
-
-    socket.on('unselect-dish', function (data) {
-        ioSocket.emit('delDish', data);
-    });
-
-    //监听添加选菜事件
-    socket.on('addMeal', function (data) {
+let meal = io.of('/meal');
+meal.on('connection', socket => {
+    console.log('someone connect');
+    socket.on('hi', function(data) {
         console.log(data);
-        ioSocket.emit('someOneAddMeal', data);
     });
-
-    socket.on('deleteMeal', function (data) {
-        console.log(data);
-        ioSocket.emit('someOneDeleteMeal', data);
-    });
+    socket.emit('hi', 'everyone!');
 });
 
 
