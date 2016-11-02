@@ -115,9 +115,6 @@
     position:relative;
     display:inline-block;
 }
-/*.cart-container .basket-info .basket-dishes .glyphicon-shopping-cart {*/
-    /*font-size: 20px;*/
-/*}*/
 .cart-container .basket-info .basket-dishes .badge {
     position:relative;
     top:-15px;
@@ -171,7 +168,6 @@
     border-radius:3px;
     box-shadow:0 7px 21px 0 rgba(0,0,0,.15);
     color:#383838;
-    /*transition: bottom .5s ease-in-out;*/
     animation: message-fade-in 1s ease-in-out;
 }
 
