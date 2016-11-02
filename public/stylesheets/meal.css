@@ -124,10 +124,13 @@
     left:-10px;
     background-color:#ff2828;
 }
-.cart-container .basket-info .currency-type {
-    /*font-size:14px;*/
-    font-weight:bold;
-    padding:0 2px;
+.cart-container .basket-info .total-price {
+    font-size:20px;
+}
+.cart-container .basket-info .total-price:before {
+    content: '¥';
+    position: relative;
+    left: -3px;
 }
 #submit-meal-btn {
     position:absolute;
@@ -136,4 +139,104 @@
     bottom:0;
     width:80px;
     border-radius:0;
+}
+
+
+/* 消息提醒 */
+.dis-message-container {
+    position: fixed;
+    right: 0;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 5px;
+    list-style: none;
+    z-index: 10010;
+}
+
+.dis-message {
+    position:absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    width: auto;
+    user-select:none;
+    padding:12px 50px 12px 46px;
+    font-size:14px;
+    line-height:24px;
+    text-align:left;
+    background-color:#fff;
+    border-left-style:solid;
+    border-left-width:4px;
+    border-radius:3px;
+    box-shadow:0 7px 21px 0 rgba(0,0,0,.15);
+    color:#383838;
+    /*transition: bottom .5s ease-in-out;*/
+    animation: message-fade-in 1s ease-in-out;
+}
+
+@media (min-width: 1200px) {
+    .dis-message-container {
+        right: 30px;
+        top: 50px;
+        left: auto;
+        padding: 0;
+    }
+    .dis-message {
+        position:relative;
+        width:300px;
+        top:auto;
+        left: auto;
+        right:auto;
+    }
+    .dis-message+.dis-message{
+        margin-top:10px}
+}
+
+.dis-message.dis-message-danger{
+    border-left-color:#d43f3a}
+.dis-message.dis-message-success{
+    border-left-color:#4cae4c}
+.dis-message.dis-message-info{
+    border-left-color:#46b8da}
+.dis-message.dis-message-warning{
+    border-left-color:#eea236}
+.dis-message .dis-message-status{
+    position:absolute;top:16px;
+    left:20px;height:16px;
+    width:16px;font-size:16px;
+    line-height:16px;
+    color: #fff;}
+.dis-message.dis-message-danger .dis-message-status {
+    color: #d43f3a;  }
+.dis-message.dis-message-success .dis-message-status {
+    color: #4cae4c;  }
+.dis-message.dis-message-info .dis-message-status {
+    color: #46b8da;  }
+.dis-message.dis-message-warning .dis-message-status {
+    color: #eea236;  }
+
+.dis-message .dis-message-close{
+    position: absolute;
+    top: 16px;
+    right: 18px;
+    height: 16px;
+    width: 16px;
+    font-size: 16px;
+    line-height: 16px;
+    color: #a2abb8;}
+.dis-message .dis-message-close:hover {
+    color:#8591a2;
+}
+
+@keyframes message-fade-in {
+    0% {  top: -50px;  }
+    100% {  top: 0;  }
+}
+
+@media (min-width: 1200px) {
+    @keyframes message-fade-in {
+        0% {  right: -500px;  }
+        100% {  right: 0;  }
+    }
 }
