@@ -15,6 +15,7 @@ var app = express();
 var server = app.listen(3000, listenHandler);
 var io = require('socket.io')(server);
 var router = require('./routes/index');
+var url = require('url');
 
 var menuRouter = require('./routes/menuRouter');
 
@@ -35,17 +36,19 @@ var session = require('express-session'),
     MongoStore = require('connect-mongodb'),
     db = require('./database/msession');
 
+var mongoStore = new MongoStore({
+    username: Settings.NAME,
+    password: Settings.PASSWORD,
+    db: db
+});
+
 // session配置
 app.use(session({
     cookie: { maxAge: 1800000 },
     secret: Settings.COOKIE_SECRET,
     resave: true,
     saveUninitialized: true,
-    store: new MongoStore({
-        username: Settings.NAME,
-        password: Settings.PASSWORD,
-        db: db
-    })
+    store: mongoStore
 }));
 
 app.use(function (req, res, next) {
@@ -65,8 +68,8 @@ app.use(router);
 
 
 //监听socket连接
-var ioSocket = io.on('connection', function (socket) {
-    console.log('success...socket');
+//var ioSocket = io.on('connection', function (socket) {
+//    console.log('success...socket');
     //socket.emit('connect-success', { hello: 'world' });
     //
     //socket.on('select-dish', function (data) {
@@ -87,14 +90,31 @@ var ioSocket = io.on('connection', function (socket) {
     //    console.log(data);
     //    ioSocket.emit('someOneDeleteMeal', data);
     //});
-});
+//});
 
 let meal = io.of('/meal');
 meal.on('connection', socket => {
     console.log('someone connect');
-    socket.on('hi', function(data) {
-        console.log(data);
+    //获取socket url上的参数
+    let socketParams = socket.client.conn.request._query;
+    //获取团队ID，由于团队ID是唯一的，所以满足每个团队一个点餐room的要求
+    var teamId = socketParams.teamId;
+    //加入一个room
+    socket.join(teamId);
+    //仅该room内的连接可以接收到该信息
+    meal.to(teamId).emit('hii', 'I am room:' + teamId);
+
+    //监听“点菜”事件，并将该菜品信息发送给该room内的所有人
+    socket.on('add-dish', dishInfo => {
+        meal.to(teamId).emit('someone-add-dish', dishInfo);
     });
+
+    socket.on('del-dish', dishInfo => {
+        meal.to(teamId).emit('someone-del-dish', dishInfo);
+    });
+
+
+    //该namespace下所有的room中的连接都能接收到该信息
     socket.emit('hi', 'everyone!');
 });
 

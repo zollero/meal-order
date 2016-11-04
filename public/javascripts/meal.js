@@ -5,6 +5,8 @@
 
     var DISH_LINE_HEIGHT = 45;
 
+    var USER_NAME = $('#username').text();
+
     var dishListEle = $('#dish-list'),
         addDishBtn = $('.add-dish-btn'),
         basketInfo = $('#basket-info'),
@@ -34,7 +36,7 @@
     var urlParams = urlSearch2Obj(window.location.search);
 
     //var addMealURL = '/meal/' + urlParams.teamId;
-    var addMealURL = '/meal';
+    var addMealURL = '/meal?teamId=' + urlParams.teamId;
 
     /**
      * TODO
@@ -43,32 +45,34 @@
      * 3. client端传不同的参数在url上，与server连接
      */
 
+    //TODO  需要对后面进入的用户，自动将之前选好的菜品初始化
+    //TODO  需要重新设计一个点餐的数据表，来记录点餐的数据
+
     var mealSocket = io(addMealURL);
 
-    mealSocket.emit('hi', {
-        a: 1,
-        b: 2
+
+    //监听其他人点菜的事件
+    mealSocket.on('someone-add-dish', function(data) {
+        console.log('someone-add-dish', data);
+        showMessage('success', '<span class="text-danger">' + data.username + '</span> 点了一份 <span class="text-danger">' + data.dishName + '</span>');
+        addDishHandler(data);
     });
-    mealSocket.on('hi', function(data) {
-        console.log(data)
+
+    //监听其他人取消点菜的事件
+    mealSocket.on('someone-del-dish', function(data) {
+        console.log('someone-add-dish', data);
+        showMessage('danger', '<span class="text-danger">' + data.username + '</span> 减掉了一份 <span class="text-danger">' + data.dishName + '</span>');
+        delDishHandler(data);
     });
-    //
-    //addDishBtn.on('click', function (e) {
-    //    var infoEle = $(this).parent();
-    //    var dishId = infoEle.attr('dish-id'),
-    //        dishName = infoEle.attr('dish-name'),
-    //        price = infoEle.attr('dish-price');
-    //
-    //    dishSocket.emit('select-dish', {
-    //        dishId: dishId,
-    //        dishName: dishName,
-    //        price: price
-    //    })
-    //});
-    //
-    //dishSocket.on('addDish', function (data) {
-    //    console.log(data);
-    //});
+
+    //发送点菜事件至服务器端
+    function emitAddDishEvent(dishInfo) {
+        mealSocket.emit('add-dish',dishInfo);
+    }
+    //发送取消点菜事件至服务器端
+    function emitDelDishEvent(dishInfo) {
+        mealSocket.emit('del-dish', dishInfo);
+    }
 
     basketInfo.on('click', function() {
         var cartBasketHeight = cartBasket.clientHeight;
@@ -91,17 +95,27 @@
         var dataTarget = $(this).parent();
         var dishId = dataTarget.attr('dish-id'),
             dishName = dataTarget.attr('dish-name'),
-            dishPrice = dataTarget.attr('dish-price');
+            dishPrice = Number(dataTarget.attr('dish-price'));
 
-        var thisDishLine = dishListEle.find('.dish-line[dish-id=' + dishId + ']');
+        //emit一个事件给当前点餐的其他人
+        emitAddDishEvent({
+            username: USER_NAME,
+            dishId: dishId,
+            dishName: dishName,
+            price: dishPrice
+        });
+    });
+
+    function addDishHandler(dishInfo) {
+        var thisDishLine = dishListEle.find('.dish-line[dish-id=' + dishInfo.dishId + ']');
         if (thisDishLine.length === 0) {
-            var basketLine = '<div class="dish-line" dish-id="' + dishId + '" dish-name="' + dishName + '" dish-price="' + dishPrice + '">' +
-                '<div class="dish-name">' + dishName + '</div>' +
+            var basketLine = '<div class="dish-line" dish-id="' + dishInfo.dishId + '" dish-name="' + dishInfo.dishName + '" dish-price="' + dishInfo.price + '">' +
+                '<div class="dish-name">' + dishInfo.dishName + '</div>' +
                 '<div class="ope-btns"><button type="button" class="minus-btn">-</button>' +
                 '<input type="text" readonly class="selected-no" value="1" />' +
                 '<button type="button" class="plus-btn">+</button></div>' +
-                '<div class="total-price">¥' + dishPrice + '</div></div>';
-            thisDishLine = dishListEle.append(basketLine).find('.dish-line[dish-id=' + dishId + ']');
+                '<div class="total-price">¥' + dishInfo.price + '</div></div>';
+            thisDishLine = dishListEle.append(basketLine).find('.dish-line[dish-id=' + dishInfo.dishId + ']');
             //给增加和减少按钮添加事件处理函数
             initMPEvent(thisDishLine);
             resizeDishListHeight();
@@ -110,36 +124,51 @@
                 selectedNo = Math.floor(Number(selectedNoEle.val())) + 1;
             var thisTotalPriceEle = thisDishLine.find('.total-price');
             selectedNoEle.val(selectedNo);
-            thisTotalPriceEle.text('¥' + selectedNo * Number(dishPrice));
+            thisTotalPriceEle.text('¥' + selectedNo * Number(dishInfo.price));
         }
         refreshTotalDishesInfo();
-        showMessage('info', '添加了一个菜');
-        //TODO  修改左下角购物车上的数字
-        //TODO emit一个事件给当前点餐的其他人
-    });
+    }
+
+    function delDishHandler(dishInfo) {
+        var thisDishLine = dishListEle.find('.dish-line[dish-id=' + dishInfo.dishId + ']');
+        if (thisDishLine.length !== 0) {
+            var selectedNoEle = thisDishLine.find('.selected-no'),
+                totalPriceEle = thisDishLine.find('.total-price');
+            var value = Number(selectedNoEle.val()) - 1;
+            if (value > 0) {
+                selectedNoEle.val(value);
+                totalPriceEle.text('¥' + value * dishInfo.price);
+            } else {
+                thisDishLine.remove();
+                resizeDishListHeight();
+            }
+            refreshTotalDishesInfo();
+        }
+    }
 
     function initMPEvent(target) {
         var selectedNoEle = target.find('.selected-no'),
             totalPriceEle = target.find('.total-price'),
+            dishId = target.attr('dish-id'),
+            dishName = target.attr('dish-name'),
             dishPrice = Number(target.attr('dish-price'));
         target.find('.minus-btn').on('click', function() {
-            var value = Number(selectedNoEle.val()) - 1;
-            if (value > 0) {
-                selectedNoEle.val(value);
-                totalPriceEle.text('¥' + value * dishPrice);
-            } else {
-                target.remove();
-                resizeDishListHeight();
-            }
-            refreshTotalDishesInfo();
-            //TODO emit事件给其他人，减少了一个菜
+            //emit事件给其他人，减少了一个菜
+            emitDelDishEvent({
+                username: USER_NAME,
+                dishId: dishId,
+                dishName: dishName,
+                price: dishPrice
+            });
         });
         target.find('.plus-btn').on('click', function() {
-            var value = Number(selectedNoEle.val()) + 1;
-            selectedNoEle.val(value);
-            totalPriceEle.text('¥' + value * dishPrice);
-            refreshTotalDishesInfo();
-            //TODO emit事件给其他人，添加了一个菜
+            //emit事件给其他人，添加了一个菜
+            emitAddDishEvent({
+                username: USER_NAME,
+                dishId: dishId,
+                dishName: dishName,
+                price: dishPrice
+            });
         });
     }
 
