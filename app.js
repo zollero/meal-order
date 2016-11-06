@@ -137,7 +137,7 @@ meal.on('connection', socket => {
 
     socket.on('del-dish', dishInfo => {
         let dishIndex = dishesOfMeal[teamId].findIndex((value, index, attr) => {
-            return value.dishId = dishInfo.dishId;
+            return value.dishId === dishInfo.dishId;
         });
         //判断该团队是否已经选择了菜，若没有选则不做操作，若选择了，则数量减1
         if (dishIndex !== -1) {
