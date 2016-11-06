@@ -92,6 +92,9 @@ app.use(router);
     //});
 //});
 
+//定义一个对象，来临时存储团队中点的菜信息
+let dishesOfMeal = {};
+
 let meal = io.of('/meal');
 meal.on('connection', socket => {
     console.log('someone connect');
@@ -101,18 +104,51 @@ meal.on('connection', socket => {
     var teamId = socketParams.teamId;
     //加入一个room
     socket.join(teamId);
+
+    if (!dishesOfMeal[teamId]) {
+        dishesOfMeal[teamId] = [];
+    }
+    //当用户连接的时候，如果当前团队已经选择了菜，则将已选择的菜发送给该用户，进行一些初始化的数据展示
+    if (dishesOfMeal[teamId].length > 0) {
+        socket.emit('selected-dishes', dishesOfMeal[teamId]);
+    }
+
     //仅该room内的连接可以接收到该信息
     meal.to(teamId).emit('hii', 'I am room:' + teamId);
 
     //监听“点菜”事件，并将该菜品信息发送给该room内的所有人
     socket.on('add-dish', dishInfo => {
+        let dishIndex = dishesOfMeal[teamId].findIndex((value, index, attr) => {
+            return value.dishId === dishInfo.dishId;
+        });
+        //判断该团队是否已经选择了菜，若没有选则添加到临时变量中，若选择了，则数量加1
+        if (dishIndex === -1) {
+            dishesOfMeal[teamId].push({
+                dishId: dishInfo.dishId,
+                dishName: dishInfo.dishName,
+                price: dishInfo.price,
+                no: 1
+            });
+        } else {
+            dishesOfMeal[teamId][dishIndex].no++;
+        }
         meal.to(teamId).emit('someone-add-dish', dishInfo);
     });
 
     socket.on('del-dish', dishInfo => {
+        let dishIndex = dishesOfMeal[teamId].findIndex((value, index, attr) => {
+            return value.dishId = dishInfo.dishId;
+        });
+        //判断该团队是否已经选择了菜，若没有选则不做操作，若选择了，则数量减1
+        if (dishIndex !== -1) {
+            if (dishesOfMeal[teamId][dishIndex].no === 1) {
+                dishesOfMeal[teamId].splice(dishIndex, 1);
+            } else {
+                dishesOfMeal[teamId][dishIndex].no--;
+            }
+        }
         meal.to(teamId).emit('someone-del-dish', dishInfo);
     });
-
 
     //该namespace下所有的room中的连接都能接收到该信息
     socket.emit('hi', 'everyone!');

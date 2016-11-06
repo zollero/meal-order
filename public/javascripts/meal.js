@@ -33,6 +33,8 @@
         }
     };
 
+
+
     var urlParams = urlSearch2Obj(window.location.search);
 
     //var addMealURL = '/meal/' + urlParams.teamId;
@@ -45,10 +47,24 @@
      * 3. client端传不同的参数在url上，与server连接
      */
 
-    //TODO  需要对后面进入的用户，自动将之前选好的菜品初始化
-    //TODO  需要重新设计一个点餐的数据表，来记录点餐的数据
-
     var mealSocket = io(addMealURL);
+
+    //对后面进入的用户，自动将之前选好的菜品初始化
+    mealSocket.on('selected-dishes', function (data) {
+        if (data.length && data.length > 0) {
+            var dishLinesHtml = '';
+            $.each(data, function (i, v) {
+                dishLinesHtml += generateDishLine(v);
+            });
+            dishListEle.append(dishLinesHtml);
+            var dishLines = dishListEle.find('.dish-line').toArray();
+            $.each(dishLines, function (i, v) {
+                initMPEvent($(v));
+            });
+            resizeDishListHeight();
+            refreshTotalDishesInfo();
+        }
+    });
 
 
     //监听其他人点菜的事件
@@ -64,6 +80,15 @@
         showMessage('danger', '<span class="text-danger">' + data.username + '</span> 减掉了一份 <span class="text-danger">' + data.dishName + '</span>');
         delDishHandler(data);
     });
+
+    function generateDishLine(dish) {
+        return '<div class="dish-line" dish-id="' + dish.dishId + '" dish-name="' + dish.dishName + '" dish-price="' + dish.price + '">' +
+            '<div class="dish-name">' + dish.dishName + '</div>' +
+            '<div class="ope-btns"><button type="button" class="minus-btn">-</button>' +
+            '<input type="text" readonly class="selected-no" value="' + dish.no + '" />' +
+            '<button type="button" class="plus-btn">+</button></div>' +
+            '<div class="total-price">¥' + (dish.price * dish.no) + '</div></div>';
+    }
 
     //发送点菜事件至服务器端
     function emitAddDishEvent(dishInfo) {
@@ -147,9 +172,7 @@
     }
 
     function initMPEvent(target) {
-        var selectedNoEle = target.find('.selected-no'),
-            totalPriceEle = target.find('.total-price'),
-            dishId = target.attr('dish-id'),
+        var dishId = target.attr('dish-id'),
             dishName = target.attr('dish-name'),
             dishPrice = Number(target.attr('dish-price'));
         target.find('.minus-btn').on('click', function() {
