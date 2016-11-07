@@ -231,7 +231,11 @@
             targetMessageEle.parentElement.removeChild(targetMessageEle);
         });
         setTimeout(function() {
-            thisMessageEle.remove();
+            thisMessageEle.animate({
+                opacity: 0
+            }, 500, 'swing', function () {
+                thisMessageEle.remove();
+            });
         }, 5000);
     }
 
