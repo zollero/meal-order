@@ -102,8 +102,11 @@ meal.on('connection', socket => {
     let socketParams = socket.client.conn.request._query;
     //获取团队ID，由于团队ID是唯一的，所以满足每个团队一个点餐room的要求
     var teamId = socketParams.teamId;
+    var username = socketParams.username;
     //加入一个room
     socket.join(teamId);
+    //通知，有人加入了点菜
+    meal.to(teamId).emit('message', username + ' 加入点菜队伍');
 
     if (!dishesOfMeal[teamId]) {
         dishesOfMeal[teamId] = [];
@@ -152,7 +155,14 @@ meal.on('connection', socket => {
 
     //该namespace下所有的room中的连接都能接收到该信息
     socket.emit('hi', 'everyone!');
+
+    socket.on('disconnect', (ss) => {
+        socket.leave(teamId);
+        //通知,某人离开了房间
+        meal.to(teamId).emit('message', username + ' 离开了点菜队伍');
+    });
 });
+
 
 
 function listenHandler() {

@@ -33,21 +33,20 @@
         }
     };
 
-
-
     var urlParams = urlSearch2Obj(window.location.search);
 
-    //var addMealURL = '/meal/' + urlParams.teamId;
-    var addMealURL = '/meal?teamId=' + urlParams.teamId;
+    var addMealURL = '/meal?teamId=' + urlParams.teamId + '&username=' + USER_NAME;
 
     /**
-     * TODO
      * 1. 添加一个弹出提示的消息样式
      * 2. server端编写针对不同的订餐任务的socket链接，以团队ID为标识
      * 3. client端传不同的参数在url上，与server连接
      */
-
     var mealSocket = io(addMealURL);
+
+    mealSocket.on('message', function(data) {
+        showMessage('info', data);
+    });
 
     //对后面进入的用户，自动将之前选好的菜品初始化
     mealSocket.on('selected-dishes', function (data) {
@@ -82,6 +81,7 @@
     });
 
     function generateDishLine(dish) {
+        if (typeof dish.no !== 'number') dish.no = 1;
         return '<div class="dish-line" dish-id="' + dish.dishId + '" dish-name="' + dish.dishName + '" dish-price="' + dish.price + '">' +
             '<div class="dish-name">' + dish.dishName + '</div>' +
             '<div class="ope-btns"><button type="button" class="minus-btn">-</button>' +
@@ -134,13 +134,7 @@
     function addDishHandler(dishInfo) {
         var thisDishLine = dishListEle.find('.dish-line[dish-id=' + dishInfo.dishId + ']');
         if (thisDishLine.length === 0) {
-            var basketLine = '<div class="dish-line" dish-id="' + dishInfo.dishId + '" dish-name="' + dishInfo.dishName + '" dish-price="' + dishInfo.price + '">' +
-                '<div class="dish-name">' + dishInfo.dishName + '</div>' +
-                '<div class="ope-btns"><button type="button" class="minus-btn">-</button>' +
-                '<input type="text" readonly class="selected-no" value="1" />' +
-                '<button type="button" class="plus-btn">+</button></div>' +
-                '<div class="total-price">¥' + dishInfo.price + '</div></div>';
-            thisDishLine = dishListEle.append(basketLine).find('.dish-line[dish-id=' + dishInfo.dishId + ']');
+            thisDishLine = dishListEle.append(generateDishLine(dishInfo)).find('.dish-line[dish-id=' + dishInfo.dishId + ']');
             //给增加和减少按钮添加事件处理函数
             initMPEvent(thisDishLine);
             resizeDishListHeight();
