@@ -15,9 +15,6 @@ var app = express();
 var server = app.listen(3000, listenHandler);
 var io = require('socket.io')(server);
 var router = require('./routes/index');
-var url = require('url');
-
-var menuRouter = require('./routes/menuRouter');
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -117,7 +114,7 @@ meal.on('connection', socket => {
     }
 
     //仅该room内的连接可以接收到该信息
-    meal.to(teamId).emit('hii', 'I am room:' + teamId);
+    //meal.to(teamId).emit('hii', 'I am room:' + teamId);
 
     //监听“点菜”事件，并将该菜品信息发送给该room内的所有人
     socket.on('add-dish', dishInfo => {
