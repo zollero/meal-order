@@ -53,7 +53,6 @@
             var menuId = ee.target.getAttribute('menu-id');
             window.location.href = '/home/meal?teamId=' + teamId + '&menuId=' + menuId + '&teamName=' + teamName;
         });
-
     }
 
 }(window, document, $));

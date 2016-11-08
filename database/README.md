@@ -76,6 +76,7 @@
             teamId: String, //团队_id
             menuId: String, //菜单_id
             dishes: [{
+                dishId: String, //菜 id值 
                 dishName: String,   //菜名
                 price: Number,  //单价
                 number: Number  //份数

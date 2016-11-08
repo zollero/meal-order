@@ -14,8 +14,8 @@ a {
 
 .top-banner {
     width: 100%;
-    height: 190px;
-    background: url(../images/topbanner.png) center bottom no-repeat;
+    height: 250px;
+    background: url(../images/top_banner.jpg) center center no-repeat;
     background-size: cover;
     position: relative;
 }
@@ -28,7 +28,7 @@ a {
     text-align: center;
     font-family: "Helvetica Neue Light", "Lucida Grande", "Calibri", "Arial", sans-serif;
     font-size: 60px;
-    color: #fffdfe;
+    color: #2c3e50;
     font-weight: 500;
     display: block;
     height: 46px;
