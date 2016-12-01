@@ -5,16 +5,16 @@
 
 'use strict';
 
-var express = require('express');
-var path = require('path');
-var favicon = require('static-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var app = express();
-var server = app.listen(3000, listenHandler);
-var io = require('socket.io')(server);
-var router = require('./routes/index');
+const express = require('express');
+const path = require('path');
+const favicon = require('static-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const app = express();
+const server = app.listen(3000, listenHandler);
+const io = require('socket.io')(server);
+const router = require('./routes/index');
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -26,14 +26,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser('bear'));
 
+let foodDB = require('./database/model');
+
 
 //采用connect-mongodb中间件作session存储
-var session = require('express-session'),
+const session = require('express-session'),
     Settings = require('./database/settings'),
     MongoStore = require('connect-mongodb'),
     db = require('./database/msession');
 
-var mongoStore = new MongoStore({
+const mongoStore = new MongoStore({
     username: Settings.NAME,
     password: Settings.PASSWORD,
     db: db
@@ -50,7 +52,7 @@ app.use(session({
 
 app.use(function (req, res, next) {
     res.locals.user = req.session.user;
-    var err = req.session.error;
+    const err = req.session.error;
     delete req.session.error;
     res.locals.message = '';
     if (err) {
@@ -64,31 +66,6 @@ app.use(router);
 // app.use(menuRouter);
 
 
-//监听socket连接
-//var ioSocket = io.on('connection', function (socket) {
-//    console.log('success...socket');
-    //socket.emit('connect-success', { hello: 'world' });
-    //
-    //socket.on('select-dish', function (data) {
-    //    ioSocket.emit('addDish', data);
-    //});
-    //
-    //socket.on('unselect-dish', function (data) {
-    //    ioSocket.emit('delDish', data);
-    //});
-    //
-    ////监听添加选菜事件
-    //socket.on('addMeal', function (data) {
-    //    console.log(data);
-    //    ioSocket.emit('someOneAddMeal', data);
-    //});
-    //
-    //socket.on('deleteMeal', function (data) {
-    //    console.log(data);
-    //    ioSocket.emit('someOneDeleteMeal', data);
-    //});
-//});
-
 //定义一个对象，来临时存储团队中点的菜信息
 let dishesOfMeal = {};
 
@@ -98,8 +75,13 @@ meal.on('connection', socket => {
     //获取socket url上的参数
     let socketParams = socket.client.conn.request._query;
     //获取团队ID，由于团队ID是唯一的，所以满足每个团队一个点餐room的要求
-    var teamId = socketParams.teamId;
-    var username = socketParams.username;
+    const teamId = socketParams.teamId;
+    const username = socketParams.username;
+    //修改团队状态
+    foodDB.teamModel.update({_id: teamId}, {ordering: true}, (err) => {
+        if (err) console.error(err);
+    });
+
     //加入一个room
     socket.join(teamId);
     //通知，有人加入了点菜
