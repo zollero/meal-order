@@ -26,11 +26,11 @@ block content
                                 a.del-btn(href='#' _id=team._id) 删除
 
     else
-        p(class='text-center')
+        .jumbotron
             span(class='glyphicon glyphicon-exclamation-sign text-danger')
             | &nbsp;你还没有加入任何团队
             a(href='#' data-toggle='modal' data-target='#team-search-modal') 搜索团队
-            span 或
+            | 或
             a(href='/team/add') 创建团队
 
     .modal.fade.in(tabindex='-1' id='team-search-modal' role='dialog' aria-hidden='true' data-backdrop='static')

@@ -22,11 +22,9 @@ block content
                             a.del-btn(href='#') 删除
     else
         .jumbotron
-            span
-                span(class='glyphicon glyphicon-exclamation-sign text-danger')
-                | &nbsp;你还没有任何菜单，请创建新的菜单。
-            span
-                a(href='/menu/add') 创建菜单
+            span(class='glyphicon glyphicon-exclamation-sign text-danger')
+            | &nbsp;你还没有任何菜单，
+            a(href='/menu/add') 创建新菜单
 
 
 block scripts
