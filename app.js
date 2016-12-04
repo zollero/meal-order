@@ -26,8 +26,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser('bear'));
 
-let foodDB = require('./database/model');
-
 
 //采用connect-mongodb中间件作session存储
 const session = require('express-session'),

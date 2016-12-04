@@ -10,7 +10,7 @@ block content
         li 订餐
     ul(class='breadcrumb')
         li
-            h5 菜单名：
+            h5 餐单名：
                 =menuName
 
     if dishes.length > 0
@@ -23,7 +23,7 @@ block content
                             =dish.price
                             | ）
                     .text-right(dish-id=dish._id dish-name=dish.dishName dish-price=dish.price)
-                        button.btn.btn-danger.btn-sm.add-dish-btn 加入菜单
+                        button.btn.btn-danger.btn-sm.add-dish-btn 加入订单
 
     .affix.col-lg-4.col-sm-6.col-xs-12.cart-container
         .cart-basket#cart-basket
