@@ -24,7 +24,7 @@
                             '<td><a href="#" class="launch-btn" popover-content="' + menuListHtml + '" team-id="' + value._id + '" team-name="' + value.teamName + '">发起</a></td></tr>';
                     });
                 } else {
-                    teamListHtml += '<span class="glyphicon glyphicon-exclamation-sign text-danger"></span>&nbsp;你还没有加入任何团队';
+                    teamListHtml += '<tr><td colspan="3" style="text-align: center;"><span class="glyphicon glyphicon-exclamation-sign text-danger"></span>&nbsp;你还没有加入任何团队</td></tr>';
                 }
                 teamListEle.html(teamListHtml);
                 teamListEle.find('.launch-btn').on('click', launchHandler);
