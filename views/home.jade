@@ -19,7 +19,9 @@ block content
                         td
                             a(href='/home/meal?orderId=' + order._id) 加入
     else
-        p(class='text-center') 没有进行中的点餐活动，
+        .jumbotron
+            span(class='glyphicon glyphicon-exclamation-sign text-danger')
+            | &nbsp;没有进行中的点餐活动，
             a(href='#' data-toggle='modal' id='team-modal-btn' data-target='#team-order-modal') 发起点餐
 
     .modal.fade.in(tabindex='-1' id='team-order-modal' role='dialog' aria-hidden='true' data-backdrop='static')
