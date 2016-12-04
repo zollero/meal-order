@@ -8,9 +8,10 @@ block content
         li
             a(href='/home') 主页
         li 订餐
-
-    h5 菜单名：
-       =menuName
+    ul(class='breadcrumb')
+        li
+            h5 菜单名：
+                =menuName
 
     if dishes.length > 0
         each dish in dishes
@@ -28,21 +29,6 @@ block content
         .cart-basket#cart-basket
             .basket-banner 购物车
             .dish-list#dish-list
-            //.dish-line
-            //    .dish-name 麦辣鸡腿汉堡中套餐
-            //    .ope-btns
-            //        button.minus-btn -
-            //        input.selected-no(type='text' value=1)
-            //        button.plus-btn +
-            //    .total-price ¥64,438
-            //.dish-line
-            //    .dish-name 麦辣鸡腿汉堡中套餐
-            //    .ope-btns
-            //        button.minus-btn -
-            //        input.selected-no(type='text' value=1)
-            //        button.plus-btn +
-            //    .total-price ¥64,438
-
         .basket-info#basket-info
             .basket-dishes
                 span.glyphicon.glyphicon-shopping-cart
