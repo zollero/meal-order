@@ -4,18 +4,18 @@ extends template-page
 block content
     ul(class='breadcrumb')
         li
-            a(href='/menu') 菜单
-        li=menuInfo ? '编辑菜单' : '创建菜单'
+            a(href='/menu') 餐单
+        li=menuInfo ? '编辑餐单' : '创建餐单'
 
     .col-sm-12.col-xs-12.well
         form.form-horizontal#add-menu-form
             fieldset
-                legend 菜单列表
+                legend 餐单信息
                 if menuInfo
                     .form-group.dish-line
                         span.hide#menu_id=menuInfo._id
                         .col-xs-10.col-sm-5
-                            input.form-control(name='menuName' type='text' placeholder='菜单名' value=menuInfo.menuName)
+                            input.form-control(name='menuName' type='text' placeholder='餐单名' value=menuInfo.menuName)
                         .col-xs-2.col-sm-7.text-left
                             button.btn.btn-info.btn-sm(type='button' id='add-dish-btn')
                                 span.glyphicon.glyphicon-plus-sign
@@ -32,7 +32,7 @@ block content
                 else
                     .form-group.dish-line
                         .col-xs-10.col-sm-5
-                            input.form-control(name='menuName' type='text' placeholder='菜单名')
+                            input.form-control(name='menuName' type='text' placeholder='餐单名')
                         .col-xs-2.col-sm-7.text-left
                             button.btn.btn-info.btn-sm(type='button' id='add-dish-btn')
                                 span.glyphicon.glyphicon-plus-sign
@@ -56,9 +56,9 @@ block content
         .modal-dialog
             .panel.panel-success
                 .panel-heading
-                    h3.panel-title 菜单创建成功
+                    h3.panel-title 餐单创建成功
                 .modal-body.text-center
-                    a.btn.btn-info.btn-sm(type='button' href='/menu') 回到菜单页
+                    a.btn.btn-info.btn-sm(type='button' href='/menu') 回到餐单页
                     | &nbsp;&nbsp;
                     button.btn.btn-info.btn-sm(type='button' id='add-more-btn' data-dismiss="modal") 再创建一个
 

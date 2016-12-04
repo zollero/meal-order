@@ -2,20 +2,18 @@ extends template-page
 
 block content
     if menuList.length > 0
-        h5 你的菜单列表:
+        h5 你的餐单列表:
             span.pull-right
-                a(href='/menu/add') 创建菜单
+                a(href='/menu/add') 创建餐单
         table(class='table table-hover table-striped table-responsive')
             thead
                 tr
-                    th 菜单名
-                    //th 创建时间
+                    th 餐单名
                     th 操作
             tbody
                 each menu in menuList
                     tr
                         td=menu.menuName
-                        //td=menu.createTime
                         td(_id=menu._id)
                             a.edit-btn(href='#') 编辑
                             | &nbsp;&nbsp;
@@ -23,9 +21,8 @@ block content
     else
         .jumbotron
             span(class='glyphicon glyphicon-exclamation-sign text-danger')
-            | &nbsp;你还没有任何菜单，
-            a(href='/menu/add') 创建新菜单
-
+            | &nbsp;你还没有任何餐单，
+            a(href='/menu/add') 创建新餐单
 
 block scripts
     script(type='text/javascript' src='/lib/jquery/dist/jquery.min.js')

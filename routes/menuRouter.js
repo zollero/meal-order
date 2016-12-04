@@ -8,7 +8,7 @@ let util = require('./routerUtil');
 
 
 /**
- * 菜单管理页面
+ * 餐单管理页面
  */
 router.get('/menu', function (req, res) {
     if (!util.authentication(req, res)) return;
@@ -26,7 +26,7 @@ router.get('/menu', function (req, res) {
             return false;
         }
         res.render('menu', {
-            title: '菜单页',
+            title: '餐单页',
             username: userName,
             menuList: result,
             nav: 'menu'
@@ -34,11 +34,11 @@ router.get('/menu', function (req, res) {
     });
 });
 
-//创建菜单
+//创建餐单
 router.route('/menu/add').get(function (req, res) {
     if (!util.authentication(req, res)) return;
     res.render('menu-info', {
-        title: '菜单-创建菜单',
+        title: '餐单-创建餐单',
         username: req.session.user.username,
         nav: 'menu'
     });
@@ -68,7 +68,7 @@ router.route('/menu/add').get(function (req, res) {
             if (err) {
                 res.send({
                     success: false,
-                    message: '更新菜单失败，请稍后重试！'
+                    message: '更新餐单失败，请稍后重试！'
                 });
                 return false;
             }
@@ -82,19 +82,19 @@ router.route('/menu/add').get(function (req, res) {
             if (err) {
                 res.send({
                     success: false,
-                    message: '创建菜单失败，请稍后重试！'
+                    message: '创建餐单失败，请稍后重试！'
                 });
                 return false;
             }
             res.send({
                 success: true,
-                message: '菜单“' + req.body.menuName + '”创建成功！'
+                message: '餐单“' + req.body.menuName + '”创建成功！'
             });
         });
     }
 });
 
-//编辑菜单
+//编辑餐单
 router.get('/menu/edit', (req, res) => {
     if (!util.authentication(req, res)) return;
     let queryObj = {
@@ -113,7 +113,7 @@ router.get('/menu/edit', (req, res) => {
             return false;
         }
         res.render('menu-info', {
-            title: '菜单-编辑菜单',
+            title: '餐单-编辑餐单',
             username: req.session.user.username,
             nav: 'menu',
             menuInfo: result[0]
@@ -121,18 +121,18 @@ router.get('/menu/edit', (req, res) => {
     });
 });
 
-//删除菜单
+//删除餐单
 router.post('/menu/del', (req, res) => {
     if (!util.authentication(req, res)) return;
     let menuId = req.body.menuId;
-    //首先判断，如果该菜单已经被未删除的团队引用，则该菜单不能删除
+    //首先判断，如果该餐单已经被未删除的团队引用，则该餐单不能删除
     db.teamModel.find({ 'menus.menuId': menuId, isDeleted: false }, (error, result) => {
         if (error) {
             res.send({ success: false, message: '操作失败' });
             return false;
         }
         if (result.length > 0) {
-            res.send({ success: false, message: '该菜单有关联团队，不能删除' });
+            res.send({ success: false, message: '该餐单有关联团队，不能删除' });
             return false;
         }
         db.menuModel.update({_id: menuId}, {$set: {isDeleted: true}}, (err) => {
