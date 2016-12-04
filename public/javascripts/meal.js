@@ -35,7 +35,8 @@
 
     var urlParams = urlSearch2Obj(window.location.search);
 
-    var addMealURL = '/meal?teamId=' + urlParams.teamId + '&username=' + USER_NAME;
+    // var addMealURL = '/meal?teamId=' + urlParams.teamId + '&username=' + USER_NAME;
+    var addMealURL = '/meal?orderId=' + urlParams.orderId + '&username=' + USER_NAME;
 
     /**
      * 1. 添加一个弹出提示的消息样式

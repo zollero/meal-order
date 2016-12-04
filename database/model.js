@@ -40,7 +40,7 @@ let TeamSchema = new mongoose.Schema({
         menuId: String,
         menuName: String
     }],
-    ordering: Boolean,
+    // ordering: Boolean,
     isDeleted: Boolean,
     creatorName: String,
     createTime: Date,
