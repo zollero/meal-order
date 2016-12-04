@@ -76,20 +76,40 @@ meal.on('connection', socket => {
     let socketParams = socket.client.conn.request._query;
     //获取团队ID，由于团队ID是唯一的，所以满足每个团队一个点餐room的要求
     const teamId = socketParams.teamId;
+    const menuId = socketParams.menuId;
     const username = socketParams.username;
-    //修改团队状态
-    foodDB.teamModel.update({_id: teamId}, {ordering: true}, (err) => {
-        if (err) console.error(err);
-    });
+    console.log(teamId);
+
+    if (!dishesOfMeal[teamId]) {
+        dishesOfMeal[teamId] = [];
+        //修改团队状态
+        foodDB.teamModel.update({_id: teamId}, {ordering: true}, (err) => {
+            if (err) console.error(err);
+        });
+
+        //生成团队状态
+        foodDB.orderModel({
+            teamId: teamId,
+            menuId: menuId,
+            dishes: [],
+            total: 0,
+            status: 0,
+            isDeleted: false,
+            creatorName: username,
+            createTime: new Date(),
+            updaterName: username,
+            updateTime: new Date()
+        }).save((err, data) => {
+            if (err) console.error(err);
+            console.log(data);
+        });
+    }
 
     //加入一个room
     socket.join(teamId);
     //通知，有人加入了点菜
     meal.to(teamId).emit('message', username + ' 加入点菜队伍');
 
-    if (!dishesOfMeal[teamId]) {
-        dishesOfMeal[teamId] = [];
-    }
     //当用户连接的时候，如果当前团队已经选择了菜，则将已选择的菜发送给该用户，进行一些初始化的数据展示
     if (dishesOfMeal[teamId].length > 0) {
         socket.emit('selected-dishes', dishesOfMeal[teamId]);

@@ -9,10 +9,8 @@ block content
             a(href='/home') 主页
         li 订餐
 
-    h5
-        =teamName
-        | &nbsp;/&nbsp;
-        =menuName
+    h5 菜单名：
+       =menuName
 
     if dishes.length > 0
         each dish in dishes

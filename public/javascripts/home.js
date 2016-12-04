@@ -36,8 +36,7 @@
 
     function launchHandler(e) {
         console.log(e.target);
-        var teamId = $(this).attr('team-id'),
-            teamName = $(this).attr('team-name');
+        var teamId = $(this).attr('team-id');
         var popoverContent = $(this).attr('popover-content');
 
         var $activatePopover = $(this).popover({
@@ -51,7 +50,17 @@
 
         $('.menu-btn').on('click', function(ee) {
             var menuId = ee.target.getAttribute('menu-id');
-            window.location.href = '/home/meal?teamId=' + teamId + '&menuId=' + menuId + '&teamName=' + teamName;
+            $.post('/home/launchOrder', {
+                teamId: teamId,
+                menuId: menuId,
+            }, (data) => {
+                console.log(data);
+                if (data.success) {
+                    window.location.href = '/home/meal?orderId=' + data.orderId;
+                } else {
+                    alert(data.message);
+                }
+            });
         });
     }
 

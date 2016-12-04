@@ -58,8 +58,6 @@
                 menuId: String, //菜单_id
                 menuName: String    //菜单名称
             }], //该团队关联菜单
-            ordering: Boolean,   //是否正在订餐中（新建时，默认为false）
-            orderMenuId: String,    //此时订餐的菜单id
             isDeleted: Boolean,     //是否删除
             creatorName: String,    //创建者用户名
             createTime: Date,       //创建时间
@@ -83,7 +81,7 @@
                 number: Number  //份数
             }],
             total: Number,  //订单总价
-            status: Number, //订单状态 （TODO待确认）
+            status: Number, //订单状态 0: 未完成，1: 已完成
             isDeleted: Boolean, //是否删除
             creatorName: String,    //创建者用户名
             createTime: Date,   //创建时间

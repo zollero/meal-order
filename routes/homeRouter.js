@@ -10,7 +10,14 @@ router.get('/home', function (req, res) {
     if (!util.authentication(req, res)) return;
     let username = req.session.user.username;
 
-    db.teamModel.find({ isDeleted: false, ordering: true }, { teamId: 1, teamName: 1, creatorName: 1 }, (err, result) => {
+    db.orderModel.find({
+        isDeleted: false,
+        status: 0
+    }, {
+        teamId: 1,
+        menuId: 1,
+        creatorName: 1
+    }, (err, result) => {
         if (err) {
             res.send({
                 success: false,
@@ -20,21 +27,21 @@ router.get('/home', function (req, res) {
         }
         res.render('home', {
             title: '首页',
-            username: req.session.user.username,
+            username: username,
             nav: 'home',
             list: result
         });
     });
 });
 
-//获取非点餐状态的团队列表
+//获取所属团队列表
 router.get('/home/getTeamList', (req, res) => {
     if (!util.authentication(req, res)) return;
 
     let username = req.session.user.username;
 
     db.teamModel.find({
-        ordering: false,
+        // ordering: false,
         members: username,
         isDeleted: false
     }, {
@@ -57,35 +64,77 @@ router.get('/home/getTeamList', (req, res) => {
     });
 });
 
+//发起点餐活动
+router.post('/home/launchOrder', (req, res) => {
+    if (!util.authentication(req, res)) return;
+
+    let username = req.session.user.username;
+    let teamId = req.body.teamId,
+        menuId = req.body.menuId;
+
+    //生成一个新订单
+    db.orderModel({
+        teamId: teamId,
+        menuId: menuId,
+        dishes: [],
+        total: 0,
+        status: 0,
+        isDeleted: false,
+        creatorName: username,
+        createTime: new Date(),
+        updaterName: username,
+        updateTime: new Date()
+    }).save((err, data) => {
+        if (err) {
+            console.error(err);
+            res.send({
+                success: false,
+                message: '发起失败'
+            })
+        }
+        console.log(data);
+        res.send({
+            success: true,
+            message: '发起成功',
+            orderId: data._id
+        });
+    });
+});
+
 //点餐页
 router.get('/home/meal', (req, res) => {
     if (!util.authentication(req, res)) return;
 
     let username = req.session.user.username;
-    let teamId = req.query.teamId;
-    let teamName = req.query.teamName;
-    let menuId = req.query.menuId;
+    let orderId = req.query.orderId;
 
-    db.menuModel.find({ isDeleted: false, _id: menuId }, { menuName: 1, dishes: 1 }, (err, result) => {
-        if (err) {
+    db.orderModel.findOne({
+        isDeleted: false,
+        _id: orderId
+    }, (err1, data) => {
+        if (err1) {
             res.send({ success: false, message: '操作失败' });
             return false;
         }
-        if (result.length === 0) {
-            res.send({ success: false, message: '未发现该菜单'});
-            return false;
-        }
-        let menu = result[0];
-        let outObj = {
-            username: username,
-            nav: 'home',
-            title: '点餐',
-            teamId: teamId,
-            teamName: teamName,
-            menuName: menu.menuName,
-            dishes: menu.dishes
-        };
-        res.render('meal', outObj);
+        db.menuModel.find({ isDeleted: false, _id: data.menuId }, { menuName: 1, dishes: 1 }, (err, result) => {
+            if (err) {
+                res.send({ success: false, message: '操作失败' });
+                return false;
+            }
+            if (result.length === 0) {
+                res.send({ success: false, message: '未发现该菜单'});
+                return false;
+            }
+            let menu = result[0];
+            let outObj = {
+                username: username,
+                nav: 'home',
+                title: '点餐',
+                menuName: menu.menuName,
+                dishes: menu.dishes
+            };
+            res.render('meal', outObj);
+        });
     });
 });
 
