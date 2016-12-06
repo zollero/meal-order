@@ -11,11 +11,13 @@ block content
             thead
                 tr
                     th 发起人
+                    th 发起时间
                     th 操作
             tbody
                 each order in list
                     tr
                         td=order.creatorName
+                        td=order.time
                         td
                             a(href='/home/meal?orderId=' + order._id) 加入
     else

@@ -14,9 +14,8 @@ router.get('/home', function (req, res) {
         isDeleted: false,
         status: 0
     }, {
-        teamId: 1,
-        menuId: 1,
-        creatorName: 1
+        creatorName: 1,
+        createTime: 1
     }, (err, result) => {
         if (err) {
             res.send({
@@ -25,6 +24,10 @@ router.get('/home', function (req, res) {
             });
             return false;
         }
+        result = result.map(function (v) {
+            v.time = util.dateFormat(v.createTime);
+            return v;
+        });
         res.render('home', {
             title: '首页',
             username: username,
