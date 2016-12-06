@@ -68,7 +68,7 @@ let dishesOfMeal = {};
 
 let meal = io.of('/meal');
 meal.on('connection', socket => {
-    console.log('someone connect');
+    //TODO 使用meal.use(fn)添加一个中间件，对登录进行校验
     //获取socket url上的参数
     let socketParams = socket.client.conn.request._query;
     //获取orderId，由于orderId是唯一的，所以满足每个订单一个socket room
@@ -134,6 +134,11 @@ meal.on('connection', socket => {
         socket.leave(orderId);
         //通知,某人离开了房间
         meal.to(orderId).emit('message', username + ' 离开了点菜队伍');
+        meal.to(orderId).clients((err, clients) => {
+            if (err) throw err;
+            //TODO 获取所有房间内的客户端
+            console.log(clients);
+        });
     });
 });
 
