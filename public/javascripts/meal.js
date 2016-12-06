@@ -114,7 +114,6 @@
 
     submitBtn.on('click', function(e) {
         e.stopPropagation();
-
         console.log(111);
     });
 
