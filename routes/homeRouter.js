@@ -10,31 +10,43 @@ router.get('/home', function (req, res) {
     if (!util.authentication(req, res)) return;
     let username = req.session.user.username;
 
-    db.orderModel.find({
+    db.teamModel.find({
         isDeleted: false,
-        status: 0
-    }, {
-        creatorName: 1,
-        createTime: 1
-    }, (err, result) => {
-        if (err) {
-            res.send({
-                success: false,
-                message: '服务器错误'
-            });
-            return false;
-        }
-        result = result.map(function (v) {
-            v.time = util.dateFormat(v.createTime);
-            return v;
+        members: username
+    }, { teamName: 1}, (err, result) => {
+        if (err) throw err;
+        let teamIds = result.map( v => {
+            return v._id;
         });
-        res.render('home', {
-            title: '首页',
-            username: username,
-            nav: 'home',
-            list: result
+        db.orderModel.find({
+            isDeleted: false,
+            status: 0,
+            teamId: teamIds
+        }, {
+            creatorName: 1,
+            createTime: 1
+        }, (err, result) => {
+            if (err) {
+                res.send({
+                    success: false,
+                    message: '服务器错误'
+                });
+                return false;
+            }
+            result = result.map(function (v) {
+                v.time = util.dateFormat(v.createTime);
+                return v;
+            });
+            res.render('home', {
+                title: '首页',
+                username: username,
+                nav: 'home',
+                list: result
+            });
         });
     });
+
+
 });
 
 //获取所属团队列表
