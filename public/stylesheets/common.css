@@ -1,0 +1,16 @@
+#user-info:hover > ul {
+    display: block;
+}
+
+.user-actions {
+    display: none;position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    margin: 0;
+    list-style: none;
+    padding: 10px 0;
+    text-align: center;
+    border-radius: 0 0 5px 5px;
+    background-color: #2c3e50;
+}

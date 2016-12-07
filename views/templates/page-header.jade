@@ -31,5 +31,8 @@ div(class='navbar navbar-default navbar-fixed-top')
                         a(href='/order') 订单
 
             ul(class='nav navbar-nav navbar-right')
-                li
+                li#user-info
                     a#username(href='#')=username
+                    ul(class='user-actions' style='')
+                        li
+                            a(href='/user/logout') 退出
