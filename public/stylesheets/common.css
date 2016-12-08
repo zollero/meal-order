@@ -1,3 +1,7 @@
+html, body {
+    font-family: "MicrosoftYaHei", "Helvetica Neue Light", "Lucida Grande", "Calibri", "Arial", sans-serif !important;
+}
+
 #user-info:hover > ul {
     display: block;
 }

@@ -19,11 +19,12 @@ block content
                 .well
                     h6
                         =dish.dishName
-                        span.text-danger （￥
+                    div(dish-id=dish._id dish-name=dish.dishName dish-price=dish.price style='line-height:1;')
+                        span.text-danger ¥
                             =dish.price
-                            | ）
-                    .text-right(dish-id=dish._id dish-name=dish.dishName dish-price=dish.price)
-                        button.btn.btn-danger.btn-sm.add-dish-btn 加入订单
+                            | /份
+                        div(style='display:inline-block;padding: 6px;')
+                            span.glyphicon.glyphicon-plus-sign.text-success.add-dish-btn
 
     .affix.col-lg-4.col-sm-6.col-xs-12.cart-container
         .cart-basket#cart-basket
