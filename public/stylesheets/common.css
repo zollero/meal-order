@@ -10,6 +10,7 @@
     margin: 0;
     list-style: none;
     padding: 10px 0;
+    border-top: solid 1px #fff;
     text-align: center;
     border-radius: 0 0 5px 5px;
     background-color: #2c3e50;
