@@ -19,3 +19,13 @@ html, body {
     border-radius: 0 0 5px 5px;
     background-color: #2c3e50;
 }
+
+#main-content {
+    margin-bottom: 46px;
+}
+
+@media (min-width: 1200px) {
+    #main-content {
+        margin-bottom: 0;
+    }
+}
