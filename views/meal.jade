@@ -17,14 +17,14 @@ block content
         each dish in dishes
             .col-lg-3.col-sm-6.col-xs-6
                 .well
-                    h6
+                    h5
                         =dish.dishName
-                    div(dish-id=dish._id dish-name=dish.dishName dish-price=dish.price style='line-height:1;')
+                    div(dish-id=dish._id dish-name=dish.dishName dish-price=dish.price style='line-height:1;display: -webkit-box;')
                         span.text-danger ¥
                             =dish.price
                             | /份
-                        div(style='display:inline-block;padding: 6px;')
-                            span.glyphicon.glyphicon-plus-sign.text-success.add-dish-btn
+                        div.add-dish-btn(style='-webkit-box-flex: 1;text-align: right;cursor:pointer;')
+                            span.glyphicon.glyphicon-plus-sign.text-success(style='font-size:16px;')
 
     .affix.col-lg-4.col-sm-6.col-xs-12.cart-container
         .cart-basket#cart-basket

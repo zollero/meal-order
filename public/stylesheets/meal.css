@@ -56,12 +56,10 @@
     width: 25%;
     text-align: center;
 }
-.cart-basket .dish-line .ope-btns .minus-btn {
+.cart-basket .dish-line .ope-btns .minus-btn,
+.cart-basket .dish-line .ope-btns .plus-btn {
     background-color: #fff;
-    height: 20px;
-    width: 20px;
-    line-height: 18px;
-    vertical-align: top;
+    padding: 0 5px;
     border: 1px solid #ddd;
     outline: 0;
     cursor: pointer;
@@ -78,17 +76,6 @@
     vertical-align: top;
     text-align: center;
     outline: 0;
-    color: #666;
-}
-.cart-basket .dish-line .ope-btns .plus-btn {
-    background-color: #fff;
-    height: 20px;
-    width: 20px;
-    line-height: 18px;
-    vertical-align: top;
-    border: 1px solid #ddd;
-    outline: 0;
-    cursor: pointer;
     color: #666;
 }
 .cart-basket .dish-line .total-price {

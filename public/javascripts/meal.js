@@ -69,14 +69,12 @@
 
     //监听其他人点菜的事件
     mealSocket.on('someone-add-dish', function(data) {
-        console.log('someone-add-dish', data);
         showMessage('success', '<span class="text-danger">' + data.username + '</span> 点了一份 <span class="text-danger">' + data.dishName + '</span>');
         addDishHandler(data);
     });
 
     //监听其他人取消点菜的事件
     mealSocket.on('someone-del-dish', function(data) {
-        console.log('someone-add-dish', data);
         showMessage('danger', '<span class="text-danger">' + data.username + '</span> 减掉了一份 <span class="text-danger">' + data.dishName + '</span>');
         delDishHandler(data);
     });
@@ -85,9 +83,9 @@
         if (typeof dish.no !== 'number') dish.no = 1;
         return '<div class="dish-line" dish-id="' + dish.dishId + '" dish-name="' + dish.dishName + '" dish-price="' + dish.price + '">' +
             '<div class="dish-name">' + dish.dishName + '</div>' +
-            '<div class="ope-btns"><button type="button" class="minus-btn">-</button>' +
+            '<div class="ope-btns"><span class="minus-btn">-</span>' +
             '<input type="text" readonly class="selected-no" value="' + dish.no + '" />' +
-            '<button type="button" class="plus-btn">+</button></div>' +
+            '<span class="plus-btn">+</span></div>' +
             '<div class="total-price">¥' + (dish.price * dish.no) + '</div></div>';
     }
 
