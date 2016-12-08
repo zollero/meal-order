@@ -55,6 +55,7 @@ let OrderSchema = new mongoose.Schema({
         price: Number,
         number: Number
     }],
+    members: [String],
     total: Number,
     status: Number,
     isDeleted: Boolean,

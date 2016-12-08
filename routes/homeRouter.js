@@ -56,7 +56,6 @@ router.get('/home/getTeamList', (req, res) => {
     let username = req.session.user.username;
 
     db.teamModel.find({
-        // ordering: false,
         members: username,
         isDeleted: false
     }, {
@@ -92,6 +91,7 @@ router.post('/home/launchOrder', (req, res) => {
         teamId: teamId,
         menuId: menuId,
         dishes: [],
+        members: [username],
         total: 0,
         status: 0,
         isDeleted: false,
@@ -107,7 +107,6 @@ router.post('/home/launchOrder', (req, res) => {
                 message: '发起失败'
             })
         }
-        console.log(data);
         res.send({
             success: true,
             message: '发起成功',

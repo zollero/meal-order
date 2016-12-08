@@ -46,7 +46,23 @@ const dateFormat = function (date) {
     return formatDate2Local(date);
 };
 
+const formatOrderStatus = status => {
+    switch (status){
+        case 0:
+            return '未完成';
+        case 1:
+            return '已完成';
+        case 2:
+            return '已取消';
+        case 3:
+            return '超时自动取消';
+        default:
+            return status;
+    }
+};
+
 module.exports = {
     authentication: authentication,
-    dateFormat: dateFormat
+    dateFormat: dateFormat,
+    formatOrderStatus: formatOrderStatus
 };

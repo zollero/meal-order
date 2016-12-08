@@ -80,8 +80,9 @@
                 price: Number,  //单价
                 number: Number  //份数
             }],
+            members: [String],  //参与点餐的用户
             total: Number,  //订单总价
-            status: Number, //订单状态 0: 未完成，1: 已完成，2: 取消，3: 超时取消
+            status: Number, //订单状态 0: 未完成，1: 已完成，2: 已取消，3: 超时自动取消
             isDeleted: Boolean, //是否删除
             creatorName: String,    //创建者用户名
             createTime: Date,   //创建时间

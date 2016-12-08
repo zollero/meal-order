@@ -1,5 +1,4 @@
 
-
 'use strict';
 
 let express = require('express');
@@ -9,10 +8,29 @@ let util = require('./routerUtil');
 
 router.get('/order', function (req, res) {
     if (!util.authentication(req, res)) return;
-    res.render('order', {
-        title: '订单页',
-        username: req.session.user.username,
-        nav: 'order'
+    const username = req.session.user.username;
+
+    db.orderModel.find({
+        isDeleted: false,
+        members: username,
+        status: {$ne: 0}
+    }, {
+        creatorName: 1,
+        createTime: 1,
+        status: 1
+    }, (err, result) => {
+        if (err) throw err;
+        result = result.map(function (v) {
+            v.time = util.dateFormat(v.createTime);
+            v.statusStr = util.formatOrderStatus(v.status);
+            return v;
+        });
+        res.render('order', {
+            title: '订单页',
+            username: req.session.user.username,
+            nav: 'order',
+            list: result
+        });
     });
 });
 

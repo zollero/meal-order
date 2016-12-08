@@ -1,48 +1,31 @@
-doctype html
-html(ng-app='mealOrder')
-    head
-        title= title
-        meta(name='viewport', content='width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no')
-        link(rel='icon', type='image/ico', href='/favicon.ico')
-        link(rel='shortcut icon', type='image/ico', href='/favicon.ico')
-        link(rel='bookmark', type='image/ico', href='/favicon.ico')
-        link(rel='stylesheet', href='/lib/bootstrap/dist/css/bootstrap.min.css')
-        link(rel='stylesheet', href='/stylesheets/eden.css')
-    body(ng-controller='MenuController')
+extends template-page
 
-        include templates/page-header
+block content
 
-        div(class='container' style='margin-top: 42px;')
-            div(class='page-header')
-                div(class='row')
-                    div(class='col-lg-12')
-                        h5 你的团队列表:
+    if list && list.length > 0
+        h5 订单列表:
 
-                        table(class='table table-hover table-striped table-responsive')
+        table.table.table-hover.table-striped.table-responsive
+            thead
+                tr
+                    th 发起人
+                    th 发起时间
+                    th 状态
+                    th 操作
+            tbody
+                each order in list
+                    tr
+                        td=order.creatorName
+                        td=order.time
+                        td=order.statusStr
+                        td
+                            a(href='#') 详情
+    else
+        .jumbotron
+            span(class='glyphicon glyphicon-exclamation-sign text-danger')
+            | &nbsp;没有查到任何订单
 
-                            tbody
-                                tr
-                                    td
-                                        a(href='#') 点餐小分队
-                                tr
-                                    td
-                                        a(href='#') 都是饿死鬼
-                                tr
-                                    td
-                                        a(href='#') 吃货集中营
-                                tr
-                                    td
-                                        a(href='#') 移动BI点餐群
-
-                        p(class='text-center') 你还没有加入任何团队
-                            a(href='#') 搜索加入
-                            span 或
-                            a(href='#') 创建队伍
-
-            include templates/page-footer
-
-        script(type='text/javascript' src='./lib/jquery/dist/jquery.min.js')
-        script(type='text/javascript' src='./lib/bootstrap/dist/js/bootstrap.min.js')
-        script(type='text/javascript' src='./lib/angular.js')
-        script(type='text/javascript' src='./lib/socket.io.js')
-        script(type='text/javascript' src='./javascripts/index.js')
+block scripts
+    script(type='text/javascript' src='/lib/jquery/dist/jquery.min.js')
+    script(type='text/javascript' src='/lib/bootstrap/dist/js/bootstrap.min.js')
+    //script(type='text/javascript' src='/javascripts/home.js')

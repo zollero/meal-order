@@ -24,7 +24,7 @@ router.get('/team', function (req, res) {
 
     db.teamModel.find(queryObj, outObj, (err, result) => {
         if (err) {
-            return console.error(err);
+            throw err;
         }
         res.render('team', {
             title: '团队页',
@@ -107,12 +107,12 @@ router.get('/team/getRelatedMenu', (req, res) => {
     };
     db.menuModel.find(queryObj, outObj, (err, result) => {
         if (err) {
+            console.error(err);
             res.send({
                 status: 500,
                 message: '失败',
                 menus: result
             });
-           return console.error(err);
         }
         res.send({
             status: 200,
