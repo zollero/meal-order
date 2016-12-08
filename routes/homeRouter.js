@@ -21,7 +21,7 @@ router.get('/home', function (req, res) {
         db.orderModel.find({
             isDeleted: false,
             status: 0,
-            teamId: teamIds
+            teamId: {$in: teamIds}
         }, {
             creatorName: 1,
             createTime: 1
