@@ -1,3 +1,25 @@
+.well {
+    display:flex;
+    padding: 10px;
+}
+@media (max-width: 720px) {
+    .well {
+        margin-bottom: 10px;
+    }
+}
+.well > h5 {
+    flex: 1;
+}
+.well > p {
+    margin:7px 0;
+}
+.add-dish-btn {
+    font-size:20px;
+    vertical-align: middle;
+    margin-left: 20px;
+    top: -1px;
+    cursor: pointer;
+}
 
 /* 购物车 */
 .cart-container {
