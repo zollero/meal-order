@@ -37,7 +37,7 @@ const dateFormat = function (date) {
     if (diffTime >= ONE_SECOND && diffTime < ONE_MINUTE) {
         return Math.floor(diffTime / ONE_SECOND) + '秒前';
     } else if (diffTime >= ONE_MINUTE && diffTime < ONE_HOUR) {
-        return Math.floor(diffTime / ONE_MINUTE) + '分前';
+        return Math.floor(diffTime / ONE_MINUTE) + '分钟前';
     } else if (diffTime >= ONE_HOUR && diffTime < ONE_DAY) {
         return Math.floor(diffTime / ONE_HOUR) + '小时前';
     } else if (diffTime >= ONE_DAY && diffTime < ONE_DAY * daysOfThisMonth) {
