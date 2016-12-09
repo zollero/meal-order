@@ -28,4 +28,7 @@ html, body {
     #main-content {
         margin-bottom: 0;
     }
+    .user-actions {
+        border: none;
+    }
 }
