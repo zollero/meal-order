@@ -19,13 +19,34 @@ block content
                         td=order.time
                         td=order.statusStr
                         td
-                            a(href='#') 详情
+                            a.detail-btn(href='#' orderId=order._id) 详情
     else
         .jumbotron
             span(class='glyphicon glyphicon-exclamation-sign text-danger')
             | &nbsp;没有查到任何订单
 
+    .modal.fade.in(tabindex='-1' id='order-detail-modal' role='dialog' aria-hidden='true' data-backdrop='static')
+        .modal-dialog
+            .panel.panel-primary
+                .panel-heading
+                    h3.panel-title 订单详情
+                .modal-body.text-center
+                    h5.text-left 已选菜品列表：
+                    table.table.table-hover.table-striped.table-responsive
+                        thead
+                            tr
+                                th.text-center 菜名
+                                th.text-center 单价
+                                th.text-center 数量
+                        tbody#confirm-dishes
+                    h5#order-info.text-left
+                    h5.text-left 参与成员：
+                    h6#member-list.text-left
+
+                .modal-footer
+                    button#confirm-order.btn.btn-success(type="button" data-dismiss='modal') 确定
+
 block scripts
     script(type='text/javascript' src='/lib/jquery/dist/jquery.min.js')
     script(type='text/javascript' src='/lib/bootstrap/dist/js/bootstrap.min.js')
-    //script(type='text/javascript' src='/javascripts/home.js')
+    script(type='text/javascript' src='/javascripts/order.js')

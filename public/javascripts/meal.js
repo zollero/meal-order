@@ -48,7 +48,7 @@
     var mealSocket = io(addMealURL);
 
     mealSocket.on('message', function(data) {
-        showMessage('info', data);
+        showMessage(data.type, data.message);
     });
 
     //对后面进入的用户，自动将之前选好的菜品初始化
@@ -116,6 +116,7 @@
     });
     mealSocket.on('submit-success', function () {
         confirmModal.find('.panel').removeClass('panel-danger').addClass('panel-success');
+        confirmModal.find('.panel-title').html('订单已经生成');
         confirmModal.find('h4').removeClass('text-danger').addClass('text-success').text('订单已成功生成，点击"确定"返回首页。');
         confirmModal.find('.modal-footer').html('<button type="button" class="btn btn-success">确定</button>');
         confirmModal.find('.modal-footer button').on('click', function () {

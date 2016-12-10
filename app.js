@@ -98,7 +98,10 @@ meal.on('connection', socket => {
     //加入一个room
     socket.join(orderId);
     //通知，有人加入了点菜
-    meal.to(orderId).emit('message', username + ' 加入点菜队伍');
+    meal.to(orderId).emit('message', {
+        type: 'info',
+        message: username + ' 加入点菜队伍'
+    });
 
     //当用户连接的时候，如果当前团队已经选择了菜，则将已选择的菜发送给该用户，进行一些初始化的数据展示
     if (dishesOfMeal[orderId].length > 0) {
@@ -148,7 +151,10 @@ meal.on('connection', socket => {
     socket.on('disconnect', (ss) => {
         socket.leave(orderId);
         //通知,某人离开了房间
-        meal.to(orderId).emit('message', username + ' 离开了点菜队伍');
+        meal.to(orderId).emit('message', {
+            type: 'info',
+            message: username + ' 离开了点菜队伍'
+        });
     });
 
     socket.on('submit-order', result => {
@@ -159,13 +165,19 @@ meal.on('connection', socket => {
     });
 
     socket.on('retreat-order', data => {
-        meal.to(orderId).emit('message', data.user + '拒绝提交订单！');
+        meal.to(orderId).emit('message', {
+            type: 'danger',
+            message: data.user + '拒绝提交订单！'
+        });
         meal.to(orderId).emit('submit-failed');
         submitMembersOfOrder[orderId] = [];
     });
     socket.on('accept-order', data => {
         submitMembersOfOrder[orderId].push(currentUserSocketId);
-        meal.to(orderId).emit('message', data.user + '同意提交订单！');
+        meal.to(orderId).emit('message', {
+            type: 'success',
+            message: data.user + '同意提交订单！'
+        });
         //有成员同意之后，将同意的成员统计起来，与当前room内所有成员进行对比
         //若当前所有成员都同意之后，则向客户端发送事件，自动提交订单，并使客户端
         meal.to(orderId).clients((err, clients) => {
@@ -193,7 +205,10 @@ meal.on('connection', socket => {
                     }
                 }, (err, result) => {
                     if (err) throw err;
-                    meal.to(orderId).emit('message', '全部同意提交订单，订单已生成！');
+                    meal.to(orderId).emit('message', {
+                        type: 'success',
+                        message: '全部同意提交订单，订单已生成！'
+                    });
                     meal.to(orderId).emit('submit-success');
                     submitMembersOfOrder[orderId] = [];
                     joinedMembersOfOrder[orderId] = [];

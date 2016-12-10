@@ -6,7 +6,7 @@ let router = express.Router();
 let db = require('../database/model');
 let util = require('./routerUtil');
 
-router.get('/order', function (req, res) {
+router.get('/order', (req, res) => {
     if (!util.authentication(req, res)) return;
     const username = req.session.user.username;
 
@@ -31,6 +31,36 @@ router.get('/order', function (req, res) {
             nav: 'order',
             list: result
         });
+    });
+});
+
+
+router.get('/order/getOrderDetail', (req, res) => {
+    if (!util.authentication(req, res)) return;
+    const username = req.session.user.username;
+    const orderId = req.query.orderId;
+
+    db.orderModel.findOne({
+        _id: orderId,
+        isDeleted: false,
+        members: username
+    }, {
+        dishes: 1,
+        members: 1,
+        total: 1
+    }, (err, result) => {
+        if (err) {
+            res.send({
+                success: false,
+                message: '获取详情失败'
+            });
+            return false;
+        }
+       res.send({
+           success: true,
+           message: '获取详情成功',
+           result: result
+       });
     });
 });
 
