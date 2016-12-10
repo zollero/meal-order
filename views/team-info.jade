@@ -15,11 +15,11 @@ block content
                         span.hide#team-id=teamInfo._id
                     label.col-sm-2.col-xs-3.control-label(for='team-name') 团队名
                     .col-sm-10.col-xs-9
-                        input#team-name(class='form-control' name='teamName' type='text' placeholder='团队名' value=teamInfo?teamInfo.teamName:'')
+                        input#team-name.form-control(name='teamName' type='text' placeholder='团队名' value=teamInfo?teamInfo.teamName:'')
                 .form-group
                     label.col-sm-2.col-xs-3.control-label(for='team-desc') 团队说明
                     .col-sm-10.col-xs-9
-                        textarea#team-desc(class='form-control' rows='3' style='resize:none;' name='teamDesc' placeholder='团队说明')
+                        textarea#team-desc.form-control(rows='3' style='resize:none;' name='teamDesc' placeholder='团队说明')
                             if teamInfo
                                 =teamInfo.teamDesc
                 .form-group
@@ -48,14 +48,14 @@ block content
 
                 .form-group
                     .col-xs-12.col-sm-12.text-center
-                        button(type='button' id='submit-btn' class='btn btn-primary btn-sm' data-loading-text="加载中..." autocomplete="off") 提交
+                        button.btn.btn-primary.btn-sm(type='button' id='submit-btn' data-loading-text="加载中..." autocomplete="off") 提交
                         | &nbsp;&nbsp;
-                        button(type='reset' id='reset-btn' class='btn btn-default btn-sm' data-loading-text="加载中..." autocomplete="off") 重置
+                        button.btn.btn-default.btn-sm(type='reset' id='reset-btn' data-loading-text="加载中..." autocomplete="off") 重置
 
     .modal.fade.in(tabindex='-1' id='member-modal' role='dialog' aria-hidden='true' data-backdrop='static')
         .modal-dialog.modal-sm
-            .modal-content
-                .modal-header
+            .panel.panel-primary
+                .panel-heading
                     button.close(type='button' data-dismiss='modal' aria-label='Close')
                         span(aria-hidden='true') x
                     h4.modal-title 添加成员
@@ -68,8 +68,8 @@ block content
 
     .modal.fade.in(tabindex='-1' id='menu-modal' role='dialog' aria-hidden='true' data-backdrop='static')
         .modal-dialog.modal-sm
-            .modal-content
-                .modal-header
+            .panel.panel-primary
+                .panel-heading
                     button.close(type='button' data-dismiss='modal' aria-label='Close')
                         span(aria-hidden='true') x
                     h4.modal-title 添加关联菜单

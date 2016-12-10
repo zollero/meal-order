@@ -1,38 +1,38 @@
-div(class='navbar navbar-default navbar-fixed-top')
-    div(class='container')
-        div(class='navbar-header')
-            a(href='/home' class='navbar-brand') 食
-            button(class='navbar-toggle' type='button' data-toggle='collapse' data-target='#navbar-main')
+.navbar.navbar-default.navbar-fixed-top
+    .container
+        .navbar-header
+            a.navbar-brand(href='/home') 食
+            button.navbar-toggle(type='button' data-toggle='collapse' data-target='#navbar-main')
                 span(class='icon-bar')
                 span(class='icon-bar')
                 span(class='icon-bar')
 
-        div(class='navbar-collapse collapse' id='navbar-main')
-            ul(class='nav navbar-nav')
+        #navbar-main.navbar-collapse.collapse
+            ul.nav.navbar-nav
                 li
                     if nav === 'home'
-                        a(href='/home' class='nav-on') 订餐
+                        a.nav-on(href='/home') 订餐
                     else
                         a(href='/home') 订餐
                 li
                     if nav === 'team'
-                        a(href='/team' class='nav-on') 团队
+                        a.nav-on(href='/team') 团队
                     else
                         a(href='/team') 团队
                 li
                     if nav === 'menu'
-                        a(href='/menu' class='nav-on') 餐单
+                        a.nav-on(href='/menu') 餐单
                     else
                         a(href='/menu') 餐单
                 li
                     if nav === 'order'
-                        a(href='/order' class='nav-on') 订单
+                        a.nav-on(href='/order') 订单
                     else
                         a(href='/order') 订单
 
-            ul(class='nav navbar-nav navbar-right')
+            ul.nav.navbar-nav.navbar-right
                 li#user-info
                     a#username(href='#')=username
-                    ul(class='user-actions' style='')
+                    ul.user-actions
                         li
                             a(href='/user/logout') 退出

@@ -4,11 +4,11 @@ block styles
     link(rel='stylesheet', href='/stylesheets/meal.css')
 
 block content
-    ul(class='breadcrumb')
+    ul.breadcrumb
         li
             a(href='/home') 主页
         li 订餐
-    ul(class='breadcrumb')
+    ul.breadcrumb
         li
             h5 餐单名：
                 =menuName
@@ -33,6 +33,27 @@ block content
                 span.badge 0
             span.total-price 0
             button.btn.btn-success#submit-meal-btn 提交
+
+    .modal.fade.in(tabindex='-1' id='confirm-order-modal' role='dialog' aria-hidden='true' data-backdrop='static')
+        .modal-dialog
+            .panel.panel-danger
+                .panel-heading
+                    h3.panel-title 已选列表
+                .modal-body.text-center
+                    h4.text-danger
+                        span.submit-user
+                        | &nbsp;提交了订单，请确认！
+                    table.table.table-hover.table-striped.table-responsive
+                        thead
+                            tr
+                                th(style='text-align:center;') 菜名
+                                th(style='text-align:center;') 单价
+                                th(style='text-align:center;') 数量
+                        tbody#confirm-dishes
+                    h5#order-info.text-danger(style='text-align: left;')
+                .modal-footer
+                    button#retreat-order.btn.btn-danger(type="button" disabled) 拒绝
+                    button#accept-order.btn.btn-success(type="button" disabled) 同意
 
 block scripts
     script(type='text/javascript' src='/lib/jquery/dist/jquery.min.js')

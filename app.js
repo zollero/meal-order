@@ -74,7 +74,6 @@ meal.on('connection', socket => {
     //获取orderId，由于orderId是唯一的，所以满足每个订单一个socket room
     const orderId = socketParams.orderId;
     const username = socketParams.username;
-    console.log(orderId);
 
     if (!dishesOfMeal[orderId]) {
         dishesOfMeal[orderId] = [];
@@ -139,6 +138,21 @@ meal.on('connection', socket => {
             //TODO 获取所有房间内的客户端
             console.log(clients);
         });
+    });
+
+    socket.on('submit-order', result => {
+        meal.to(orderId).emit('confirm-order', {
+            submitUser: result.user,
+            dishes: dishesOfMeal[orderId]
+        });
+    });
+
+    socket.on('retreat-order', data => {
+        meal.to(orderId).emit('message', data.user + '拒绝提交订单！');
+        meal.to(orderId).emit('submit-failed');
+    });
+    socket.on('accept-order', data => {
+        meal.to(orderId).emit('message', data.user + '同意提交订单！');
     });
 });
 

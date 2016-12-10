@@ -11,7 +11,9 @@
         addDishBtn = $('.add-dish-btn'),
         basketInfo = $('#basket-info'),
         cartBasket = $('#cart-basket')[0],
-        submitBtn = $('#submit-meal-btn');
+        submitBtn = $('#submit-meal-btn'),
+        confirmModal = $('#confirm-order-modal'),
+        confirmDishesEle = $('#confirm-dishes');
 
     //弹出提示的样式类
     var messageObjs = {
@@ -79,6 +81,47 @@
         delDishHandler(data);
     });
 
+    mealSocket.on('confirm-order', function (data) {
+        showMessage('warning', '<span class="text-danger">' + data.submitUser + '</span> 提交了订单，请确认。');
+        confirmModal.modal('show');
+        confirmModal.find('.submit-user').text(data.submitUser);
+        var dishListHtml = '',
+            orderTotal = 0;
+        $.each(data.dishes, function (i, v) {
+            dishListHtml += '<tr><td>' + v.dishName + '</td><td>¥' + v.price + '元/份</td><td>' + v.no + '</td>';
+            if (typeof v.price === 'number' && typeof v.no === 'number') {
+                orderTotal += v.price * v.no;
+            }
+        });
+        confirmDishesEle.html(dishListHtml);
+        $('#order-info').html('总价：¥' + orderTotal + '元。');
+        confirmModal.find('button').removeAttr('disabled');
+        $('#retreat-order').on('click', function () {
+            mealSocket.emit('retreat-order', {
+                user: USER_NAME
+            });
+            confirmModal.find('button').attr('disabled', 'disabled');
+        });
+        $('#accept-order').on('click', function () {
+            mealSocket.emit('accept-order', {
+                user: USER_NAME
+            });
+            confirmModal.find('button').attr('disabled', 'disabled');
+            confirmModal.find('h4').removeClass('text-danger').addClass('text-success').text('已同意，请等待其他成员响应。')
+        });
+    });
+
+    mealSocket.on('submit-failed', function () {
+        confirmModal.modal('hide');
+    });
+
+    confirmModal.on('hidden.bs.modal', function () {
+        confirmModal.find('button').attr('disabled', 'disabled');
+        $('#retreat-order').off('click');
+        $('#accept-order').off('click');
+        confirmDishesEle.html('');
+    });
+
     function generateDishLine(dish) {
         if (typeof dish.no !== 'number') dish.no = 1;
         return '<div class="dish-line" dish-id="' + dish.dishId + '" dish-name="' + dish.dishName + '" dish-price="' + dish.price + '">' +
@@ -112,7 +155,9 @@
 
     submitBtn.on('click', function(e) {
         e.stopPropagation();
-        console.log(111);
+        mealSocket.emit('submit-order', {
+            user: USER_NAME
+        });
     });
 
     addDishBtn.on('click', function() {
@@ -189,8 +234,17 @@
     }
 
     function resizeDishListHeight() {
-        dishListEle[0].style.height = dishListEle.find('.dish-line').length * DISH_LINE_HEIGHT + 'px';
+        var dishListHeight = dishListEle.find('.dish-line').length * DISH_LINE_HEIGHT;
+        dishListHeight = dishListHeight > 350 ? 350 : dishListHeight;
+        dishListEle[0].style.height = dishListHeight + 'px';
+        if (dishListHeight === 350) {
+            dishListEle[0].style.overflowY = 'auto';
+        }
     }
+
+    dishListEle.scroll(function (e) {
+        e.stopPropagation();
+    });
 
     function refreshTotalDishesInfo() {
         var dishLines = dishListEle.find('.dish-line').toArray();

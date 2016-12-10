@@ -27,7 +27,7 @@ block content
 
     else
         .jumbotron
-            span(class='glyphicon glyphicon-exclamation-sign text-danger')
+            span.glyphicon.glyphicon-exclamation-sign.text-danger
             | &nbsp;你还没有加入任何团队
             a(href='#' data-toggle='modal' data-target='#team-search-modal') 搜索团队
             | 或
@@ -35,8 +35,8 @@ block content
 
     .modal.fade.in(tabindex='-1' id='team-search-modal' role='dialog' aria-hidden='true' data-backdrop='static')
         .modal-dialog
-            .modal-content
-                .modal-header
+            .panel.panel-primary
+                .panel-heading
                     button.close(type='button' data-dismiss='modal' aria-label='Close')
                         span(aria-hidden='true') x
                     h4.modal-title 搜索团队
