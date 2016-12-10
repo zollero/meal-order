@@ -15,6 +15,8 @@ const app = express();
 const server = app.listen(3000, listenHandler);
 const io = require('socket.io')(server);
 const router = require('./routes/index');
+// const routerUtil = require('./routes/routerUtil');
+const foodDB = require('./database/model');
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -65,10 +67,18 @@ app.use(router);
 
 //定义一个对象，来临时存储团队中点的菜信息
 let dishesOfMeal = {};
+let submitMembersOfOrder = {};
+let joinedMembersOfOrder = {};
 
 let meal = io.of('/meal');
+// io.use((socket, next) => {
+//     if (routerUtil.authentication())
+// });
 meal.on('connection', socket => {
     //TODO 使用meal.use(fn)添加一个中间件，对登录进行校验
+    //TODO 对每个orderId进行校验，判断状态是0的，才初始化订单信息，防止直接通过url进行访问的情况
+
+    const currentUserSocketId = socket.client.nsps['/meal'].id;
     //获取socket url上的参数
     let socketParams = socket.client.conn.request._query;
     //获取orderId，由于orderId是唯一的，所以满足每个订单一个socket room
@@ -77,6 +87,12 @@ meal.on('connection', socket => {
 
     if (!dishesOfMeal[orderId]) {
         dishesOfMeal[orderId] = [];
+        submitMembersOfOrder[orderId] = [];
+        joinedMembersOfOrder[orderId] = [];
+    }
+
+    if (joinedMembersOfOrder[orderId].indexOf(username) == -1) {
+        joinedMembersOfOrder[orderId].push(username);
     }
 
     //加入一个room
@@ -133,11 +149,6 @@ meal.on('connection', socket => {
         socket.leave(orderId);
         //通知,某人离开了房间
         meal.to(orderId).emit('message', username + ' 离开了点菜队伍');
-        meal.to(orderId).clients((err, clients) => {
-            if (err) throw err;
-            //TODO 获取所有房间内的客户端
-            console.log(clients);
-        });
     });
 
     socket.on('submit-order', result => {
@@ -150,9 +161,46 @@ meal.on('connection', socket => {
     socket.on('retreat-order', data => {
         meal.to(orderId).emit('message', data.user + '拒绝提交订单！');
         meal.to(orderId).emit('submit-failed');
+        submitMembersOfOrder[orderId] = [];
     });
     socket.on('accept-order', data => {
+        submitMembersOfOrder[orderId].push(currentUserSocketId);
         meal.to(orderId).emit('message', data.user + '同意提交订单！');
+        //有成员同意之后，将同意的成员统计起来，与当前room内所有成员进行对比
+        //若当前所有成员都同意之后，则向客户端发送事件，自动提交订单，并使客户端
+        meal.to(orderId).clients((err, clients) => {
+            if (err) throw err;
+            const allAccepted = clients.every(v => {
+                return submitMembersOfOrder[orderId].indexOf(v) !== -1;
+            });
+            if (allAccepted) {
+                let orderTotal = 0;
+                for (let i = 0; i < dishesOfMeal[orderId].length; i++) {
+                    let dish = dishesOfMeal[orderId][i];
+                    if (typeof dish.price === 'number' && typeof dish.no === 'number') {
+                        orderTotal += dish.price * dish.no;
+                    }
+                }
+                //全部同意提交订单，修改订单的状态，并给所有成员发送已提交通知
+                foodDB.orderModel.update({_id: orderId}, {
+                    $set: {
+                        dishes: dishesOfMeal[orderId],
+                        total: orderTotal,
+                        status: 1,
+                        members: joinedMembersOfOrder[orderId],
+                        updaterName: username,
+                        updateTime: new Date()
+                    }
+                }, (err, result) => {
+                    if (err) throw err;
+                    meal.to(orderId).emit('message', '全部同意提交订单，订单已生成！');
+                    meal.to(orderId).emit('submit-success');
+                    submitMembersOfOrder[orderId] = [];
+                    joinedMembersOfOrder[orderId] = [];
+                    dishesOfMeal[orderId] = [];
+                });
+            }
+        });
     });
 });
 

@@ -107,12 +107,20 @@
                 user: USER_NAME
             });
             confirmModal.find('button').attr('disabled', 'disabled');
-            confirmModal.find('h4').removeClass('text-danger').addClass('text-success').text('已同意，请等待其他成员响应。')
+            confirmModal.find('h4').removeClass('text-danger').addClass('text-success').text('已同意，请等待其他成员响应。');
         });
     });
 
     mealSocket.on('submit-failed', function () {
         confirmModal.modal('hide');
+    });
+    mealSocket.on('submit-success', function () {
+        confirmModal.find('.panel').removeClass('panel-danger').addClass('panel-success');
+        confirmModal.find('h4').removeClass('text-danger').addClass('text-success').text('订单已成功生成，点击"确定"返回首页。');
+        confirmModal.find('.modal-footer').html('<button type="button" class="btn btn-success">确定</button>');
+        confirmModal.find('.modal-footer button').on('click', function () {
+            window.location.href = '/home';
+        });
     });
 
     confirmModal.on('hidden.bs.modal', function () {

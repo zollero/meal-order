@@ -78,7 +78,7 @@
                 dishId: String, //菜 id值 
                 dishName: String,   //菜名
                 price: Number,  //单价
-                number: Number  //份数
+                no: Number  //份数
             }],
             members: [String],  //参与点餐的用户
             total: Number,  //订单总价
@@ -86,6 +86,6 @@
             isDeleted: Boolean, //是否删除
             creatorName: String,    //创建者用户名
             createTime: Date,   //创建时间
-            updateName: String, //更新者用户名
+            updaterName: String, //更新者用户名
             updateTime: Date    //更新时间
         }

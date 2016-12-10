@@ -53,7 +53,7 @@ let OrderSchema = new mongoose.Schema({
     dishes: [{
         dishName: String,
         price: Number,
-        number: Number
+        no: Number
     }],
     members: [String],
     total: Number,

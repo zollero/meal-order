@@ -16,12 +16,12 @@ router.get('/order', function (req, res) {
         status: {$ne: 0}
     }, {
         creatorName: 1,
-        createTime: 1,
+        updateTime: 1,
         status: 1
     }, (err, result) => {
         if (err) throw err;
         result = result.map(function (v) {
-            v.time = util.dateFormat(v.createTime);
+            v.time = util.dateFormat(v.updateTime);
             v.statusStr = util.formatOrderStatus(v.status);
             return v;
         });

@@ -38,7 +38,7 @@ block content
         .modal-dialog
             .panel.panel-danger
                 .panel-heading
-                    h3.panel-title 已选列表
+                    h3.panel-title 确认生成订单
                 .modal-body.text-center
                     h4.text-danger
                         span.submit-user
@@ -52,8 +52,8 @@ block content
                         tbody#confirm-dishes
                     h5#order-info.text-danger(style='text-align: left;')
                 .modal-footer
-                    button#retreat-order.btn.btn-danger(type="button" disabled) 拒绝
                     button#accept-order.btn.btn-success(type="button" disabled) 同意
+                    button#retreat-order.btn.btn-danger(type="button" disabled) 拒绝
 
 block scripts
     script(type='text/javascript' src='/lib/jquery/dist/jquery.min.js')
