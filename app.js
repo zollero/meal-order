@@ -68,6 +68,8 @@ app.use(router);
 //定义一个对象，来临时存储团队中点的菜信息
 let dishesOfMeal = {};
 let submitMembersOfOrder = {};
+let submitterOfOrder = {};
+let submittingTime = {};
 let joinedMembersOfOrder = {};
 
 let meal = io.of('/meal');
@@ -115,6 +117,15 @@ meal.on('connection', socket => {
         if (dishesOfMeal[orderId].length > 0) {
             socket.emit('selected-dishes', dishesOfMeal[orderId]);
         }
+        //如果当前订单处于"确认订单"的时候，则想该用户
+        if (submitterOfOrder[orderId]) {
+            const diffTime = Math.floor(((new Date()).getTime() - submittingTime[orderId].getTime()) / 1000);
+            socket.emit('confirm-order', {
+                submitUser: submitterOfOrder[orderId],
+                dishes: dishesOfMeal[orderId],
+                timeCount: diffTime
+            });
+        }
 
         //监听“点菜”事件，并将该菜品信息发送给该room内的所有人
         socket.on('add-dish', dishInfo => {
@@ -150,9 +161,6 @@ meal.on('connection', socket => {
             meal.to(orderId).emit('someone-del-dish', dishInfo);
         });
 
-        //该namespace下所有的room中的连接都能接收到该信息
-        socket.emit('hi', 'everyone!');
-
         socket.on('disconnect', (ss) => {
             socket.leave(orderId);
             //通知,某人离开了房间
@@ -164,6 +172,8 @@ meal.on('connection', socket => {
         });
 
         socket.on('submit-order', result => {
+            submitterOfOrder[orderId] = result.user;
+            submittingTime[orderId] = new Date();
             meal.to(orderId).emit('confirm-order', {
                 submitUser: result.user,
                 dishes: dishesOfMeal[orderId]
@@ -171,6 +181,8 @@ meal.on('connection', socket => {
         });
 
         socket.on('retreat-order', data => {
+            submitterOfOrder[orderId] = null;
+            submittingTime[orderId] = null;
             meal.to(orderId).emit('message', {
                 type: 'danger',
                 message: data.user + '拒绝提交订单！'
@@ -229,6 +241,8 @@ const checkOrderAllAccept = function (orderId, username) {
                 submitMembersOfOrder[orderId] = [];
                 joinedMembersOfOrder[orderId] = [];
                 dishesOfMeal[orderId] = [];
+                submitterOfOrder[orderId] = null;
+                submittingTime[orderId] = null;
             });
         }
     });

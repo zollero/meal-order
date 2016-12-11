@@ -31,7 +31,7 @@ router.get('/order', (req, res) => {
             nav: 'order',
             list: result
         });
-    });
+    }).sort({ updateTime: -1 });
 });
 
 

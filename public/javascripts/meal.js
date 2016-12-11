@@ -14,6 +14,7 @@
         submitBtn = $('#submit-meal-btn'),
         confirmModal = $('#confirm-order-modal'),
         confirmDishesEle = $('#confirm-dishes');
+    var autoAcceptOrder;
 
     //弹出提示的样式类
     var messageObjs = {
@@ -97,8 +98,8 @@
         $('#order-info').html('总价：¥' + orderTotal + '元。');
         confirmModal.find('button').removeAttr('disabled');
         //添加一个倒计时读秒，若超过五分钟未同意，则自动同意
-        var TOTAL_TIME_SECOND = 300;
-        var autoAcceptOrder = setInterval(function () {
+        var TOTAL_TIME_SECOND = data.timeCount === undefined ? 300 : (300 - data.timeCount);
+        autoAcceptOrder = setInterval(function () {
             var MINUTE = Math.floor(TOTAL_TIME_SECOND / 60),
                 SECOND = TOTAL_TIME_SECOND % 60;
             var timeCount = '0' + MINUTE + ':' + (SECOND > 9 ? SECOND : '0' + SECOND);
@@ -128,7 +129,9 @@
     });
 
     mealSocket.on('submit-failed', function () {
+        clearInterval(autoAcceptOrder);
         confirmModal.modal('hide');
+        confirmModal.find('h4').removeClass('text-success').addClass('text-danger').html('<span class="submit-user"></span>&nbsp;提交了订单，<span id="accept-time-count">--:--</span>后自动提交，请确认！');
     });
     mealSocket.on('submit-success', function () {
         confirmModal.find('.panel').removeClass('panel-danger').addClass('panel-success');
