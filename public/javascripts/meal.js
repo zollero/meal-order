@@ -96,13 +96,29 @@
         confirmDishesEle.html(dishListHtml);
         $('#order-info').html('总价：¥' + orderTotal + '元。');
         confirmModal.find('button').removeAttr('disabled');
+        //添加一个倒计时读秒，若超过五分钟未同意，则自动同意
+        var TOTAL_TIME_SECOND = 300;
+        var autoAcceptOrder = setInterval(function () {
+            var MINUTE = Math.floor(TOTAL_TIME_SECOND / 60),
+                SECOND = TOTAL_TIME_SECOND % 60;
+            var timeCount = '0' + MINUTE + ':' + (SECOND > 9 ? SECOND : '0' + SECOND);
+            $('#accept-time-count').text(timeCount);
+            TOTAL_TIME_SECOND --;
+            if (TOTAL_TIME_SECOND === 0) {
+                clearInterval(autoAcceptOrder);
+                $('#accept-order').click();
+            }
+        }, 1000);
+
         $('#retreat-order').on('click', function () {
+            clearInterval(autoAcceptOrder);
             mealSocket.emit('retreat-order', {
                 user: USER_NAME
             });
             confirmModal.find('button').attr('disabled', 'disabled');
         });
         $('#accept-order').on('click', function () {
+            clearInterval(autoAcceptOrder);
             mealSocket.emit('accept-order', {
                 user: USER_NAME
             });

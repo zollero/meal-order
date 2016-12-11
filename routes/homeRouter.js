@@ -124,11 +124,17 @@ router.get('/home/meal', (req, res) => {
 
     db.orderModel.findOne({
         isDeleted: false,
-        _id: orderId
+        _id: orderId,
+        status: 0
     }, (err1, data) => {
         if (err1) {
             res.send({ success: false, message: '操作失败' });
             return false;
+        }
+        //若没有对应有效订单，则跳转至首页
+        if (!data) {
+            res.redirect('/home');
+            return;
         }
         db.menuModel.find({ isDeleted: false, _id: data.menuId }, { menuName: 1, dishes: 1 }, (err, result) => {
             if (err) {
