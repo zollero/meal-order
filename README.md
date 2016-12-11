@@ -11,13 +11,11 @@
 
 ### PC端
 
-![点餐中](/screenshots/food_ordering@2x.png)
-![正在提交订单](/screenshots/food_submit_order@2x.png)
+![点餐中](./screenshots/food_ordering@2x.png)
 
 ### Mobile端
 
 ![点餐中](./screenshots/food_ordering.jpeg)
-![正在提交订单](./screenshots/food_submiting_order.jpeg)
 
 更多系统截图，见[此处](./screenshots/README.md)。
 
