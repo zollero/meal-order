@@ -99,7 +99,7 @@ router.get('/team/getRelatedMenu', (req, res) => {
     if (!util.authentication(req, res)) return;
 
     let queryObj = {
-        creatorName: req.session.user.username,
+        // creatorName: req.session.user.username,
         isDeleted: false
     };
     let outObj = {
