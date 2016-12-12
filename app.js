@@ -100,7 +100,7 @@ meal.on('connection', socket => {
             submitMembersOfOrder[orderId] = [];
             joinedMembersOfOrder[orderId] = [];
         }
-
+        console.log(username);
         if (joinedMembersOfOrder[orderId].indexOf(username) == -1) {
             joinedMembersOfOrder[orderId].push(username);
         }
@@ -168,7 +168,9 @@ meal.on('connection', socket => {
                 type: 'info',
                 message: username + ' 离开了点菜队伍'
             });
-            checkOrderAllAccept(orderId, username);
+            if (submitterOfOrder[orderId]) {
+                checkOrderAllAccept(orderId, username);
+            }
         });
 
         socket.on('submit-order', result => {
@@ -214,6 +216,7 @@ const checkOrderAllAccept = function (orderId, username) {
             return submitMembersOfOrder[orderId].indexOf(v) !== -1;
         });
         if (allAccepted) {
+            console.log(dishesOfMeal[orderId]);
             let orderTotal = 0;
             for (let i = 0; i < dishesOfMeal[orderId].length; i++) {
                 let dish = dishesOfMeal[orderId][i];
