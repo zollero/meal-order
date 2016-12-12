@@ -7,7 +7,6 @@
     $('#team-modal-btn').on('click', function(e) {
 
         $.get('/home/getTeamList', function(data) {
-            console.log(data);
             if (data.success) {
                 var teamListHtml = '';
                 if (data.list && data.list.length > 0) {
@@ -35,7 +34,6 @@
     });
 
     function launchHandler(e) {
-        console.log(e.target);
         var teamId = $(this).attr('team-id');
         var popoverContent = $(this).attr('popover-content');
 
@@ -54,7 +52,6 @@
                 teamId: teamId,
                 menuId: menuId,
             }, (data) => {
-                console.log(data);
                 if (data.success) {
                     window.location.href = '/home/meal?orderId=' + data.orderId;
                 } else {
