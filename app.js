@@ -168,9 +168,9 @@ meal.on('connection', socket => {
                 type: 'info',
                 message: username + ' 离开了点菜队伍'
             });
-            if (submitterOfOrder[orderId]) {
-                checkOrderAllAccept(orderId, username);
-            }
+            // if (submitterOfOrder[orderId]) {
+            //     checkOrderAllAccept(orderId, username);
+            // }
         });
 
         socket.on('submit-order', result => {
