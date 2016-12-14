@@ -12,7 +12,8 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const app = express();
-const server = app.listen(3000, listenHandler);
+const PORT = process.env.NODE_ENV === 'prod' ? 80: 3000;
+const server = app.listen(PORT, listenHandler);
 const io = require('socket.io')(server);
 const router = require('./routes/index');
 // const routerUtil = require('./routes/routerUtil');
@@ -252,5 +253,5 @@ const checkOrderAllAccept = function (orderId, username) {
 };
 
 function listenHandler() {
-    console.log('Server started on port 3000');
+    console.log('Server started on port ' + PORT);
 }
